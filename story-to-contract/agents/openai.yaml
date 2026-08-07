@@ -1,0 +1,28 @@
+interface:
+  display_name: "Story 转接口契约"
+  short_description: "从 PM 工具工作项、共识文档和代码生成接口契约，支持多平台"
+  default_prompt: "作为后端开发者，使用 $story-to-contract 读取工作项、共识、待确认项、代码、Flyway、OpenAPI 和相关契约，生成或增量完善同一路径的可联调接口契约；没有未关闭 P0 时询问是否创建后端实现子任务。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "jira"
+      description: |
+        基于 @tarasrushchak/jira-mcp-server（API Token 认证）。
+        提供 Jira 全读写 + Confluence 查询能力。
+      tool_mapping:
+        # Skill 概念操作 → MCP 实际工具名
+        get_issue: get_ticket
+        search_issues: search_tickets
+        search_with_jql: list_tickets
+        create_issue: create_ticket
+        add_comment: add_comment
+        get_comments: get_comments
+        update_issue: update_ticket_fields
+        delete_issue: delete_issue
+        get_projects: get_all_projects
+        get_transitions: get_transitions
+        transition_issue: update_status
+        assign_issue: assign_ticket
+        search_users: search_users
+        get_current_user: get_user_profile
