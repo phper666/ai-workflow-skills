@@ -52,7 +52,11 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.claude/skills/<skill-name>
 - **单一源**：本仓库是 5 个 skill 的唯一源码位置，平台侧只放符号链接或副本
 - **共享规则升级**：跨项目验证有效的扫描规则 → 提交 `consensus-scan/references/扫描规则库.md` 共享区 → 全员 pull
 - **适配器**：`story-to-contract/adapters/` 按平台 MCP 工具名映射（Jira/TAPD/飞书），换平台只改映射，不动 skill 主体
-- **配套文档**：`ai-team-workflow.html`（流程可视化）、落地启动文档、Skill 规格文档、角色使用手册（同团队文档区）
+- **配套文档**（`docs/`）：
+  - `docs/ai-team-workflow.html` — 12 步流程可视化（浏览器打开）
+  - `docs/团队AI研发工作流-落地启动文档.md` — 落地手册（基础设施/rollout/沟通）
+  - `docs/团队AI研发工作流-Skill规格文档.md` — skill 规格与设计决策
+  - `docs/团队AI研发工作流-角色使用手册.md` — 各角色使用指南
 
 ## 流程对应
 

@@ -1,0 +1,2066 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>团队 AI 研发工作流</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;max-width:736px;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+</head>
+<body>
+<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="团队 AI 研发工作流" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;团队 AI 研发工作流&lt;/title&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(--background) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: light-dark(rgb(255 255 255), rgb(24 24 24));
+  --foreground: light-dark(rgb(26 28 31), rgb(255 255 255));
+  --card: color-mix(in oklab, var(--foreground) 5%, transparent);
+  --card-foreground: var(--foreground);
+  --popover: light-dark(rgb(255 255 255), rgb(45 45 45));
+  --popover-foreground: var(--foreground);
+  --primary: light-dark(rgb(51 156 255), rgb(131 195 255));
+  --primary-foreground: light-dark(rgb(255 255 255), rgb(13 13 13));
+  --secondary: light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%));
+  --secondary-foreground: var(--foreground);
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: light-dark(
+    rgb(26 28 31 / 49.4%),
+    rgb(255 255 255 / 49.8%)
+  );
+  --accent: light-dark(rgb(229 242 255), rgb(13 39 63));
+  --accent-foreground: var(--primary);
+  --destructive: light-dark(rgb(226 85 7), rgb(255 133 73));
+  --border: light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%));
+  --input: light-dark(
+    rgb(26 28 31 / 11.8%),
+    color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+  );
+  --ring: light-dark(rgb(51 156 255), rgb(131 195 255 / 76%));
+  --font-size-base: 14px;
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: 12.5px;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+  --color-background-primary: var(--background);
+  --color-text-primary: var(--foreground);
+  --color-border-secondary: var(--border);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--viz-font-weight-medium);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: superellipse(1.5);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget &gt; :not(.card) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: superellipse(1.5);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+    [aria-pressed=&quot;true&quot;],
+    [aria-selected=&quot;true&quot;],
+    .is-selected
+  ) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;ai-workflow-explainer&quot;&gt;
+  &lt;style&gt;
+    #ai-workflow-explainer {
+      --role-pm: var(--viz-series-2);
+      --role-doc: var(--viz-series-5);
+      --role-team: var(--viz-series-3);
+      --role-jira: var(--viz-series-4);
+      --role-delivery: var(--viz-series-6);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+      color: var(--foreground);
+    }
+
+    #ai-workflow-explainer .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.7fr);
+      gap: 24px;
+      align-items: end;
+      padding: 20px 0 4px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    #ai-workflow-explainer .eyebrow,
+    #ai-workflow-explainer .section-kicker {
+      color: var(--muted-foreground);
+      font-weight: 500;
+    }
+
+    #ai-workflow-explainer .hero-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #ai-workflow-explainer .hero p {
+      max-width: 760px;
+      color: var(--muted-foreground);
+    }
+
+    #ai-workflow-explainer .principle {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding-left: 16px;
+      border-left: 3px solid var(--primary);
+    }
+
+    #ai-workflow-explainer .principle i {
+      flex: 0 0 auto;
+      margin-top: 3px;
+      color: var(--primary);
+    }
+
+    #ai-workflow-explainer .principle strong,
+    #ai-workflow-explainer .principle span {
+      display: block;
+    }
+
+    #ai-workflow-explainer .principle span {
+      color: var(--muted-foreground);
+    }
+
+    #ai-workflow-explainer .phase-nav {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    #ai-workflow-explainer .phase-button {
+      min-width: 0;
+      padding: 9px 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted-foreground);
+      background: transparent;
+      cursor: pointer;
+      font: inherit;
+      text-align: center;
+    }
+
+    #ai-workflow-explainer .phase-button:hover {
+      background: var(--accent);
+      color: var(--accent-foreground);
+    }
+
+    #ai-workflow-explainer .phase-button[aria-current=&quot;step&quot;] {
+      border-color: var(--primary);
+      color: var(--primary-foreground);
+      background: var(--primary);
+    }
+
+    #ai-workflow-explainer .phase-number {
+      display: block;
+      margin-bottom: 2px;
+      font-weight: 500;
+    }
+
+    #ai-workflow-explainer .phase-label {
+      display: block;
+      overflow-wrap: anywhere;
+    }
+
+    #ai-workflow-explainer .progress-rail {
+      position: relative;
+      height: 4px;
+      overflow: hidden;
+      border-radius: 2px;
+      background: var(--muted);
+    }
+
+    #ai-workflow-explainer .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--primary);
+      transition: width 360ms ease;
+    }
+
+    #ai-workflow-explainer .stage-shell {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    #ai-workflow-explainer .stage-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #ai-workflow-explainer .stage-index {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    #ai-workflow-explainer .stage-index .viz-badge {
+      min-width: 72px;
+      text-align: center;
+    }
+
+    #ai-workflow-explainer .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    #ai-workflow-explainer .controls .btn {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    #ai-workflow-explainer .actor-map {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      padding: 4px 0 16px;
+    }
+
+    #ai-workflow-explainer .actor-map::before {
+      position: absolute;
+      right: 8%;
+      bottom: 46px;
+      left: 8%;
+      height: 1px;
+      content: &quot;&quot;;
+      background: var(--border);
+    }
+
+    #ai-workflow-explainer .actor {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+      padding: 12px 8px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      text-align: center;
+      transition: background 240ms ease, border-color 240ms ease, transform 240ms ease;
+    }
+
+    #ai-workflow-explainer .actor-icon {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--muted-foreground);
+      background: var(--muted);
+      transition: color 240ms ease, background 240ms ease;
+    }
+
+    #ai-workflow-explainer .actor strong {
+      font-weight: 500;
+    }
+
+    #ai-workflow-explainer .actor span {
+      color: var(--muted-foreground);
+    }
+
+    #ai-workflow-explainer .actor.is-active {
+      border-color: color-mix(in srgb, var(--actor-color) 45%, var(--border));
+      background: color-mix(in srgb, var(--actor-color) 10%, transparent);
+      transform: translateY(-3px);
+    }
+
+    #ai-workflow-explainer .actor.is-active .actor-icon {
+      color: var(--background);
+      background: var(--actor-color);
+    }
+
+    #ai-workflow-explainer .actor[data-actor=&quot;pm&quot;] { --actor-color: var(--role-pm); }
+    #ai-workflow-explainer .actor[data-actor=&quot;doc&quot;] { --actor-color: var(--role-doc); }
+    #ai-workflow-explainer .actor[data-actor=&quot;team&quot;] { --actor-color: var(--role-team); }
+    #ai-workflow-explainer .actor[data-actor=&quot;jira&quot;] { --actor-color: var(--role-jira); }
+    #ai-workflow-explainer .actor[data-actor=&quot;delivery&quot;] { --actor-color: var(--role-delivery); }
+
+    #ai-workflow-explainer .flow-token {
+      position: absolute;
+      z-index: 3;
+      bottom: 40px;
+      left: calc(var(--token-index, 0) * 20% + 10%);
+      width: 12px;
+      height: 12px;
+      border: 3px solid var(--background);
+      border-radius: 50%;
+      background: var(--primary);
+      transform: translateX(-50%);
+      transition: left 520ms cubic-bezier(.2, .8, .2, 1), background 240ms ease;
+    }
+
+    #ai-workflow-explainer .stage-content {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+      gap: 24px;
+      min-height: 300px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    #ai-workflow-explainer .stage-main,
+    #ai-workflow-explainer .stage-side {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    #ai-workflow-explainer .stage-heading {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    #ai-workflow-explainer .stage-heading-icon {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 6px;
+      color: var(--primary);
+      background: var(--accent);
+    }
+
+    #ai-workflow-explainer .stage-heading-copy {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    #ai-workflow-explainer .stage-description {
+      color: var(--muted-foreground);
+    }
+
+    #ai-workflow-explainer .action-list,
+    #ai-workflow-explainer .criteria-list,
+    #ai-workflow-explainer .skeleton-list,
+    #ai-workflow-explainer .overview-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    #ai-workflow-explainer .action-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    #ai-workflow-explainer .action-list li,
+    #ai-workflow-explainer .criteria-list li {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+    }
+
+    #ai-workflow-explainer .action-list i,
+    #ai-workflow-explainer .criteria-list i {
+      flex: 0 0 auto;
+      margin-top: 3px;
+      color: var(--viz-series-3);
+    }
+
+    #ai-workflow-explainer .meta-block {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding: 12px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    #ai-workflow-explainer .meta-block:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    #ai-workflow-explainer .meta-label {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      color: var(--muted-foreground);
+      font-weight: 500;
+    }
+
+    #ai-workflow-explainer .artifact-name {
+      overflow-wrap: anywhere;
+      font-weight: 500;
+    }
+
+    #ai-workflow-explainer .gate-tag {
+      display: inline-flex;
+      width: fit-content;
+      gap: 6px;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: var(--primary);
+      background: var(--accent);
+      font-weight: 500;
+    }
+
+    #ai-workflow-explainer .criteria-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    #ai-workflow-explainer .stage-content.is-updating {
+      animation: workflow-stage-in 300ms ease both;
+    }
+
+    @keyframes workflow-stage-in {
+      from { opacity: 0.35; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #ai-workflow-explainer .overview {
+      display: none;
+      gap: 10px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    #ai-workflow-explainer .overview.is-visible {
+      display: grid;
+    }
+
+    #ai-workflow-explainer .overview-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px 18px;
+    }
+
+    #ai-workflow-explainer .overview-list li {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    #ai-workflow-explainer .overview-list span:first-child {
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    #ai-workflow-explainer .overview-list strong,
+    #ai-workflow-explainer .overview-list small {
+      display: block;
+    }
+
+    #ai-workflow-explainer .overview-list small {
+      color: var(--muted-foreground);
+    }
+
+    #ai-workflow-explainer .authority-section,
+    #ai-workflow-explainer .docs-section {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    #ai-workflow-explainer .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+      gap: 24px;
+      align-items: end;
+    }
+
+    #ai-workflow-explainer .section-heading &gt; div {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    #ai-workflow-explainer .section-heading p {
+      color: var(--muted-foreground);
+    }
+
+    #ai-workflow-explainer .authority-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    #ai-workflow-explainer .authority-item {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 3px solid var(--item-color);
+    }
+
+    #ai-workflow-explainer .authority-item:nth-child(1) { --item-color: var(--role-doc); }
+    #ai-workflow-explainer .authority-item:nth-child(2) { --item-color: var(--role-jira); }
+    #ai-workflow-explainer .authority-item:nth-child(3) { --item-color: var(--role-delivery); }
+
+    #ai-workflow-explainer .authority-item p {
+      color: var(--muted-foreground);
+    }
+
+    #ai-workflow-explainer .document-switch {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    #ai-workflow-explainer .document-switch .btn[aria-pressed=&quot;true&quot;] {
+      color: var(--primary-foreground);
+      background: var(--primary);
+    }
+
+    #ai-workflow-explainer .document-panel {
+      display: none;
+      grid-template-columns: minmax(250px, 0.7fr) minmax(0, 1.3fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    #ai-workflow-explainer .document-panel.is-visible {
+      display: grid;
+    }
+
+    #ai-workflow-explainer .document-intro {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: sticky;
+      top: 12px;
+    }
+
+    #ai-workflow-explainer .document-intro p {
+      color: var(--muted-foreground);
+    }
+
+    #ai-workflow-explainer .document-rule {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    #ai-workflow-explainer .document-rule i {
+      flex: 0 0 auto;
+      margin-top: 3px;
+      color: var(--primary);
+    }
+
+    #ai-workflow-explainer .skeleton-list {
+      display: grid;
+      gap: 0;
+      counter-reset: skeleton;
+    }
+
+    #ai-workflow-explainer .skeleton-list &gt; li {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 10px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      counter-increment: skeleton;
+    }
+
+    #ai-workflow-explainer .skeleton-list &gt; li::before {
+      content: counter(skeleton, decimal-leading-zero);
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    #ai-workflow-explainer .skeleton-list strong,
+    #ai-workflow-explainer .skeleton-list span {
+      display: block;
+    }
+
+    #ai-workflow-explainer .skeleton-list span {
+      margin-top: 2px;
+      color: var(--muted-foreground);
+    }
+
+    #ai-workflow-explainer .closing-rule {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      padding: 16px 0 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    #ai-workflow-explainer .closing-rule div {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    #ai-workflow-explainer .closing-rule strong {
+      color: var(--primary);
+    }
+
+    #ai-workflow-explainer .closing-rule span {
+      color: var(--muted-foreground);
+    }
+
+    @media (max-width: 820px) {
+      #ai-workflow-explainer .hero,
+      #ai-workflow-explainer .section-heading,
+      #ai-workflow-explainer .stage-content,
+      #ai-workflow-explainer .document-panel {
+        grid-template-columns: 1fr;
+      }
+
+      #ai-workflow-explainer .phase-nav {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      #ai-workflow-explainer .overview-list,
+      #ai-workflow-explainer .authority-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #ai-workflow-explainer .document-intro {
+        position: static;
+      }
+
+      #ai-workflow-explainer .closing-rule {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      #ai-workflow-explainer {
+        gap: 18px;
+      }
+
+      #ai-workflow-explainer .phase-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      #ai-workflow-explainer .actor-map {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      #ai-workflow-explainer .actor-map::before,
+      #ai-workflow-explainer .flow-token {
+        display: none;
+      }
+
+      #ai-workflow-explainer .stage-toolbar {
+        align-items: flex-start;
+      }
+
+      #ai-workflow-explainer .controls {
+        width: 100%;
+      }
+
+      #ai-workflow-explainer .controls .btn {
+        flex: 1 1 auto;
+        justify-content: center;
+      }
+
+      #ai-workflow-explainer .closing-rule {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #ai-workflow-explainer *,
+      #ai-workflow-explainer *::before,
+      #ai-workflow-explainer *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  &lt;/style&gt;
+
+  &lt;header class=&quot;hero&quot;&gt;
+    &lt;div class=&quot;hero-copy&quot;&gt;
+      &lt;span class=&quot;eyebrow&quot;&gt;团队 AI 研发协作体系&lt;/span&gt;
+      &lt;h1&gt;从项目共识，到可验证的交付契约&lt;/h1&gt;
+      &lt;p&gt;这条链路用一份业务事实源统一认知，用 Jira 承载待确认闭环，再把确定的业务规则下沉为前后端契约、开发任务和测试依据。&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;principle&quot;&gt;
+      &lt;i data-lucide=&quot;route&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+      &lt;div&gt;
+        &lt;strong&gt;一份业务事实源，两级确认闭环&lt;/strong&gt;
+        &lt;span&gt;任何结论最终都必须回写权威文档，下游产物必须绑定版本并响应上游变化。&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;nav class=&quot;phase-nav&quot; aria-label=&quot;工作流阶段&quot;&gt;&lt;/nav&gt;
+  &lt;div class=&quot;progress-rail&quot; aria-hidden=&quot;true&quot;&gt;&lt;div class=&quot;progress-fill&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+
+  &lt;section class=&quot;card stage-shell&quot; aria-labelledby=&quot;current-stage-title&quot;&gt;
+    &lt;div class=&quot;stage-toolbar&quot;&gt;
+      &lt;div class=&quot;stage-index&quot;&gt;
+        &lt;span class=&quot;viz-badge&quot; id=&quot;stage-count&quot;&gt;步骤 1 / 12&lt;/span&gt;
+        &lt;span class=&quot;text-muted&quot; id=&quot;stage-phase&quot;&gt;阶段一：业务共识&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;controls&quot; aria-label=&quot;流程播放控制&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; id=&quot;previous-step&quot; aria-label=&quot;上一步&quot; data-tooltip=&quot;上一步&quot;&gt;
+          &lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span&gt;上一步&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; id=&quot;play-flow&quot; aria-label=&quot;自动播放&quot;&gt;
+          &lt;i data-lucide=&quot;play&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span&gt;自动播放&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; id=&quot;next-step&quot; aria-label=&quot;下一步&quot; data-tooltip=&quot;下一步&quot;&gt;
+          &lt;span&gt;下一步&lt;/span&gt;&lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; id=&quot;toggle-overview&quot; aria-expanded=&quot;false&quot;&gt;
+          &lt;i data-lucide=&quot;list-tree&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span&gt;总览&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;actor-map&quot; aria-label=&quot;参与角色和系统&quot;&gt;
+      &lt;div class=&quot;actor&quot; data-actor=&quot;pm&quot;&gt;
+        &lt;span class=&quot;actor-icon&quot;&gt;&lt;i data-lucide=&quot;user-round-cog&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+        &lt;strong&gt;产品经理&lt;/strong&gt;&lt;span&gt;业务决策&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;actor&quot; data-actor=&quot;doc&quot;&gt;
+        &lt;span class=&quot;actor-icon&quot;&gt;&lt;i data-lucide=&quot;library&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+        &lt;strong&gt;文档仓库&lt;/strong&gt;&lt;span&gt;权威事实源&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;actor&quot; data-actor=&quot;team&quot;&gt;
+        &lt;span class=&quot;actor-icon&quot;&gt;&lt;i data-lucide=&quot;users-round&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+        &lt;strong&gt;BE · FE · QA&lt;/strong&gt;&lt;span&gt;跨角色扫描&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;actor&quot; data-actor=&quot;jira&quot;&gt;
+        &lt;span class=&quot;actor-icon&quot;&gt;&lt;i data-lucide=&quot;messages-square&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+        &lt;strong&gt;Jira&lt;/strong&gt;&lt;span&gt;问题与决策&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;actor&quot; data-actor=&quot;delivery&quot;&gt;
+        &lt;span class=&quot;actor-icon&quot;&gt;&lt;i data-lucide=&quot;rocket&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+        &lt;strong&gt;研发交付&lt;/strong&gt;&lt;span&gt;开发与测试&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;span class=&quot;flow-token&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;stage-content&quot;&gt;
+      &lt;div class=&quot;stage-main&quot;&gt;
+        &lt;div class=&quot;stage-heading&quot;&gt;
+          &lt;span class=&quot;stage-heading-icon&quot;&gt;&lt;i id=&quot;stage-icon&quot; data-lucide=&quot;file-pen-line&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+          &lt;div class=&quot;stage-heading-copy&quot;&gt;
+            &lt;span class=&quot;section-kicker&quot; id=&quot;stage-owner&quot;&gt;负责人：产品经理&lt;/span&gt;
+            &lt;h2 id=&quot;current-stage-title&quot;&gt;建立项目共识文档&lt;/h2&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p class=&quot;stage-description&quot; id=&quot;stage-description&quot;&gt;&lt;/p&gt;
+        &lt;ul class=&quot;action-list&quot; id=&quot;stage-actions&quot;&gt;&lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;aside class=&quot;stage-side&quot; aria-label=&quot;本步骤产物与完成标准&quot;&gt;
+        &lt;div class=&quot;meta-block&quot;&gt;
+          &lt;span class=&quot;meta-label&quot;&gt;&lt;i data-lucide=&quot;package-check&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;本步产物&lt;/span&gt;
+          &lt;span class=&quot;artifact-name&quot; id=&quot;stage-artifact&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;meta-block&quot;&gt;
+          &lt;span class=&quot;meta-label&quot;&gt;&lt;i data-lucide=&quot;shield-check&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;门禁位置&lt;/span&gt;
+          &lt;span class=&quot;gate-tag&quot; id=&quot;stage-gate&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;meta-block&quot;&gt;
+          &lt;span class=&quot;meta-label&quot;&gt;&lt;i data-lucide=&quot;list-checks&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;完成标准&lt;/span&gt;
+          &lt;ul class=&quot;criteria-list&quot; id=&quot;stage-criteria&quot;&gt;&lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/aside&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;overview&quot; id=&quot;workflow-overview&quot;&gt;
+      &lt;span class=&quot;section-kicker&quot;&gt;12 步完整链路&lt;/span&gt;
+      &lt;ol class=&quot;overview-list&quot; id=&quot;overview-list&quot;&gt;&lt;/ol&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;authority-section&quot; aria-labelledby=&quot;authority-title&quot;&gt;
+    &lt;div class=&quot;section-heading&quot;&gt;
+      &lt;div&gt;
+        &lt;span class=&quot;section-kicker&quot;&gt;事实与决策边界&lt;/span&gt;
+        &lt;h2 id=&quot;authority-title&quot;&gt;三个载体，各自只承担一种责任&lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;p&gt;文档保存当前有效结论，Jira 保存问题和决策过程，交付产物保存可执行、可验证的实现约束。&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;authority-grid&quot;&gt;
+      &lt;article class=&quot;authority-item&quot;&gt;
+        &lt;i data-lucide=&quot;book-open-check&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+        &lt;h3&gt;共识文档&lt;/h3&gt;
+        &lt;p&gt;回答“业务应该是什么”。覆盖流程、状态、角色、权限、页面规则、字段定义和跨端差异，是 PM 负责维护的业务事实源。&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class=&quot;authority-item&quot;&gt;
+        &lt;i data-lucide=&quot;message-square-warning&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+        &lt;h3&gt;Jira 待确认项&lt;/h3&gt;
+        &lt;p&gt;回答“哪里还不确定、由谁决策”。每条问题绑定文档版本、章节和规则编号，关闭前必须确认结论已经回写并向下传播。&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class=&quot;authority-item&quot;&gt;
+        &lt;i data-lucide=&quot;braces&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+        &lt;h3&gt;前后端契约文档&lt;/h3&gt;
+        &lt;p&gt;回答“当前需求如何实现和对接”。包含接口、字段、异常、权限、数据模型和兼容性，是 FE 联调与 QA 接口测试的直接依据。&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;docs-section&quot; aria-labelledby=&quot;docs-title&quot;&gt;
+    &lt;div class=&quot;section-heading&quot;&gt;
+      &lt;div&gt;
+        &lt;span class=&quot;section-kicker&quot;&gt;标准文档骨架&lt;/span&gt;
+        &lt;h2 id=&quot;docs-title&quot;&gt;两层文档，分别约束业务与实现&lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;document-switch&quot; role=&quot;group&quot; aria-label=&quot;选择文档骨架&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-document=&quot;consensus&quot; aria-pressed=&quot;true&quot;&gt;模块共识文档&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-document=&quot;contract&quot; aria-pressed=&quot;false&quot;&gt;前后端契约文档&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;document-panel is-visible&quot; data-panel=&quot;consensus&quot;&gt;
+      &lt;div class=&quot;document-intro&quot;&gt;
+        &lt;h3&gt;模块共识文档&lt;/h3&gt;
+        &lt;p&gt;覆盖一个业务模块的完整事实，面向 PM、BE、FE、QA。它不描述某一次技术实现，而是提供拆需求、评审和生成契约的共同依据。&lt;/p&gt;
+        &lt;div class=&quot;document-rule&quot;&gt;
+          &lt;i data-lucide=&quot;fingerprint&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+          &lt;span&gt;业务规则使用稳定编号，并记录事实来源、当前结论和变更状态。&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;document-rule&quot;&gt;
+          &lt;i data-lucide=&quot;refresh-cw&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+          &lt;span&gt;评审和待确认项闭环后，结论必须回写正文，不能只停留在 Jira 评论中。&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;ol class=&quot;skeleton-list&quot;&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;文档元信息&lt;/strong&gt;&lt;span&gt;版本、日期、本版本变更、数据来源、历史变更摘要。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;文档结构总览&lt;/strong&gt;&lt;span&gt;章节、平台、页面或子模块覆盖范围。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;模块概述&lt;/strong&gt;&lt;span&gt;模块定位、范围、参与角色、页面与子模块清单。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;业务流程与状态机&lt;/strong&gt;&lt;span&gt;核心场景、正常流程、异常分支、状态定义和迁移矩阵。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;角色与权限矩阵&lt;/strong&gt;&lt;span&gt;操作权限、数据权限、入口可见性和跨端差异。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;字段业务定义&lt;/strong&gt;&lt;span&gt;字段语义、必填规则、来源、枚举和计算方式。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;业务规则清单&lt;/strong&gt;&lt;span&gt;稳定编号、规则描述、来源、变更状态和引用关系。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;枚举值与常量&lt;/strong&gt;&lt;span&gt;状态、类型、模式、第三方状态及系统常量。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;第三方对接&lt;/strong&gt;&lt;span&gt;外部系统、同步、回调、重试、失败处理和边界。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;未决项登记&lt;/strong&gt;&lt;span&gt;问题、负责人、阻断等级、状态、结论和回写位置。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;页面交互规范&lt;/strong&gt;&lt;span&gt;按平台列出页面编号、角色、功能、字段、操作、权限和数据范围。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;后端任务规范&lt;/strong&gt;&lt;span&gt;触发条件、处理范围、跳过条件、执行逻辑、异常和幂等性。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;端差异汇总&lt;/strong&gt;&lt;span&gt;功能支持、操作权限和数据可见范围对照。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;附录与版本记录&lt;/strong&gt;&lt;span&gt;页面清单、规则索引、版本、日期和变更说明。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;document-panel&quot; data-panel=&quot;contract&quot;&gt;
+      &lt;div class=&quot;document-intro&quot;&gt;
+        &lt;h3&gt;前后端契约文档&lt;/h3&gt;
+        &lt;p&gt;面向一个具体子需求，把共识文档中的业务结论转化为可开发、可联调、可测试的实现契约，由 BE 负责维护。&lt;/p&gt;
+        &lt;div class=&quot;document-rule&quot;&gt;
+          &lt;i data-lucide=&quot;link&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+          &lt;span&gt;必须绑定共识文档版本、引用的业务规则编号和对应 Jira 子需求。&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;document-rule&quot;&gt;
+          &lt;i data-lucide=&quot;scan-search&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+          &lt;span&gt;正文只保留当前生效的最终口径；过程争议留在 Jira，关键决策进入“决策与踩坑”。&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;ol class=&quot;skeleton-list&quot;&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;需求概要&lt;/strong&gt;&lt;span&gt;需求链接、原型来源、共识版本、规则引用和后端目标。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;业务流程&lt;/strong&gt;&lt;span&gt;核心流程、状态流转和非技术语言的关键业务规则。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;接口清单&lt;/strong&gt;&lt;span&gt;接口名称、方法、路径，以及新增或变更状态。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;接口详情&lt;/strong&gt;&lt;span&gt;请求参数、响应字段、示例、异常、业务规则、权限与数据范围。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;数据库变更&lt;/strong&gt;&lt;span&gt;终态表结构、字段定义和 Migration 文件；无变化则省略。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;代码改动清单&lt;/strong&gt;&lt;span&gt;受影响模块、类、任务拆分和预估工时。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;BE 自决事项&lt;/strong&gt;&lt;span&gt;不改变产品语义的技术决策、依据和约束。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;协调事项&lt;/strong&gt;&lt;span&gt;未完成的跨模块、跨团队或第三方协作。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;澄清记录&lt;/strong&gt;&lt;span&gt;已解决问题与仍 pending 问题分开维护。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;变更记录&lt;/strong&gt;&lt;span&gt;最新在前，只说明做了什么以及为什么。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;文档自检记录&lt;/strong&gt;&lt;span&gt;仅保留当次自检，包括矛盾、遗漏和工时复核。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;TAPD／Jira 子任务&lt;/strong&gt;&lt;span&gt;任务创建后追加负责人、范围和状态。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;完成记录&lt;/strong&gt;&lt;span&gt;交付、验证、构建、发布和测试结果。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;div&gt;&lt;strong&gt;决策与踩坑&lt;/strong&gt;&lt;span&gt;交付后沉淀可复用的关键决策、反例与工程经验。&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;footer class=&quot;closing-rule&quot; aria-label=&quot;工作流治理原则&quot;&gt;
+    &lt;div&gt;&lt;strong&gt;1 份&lt;/strong&gt;&lt;span&gt;业务事实源&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;strong&gt;2 级&lt;/strong&gt;&lt;span&gt;PM / BE 确认闭环&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;strong&gt;3 道&lt;/strong&gt;&lt;span&gt;共识、需求、契约门禁&lt;/span&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;strong&gt;1 套&lt;/strong&gt;&lt;span&gt;自动变更传播机制&lt;/span&gt;&lt;/div&gt;
+  &lt;/footer&gt;
+
+  &lt;script&gt;
+    (() =&gt; {
+      const root = document.getElementById(&#x27;ai-workflow-explainer&#x27;);
+      if (!root) return;
+
+      const steps = [
+        {
+          phase: &#x27;阶段一：业务共识&#x27;, short: &#x27;建立共识&#x27;, title: &#x27;PM 建立项目共识文档&#x27;, owner: &#x27;产品经理&#x27;, icon: &#x27;file-pen-line&#x27;,
+          description: &#x27;在正式开需求前，先把整个项目或业务模块的当前事实整理成结构化共识，避免后续成员各自理解原型和口头信息。&#x27;,
+          actions: [&#x27;整理核心流程、状态机、角色权限和页面规则&#x27;, &#x27;为关键业务规则建立稳定编号与事实来源&#x27;, &#x27;显式记录未决项、适用范围和不做事项&#x27;],
+          artifact: &#x27;模块共识文档 v1.0&#x27;, gate: &#x27;共识准备中&#x27;,
+          criteria: [&#x27;结构完整且不存在明显自相矛盾&#x27;, &#x27;关键规则可被唯一引用&#x27;, &#x27;文档版本可追踪&#x27;],
+          actors: [&#x27;pm&#x27;, &#x27;doc&#x27;], token: 0
+        },
+        {
+          phase: &#x27;阶段一：业务共识&#x27;, short: &#x27;发布版本&#x27;, title: &#x27;发布共识基线版本&#x27;, owner: &#x27;产品经理 · 文档仓库&#x27;, icon: &#x27;cloud-upload&#x27;,
+          description: &#x27;把共识文档上传到团队文档仓库，形成一个可供跨角色扫描的明确基线。所有后续问题都必须绑定这个版本。&#x27;,
+          actions: [&#x27;发布不可歧义的版本号和更新时间&#x27;, &#x27;关联原型、Jira Epic／父需求及来源材料&#x27;, &#x27;通知 BE、FE、QA 开始扫描&#x27;],
+          artifact: &#x27;共识基线版本 + 扫描通知&#x27;, gate: &#x27;进入 Gate A 前&#x27;,
+          criteria: [&#x27;团队读取的是同一版本&#x27;, &#x27;来源链接可访问&#x27;, &#x27;扫描范围和截止时间明确&#x27;],
+          actors: [&#x27;pm&#x27;, &#x27;doc&#x27;, &#x27;team&#x27;], token: 1
+        },
+        {
+          phase: &#x27;阶段二：跨角色扫描&#x27;, short: &#x27;AI 扫描&#x27;, title: &#x27;BE、FE、QA 分角色扫描共识&#x27;, owner: &#x27;BE · FE · QA&#x27;, icon: &#x27;scan-search&#x27;,
+          description: &#x27;同一份共识文档分别从实现、交互和验证视角扫描。AI 先查重、聚类和交叉引用，再提交真正需要人决策的问题。&#x27;,
+          actions: [&#x27;BE 检查状态、数据、权限、第三方和一致性&#x27;, &#x27;FE 检查页面、字段、交互、空态和跨端差异&#x27;, &#x27;QA 检查验收口径、边界、异常路径和可测试性&#x27;],
+          artifact: &#x27;分角色扫描报告 + 候选问题集&#x27;, gate: &#x27;Gate A：共识就绪&#x27;,
+          criteria: [&#x27;问题已去重并引用具体章节&#x27;, &#x27;区分阻断项与非阻断项&#x27;, &#x27;已有答案的问题不会重复提交&#x27;],
+          actors: [&#x27;doc&#x27;, &#x27;team&#x27;], token: 2
+        },
+        {
+          phase: &#x27;阶段二：跨角色扫描&#x27;, short: &#x27;PM 待确认&#x27;, title: &#x27;创建并闭环 PM 待确认项&#x27;, owner: &#x27;产品经理&#x27;, icon: &#x27;message-square-warning&#x27;,
+          description: &#x27;业务模糊点进入 Jira，由 PM 逐项给出可执行结论。回答本身不是闭环，结论必须回写共识文档并由发起角色复核。&#x27;,
+          actions: [&#x27;问题绑定共识版本、章节和业务规则编号&#x27;, &#x27;PM 给出单义结论、适用范围和生效时间&#x27;, &#x27;发起人确认回答是否真正消除歧义&#x27;],
+          artifact: &#x27;Jira PM 待确认项与决策记录&#x27;, gate: &#x27;Gate A：阻断项清零&#x27;,
+          criteria: [&#x27;已回答&#x27;, &#x27;已回写共识文档&#x27;, &#x27;受影响成员已复核&#x27;],
+          actors: [&#x27;team&#x27;, &#x27;jira&#x27;, &#x27;pm&#x27;], token: 3
+        },
+        {
+          phase: &#x27;阶段三：正式评审&#x27;, short: &#x27;评审收敛&#x27;, title: &#x27;正式需求评审并更新最终共识&#x27;, owner: &#x27;PM · BE · FE · QA&#x27;, icon: &#x27;presentation&#x27;,
+          description: &#x27;评审会议用于验证已经成形的共识，不承担第一次发现全部问题的责任。会议中新发现的问题继续进入相同闭环。&#x27;,
+          actions: [&#x27;确认业务范围、规则、边界和验收目标&#x27;, &#x27;会议问题继续建立责任人和关闭条件&#x27;, &#x27;更新共识版本并输出结构化变更摘要&#x27;],
+          artifact: &#x27;评审通过的共识文档基线&#x27;, gate: &#x27;Gate A：共识就绪&#x27;,
+          criteria: [&#x27;阻断级产品问题清零&#x27;, &#x27;评审结论已进入正文&#x27;, &#x27;形成可供拆需求的稳定基线&#x27;],
+          actors: [&#x27;pm&#x27;, &#x27;doc&#x27;, &#x27;team&#x27;, &#x27;jira&#x27;], token: 1
+        },
+        {
+          phase: &#x27;阶段四：需求拆解&#x27;, short: &#x27;模块拆解&#x27;, title: &#x27;拆分模块子需求与角色子任务&#x27;, owner: &#x27;PM · BE · FE · QA&#x27;, icon: &#x27;split&#x27;,
+          description: &#x27;产品按模块拆分子需求，各角色再创建自己的交付任务。每个子需求都必须引用共识文档版本和相关规则。&#x27;,
+          actions: [&#x27;明确子需求范围、验收标准和不做事项&#x27;, &#x27;标注依赖模块、第三方和跨团队协调项&#x27;, &#x27;BE、FE、QA 创建各自可独立验收的子任务&#x27;],
+          artifact: &#x27;模块子需求 + 角色子任务&#x27;, gate: &#x27;Gate B：需求就绪&#x27;,
+          criteria: [&#x27;范围可以由一个交付周期覆盖&#x27;, &#x27;验收标准可测试&#x27;, &#x27;依赖和未决项已分级&#x27;],
+          actors: [&#x27;pm&#x27;, &#x27;team&#x27;, &#x27;jira&#x27;], token: 3
+        },
+        {
+          phase: &#x27;阶段五：契约生成&#x27;, short: &#x27;生成契约&#x27;, title: &#x27;BE 生成前后端契约文档&#x27;, owner: &#x27;后端开发&#x27;, icon: &#x27;braces&#x27;,
+          description: &#x27;BE 把共识中的业务规则下沉为当前子需求的接口、数据和异常契约。契约只描述当前生效的最终实现口径。&#x27;,
+          actions: [&#x27;绑定共识版本、规则编号和 Jira 子需求&#x27;, &#x27;定义接口、字段、错误码、权限、数据范围和兼容性&#x27;, &#x27;补充数据库变更、Mock／OpenAPI 和代码改动清单&#x27;],
+          artifact: &#x27;前后端契约文档草案&#x27;, gate: &#x27;Gate C：契约就绪&#x27;,
+          criteria: [&#x27;业务规则与共识一致&#x27;, &#x27;正常与异常路径完整&#x27;, &#x27;接口可被 FE 和 QA 直接消费&#x27;],
+          actors: [&#x27;doc&#x27;, &#x27;team&#x27;, &#x27;delivery&#x27;], token: 4
+        },
+        {
+          phase: &#x27;阶段五：契约生成&#x27;, short: &#x27;契约复核&#x27;, title: &#x27;FE 与 QA 复核契约可用性&#x27;, owner: &#x27;前端开发 · 测试&#x27;, icon: &#x27;file-check-2&#x27;,
+          description: &#x27;FE 从联调角度、QA 从接口测试角度检查契约。这里要发现的是实现契约问题，而不是重新猜测产品规则。&#x27;,
+          actions: [&#x27;FE 验证请求、响应、错误处理和交互所需字段&#x27;, &#x27;QA 生成接口测试矩阵、边界值和异常场景&#x27;, &#x27;确认 Mock／OpenAPI 与文档示例保持一致&#x27;],
+          artifact: &#x27;契约审查意见 + 接口测试矩阵&#x27;, gate: &#x27;Gate C：契约就绪&#x27;,
+          criteria: [&#x27;FE 能独立完成联调准备&#x27;, &#x27;QA 能直接生成测试用例&#x27;, &#x27;阻断级契约问题已登记&#x27;],
+          actors: [&#x27;team&#x27;, &#x27;delivery&#x27;, &#x27;jira&#x27;], token: 2
+        },
+        {
+          phase: &#x27;阶段六：BE 澄清&#x27;, short: &#x27;BE 待确认&#x27;, title: &#x27;BE 待确认项分级闭环&#x27;, owner: &#x27;后端开发&#x27;, icon: &#x27;circle-help&#x27;,
+          description: &#x27;契约中的疑问先判断性质：技术实现问题由 BE 自决；改变业务语义的问题必须升级给 PM，并先更新共识再更新契约。&#x27;,
+          actions: [&#x27;技术问题：BE 给出依据、方案和约束并更新契约&#x27;, &#x27;产品问题：通知 PM 建立或关联 PM 待确认项&#x27;, &#x27;跨模块问题：进入协调事项并指定责任人与截止时间&#x27;],
+          artifact: &#x27;BE 决策／PM 升级／协调事项&#x27;, gate: &#x27;Gate C：阻断项清零&#x27;,
+          criteria: [&#x27;问题类型和责任人明确&#x27;, &#x27;产品结论先回写上游&#x27;, &#x27;契约重新复核后关闭问题&#x27;],
+          actors: [&#x27;jira&#x27;, &#x27;team&#x27;, &#x27;pm&#x27;, &#x27;doc&#x27;], token: 3
+        },
+        {
+          phase: &#x27;阶段七：研发验证&#x27;, short: &#x27;开发联调&#x27;, title: &#x27;按契约开发、联调与接口测试&#x27;, owner: &#x27;BE · FE · QA&#x27;, icon: &#x27;code-xml&#x27;,
+          description: &#x27;研发和测试以同一份契约为执行依据。实现偏差必须修改实现或重新走变更流程，不能通过口头约定绕过文档。&#x27;,
+          actions: [&#x27;BE 实现接口、数据变更、异常与权限控制&#x27;, &#x27;FE 依据 Mock／OpenAPI 并行开发并完成联调&#x27;, &#x27;QA 按契约验证成功、失败、权限、边界和兼容性&#x27;],
+          artifact: &#x27;代码、自动化测试、联调结果&#x27;, gate: &#x27;交付质量门禁&#x27;,
+          criteria: [&#x27;实现与契约一致&#x27;, &#x27;核心路径和错误路径通过&#x27;, &#x27;偏差已有可追踪处理结论&#x27;],
+          actors: [&#x27;team&#x27;, &#x27;delivery&#x27;], token: 4
+        },
+        {
+          phase: &#x27;阶段八：变更传播&#x27;, short: &#x27;影响传播&#x27;, title: &#x27;上游变化自动标记下游失效&#x27;, owner: &#x27;AI 工作流 · 各责任人&#x27;, icon: &#x27;git-compare-arrows&#x27;,
+          description: &#x27;任何共识规则变化都生成结构化变更摘要，AI 沿引用关系找到受影响的需求、契约、代码任务和测试，并标记为待复核。&#x27;,
+          actions: [&#x27;识别变更的规则编号、旧结论和新结论&#x27;, &#x27;定位引用该规则的子需求、契约和测试场景&#x27;, &#x27;自动创建或更新影响任务，责任人确认后解除待复核&#x27;],
+          artifact: &#x27;变更摘要 + 下游影响清单&#x27;, gate: &#x27;持续有效性门禁&#x27;,
+          criteria: [&#x27;没有静默漂移的下游文档&#x27;, &#x27;所有影响都有责任人和状态&#x27;, &#x27;复核完成前不可宣称交付完成&#x27;],
+          actors: [&#x27;doc&#x27;, &#x27;jira&#x27;, &#x27;team&#x27;, &#x27;delivery&#x27;], token: 1
+        },
+        {
+          phase: &#x27;阶段九：交付沉淀&#x27;, short: &#x27;完成沉淀&#x27;, title: &#x27;完成记录与决策经验回流&#x27;, owner: &#x27;BE · FE · QA · PM&#x27;, icon: &#x27;archive-restore&#x27;,
+          description: &#x27;交付后记录实际验证结果，并把可复用的决策与踩坑沉淀下来。下一轮共识文档和 AI 扫描可以直接复用这些知识。&#x27;,
+          actions: [&#x27;记录构建、联调、测试、发布和验收结果&#x27;, &#x27;把高价值决策写入“决策与踩坑”而非污染当前规格&#x27;, &#x27;复盘重复问题并升级为扫描规则或团队规范&#x27;],
+          artifact: &#x27;完成记录 + 决策与踩坑 + 规则升级&#x27;, gate: &#x27;闭环完成&#x27;,
+          criteria: [&#x27;交付结果有证据&#x27;, &#x27;经验可被下一需求复用&#x27;, &#x27;Jira、共识和契约状态一致&#x27;],
+          actors: [&#x27;delivery&#x27;, &#x27;team&#x27;, &#x27;doc&#x27;, &#x27;pm&#x27;], token: 4
+        }
+      ];
+
+      const nav = root.querySelector(&#x27;.phase-nav&#x27;);
+      const progress = root.querySelector(&#x27;.progress-fill&#x27;);
+      const stageContent = root.querySelector(&#x27;.stage-content&#x27;);
+      const actors = [...root.querySelectorAll(&#x27;.actor&#x27;)];
+      const token = root.querySelector(&#x27;.flow-token&#x27;);
+      const overview = root.querySelector(&#x27;#workflow-overview&#x27;);
+      const overviewList = root.querySelector(&#x27;#overview-list&#x27;);
+      const playButton = root.querySelector(&#x27;#play-flow&#x27;);
+      const overviewButton = root.querySelector(&#x27;#toggle-overview&#x27;);
+      let current = 0;
+      let timer = null;
+
+      const escapeHtml = (value) =&gt; String(value)
+        .replaceAll(&#x27;&amp;&#x27;, &#x27;&amp;amp;&#x27;)
+        .replaceAll(&#x27;&lt;&#x27;, &#x27;&amp;lt;&#x27;)
+        .replaceAll(&#x27;&gt;&#x27;, &#x27;&amp;gt;&#x27;)
+        .replaceAll(&#x27;&quot;&#x27;, &#x27;&amp;quot;&#x27;)
+        .replaceAll(&quot;&#x27;&quot;, &#x27;&amp;#039;&#x27;);
+
+      steps.forEach((step, index) =&gt; {
+        const button = document.createElement(&#x27;button&#x27;);
+        button.type = &#x27;button&#x27;;
+        button.className = &#x27;phase-button&#x27;;
+        button.innerHTML = `&lt;span class=&quot;phase-number&quot;&gt;${String(index + 1).padStart(2, &#x27;0&#x27;)}&lt;/span&gt;&lt;span class=&quot;phase-label&quot;&gt;${escapeHtml(step.short)}&lt;/span&gt;`;
+        button.addEventListener(&#x27;click&#x27;, () =&gt; {
+          stopPlaying();
+          renderStep(index);
+        });
+        nav.appendChild(button);
+
+        const item = document.createElement(&#x27;li&#x27;);
+        item.innerHTML = `&lt;span&gt;${String(index + 1).padStart(2, &#x27;0&#x27;)}&lt;/span&gt;&lt;div&gt;&lt;strong&gt;${escapeHtml(step.title)}&lt;/strong&gt;&lt;small&gt;${escapeHtml(step.artifact)}&lt;/small&gt;&lt;/div&gt;`;
+        overviewList.appendChild(item);
+      });
+
+      const refreshIcons = () =&gt; {
+        if (globalThis.lucide) {
+          globalThis.lucide.createIcons({ attrs: { width: 16, height: 16 } });
+        }
+      };
+
+      const listHtml = (items) =&gt; items.map((item) =&gt; `&lt;li&gt;&lt;i data-lucide=&quot;check&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span&gt;${escapeHtml(item)}&lt;/span&gt;&lt;/li&gt;`).join(&#x27;&#x27;);
+
+      function renderStep(index) {
+        current = (index + steps.length) % steps.length;
+        const step = steps[current];
+        root.querySelector(&#x27;#stage-count&#x27;).textContent = `步骤 ${current + 1} / ${steps.length}`;
+        root.querySelector(&#x27;#stage-phase&#x27;).textContent = step.phase;
+        root.querySelector(&#x27;#stage-owner&#x27;).textContent = `负责人：${step.owner}`;
+        root.querySelector(&#x27;#current-stage-title&#x27;).textContent = step.title;
+        root.querySelector(&#x27;#stage-description&#x27;).textContent = step.description;
+        root.querySelector(&#x27;#stage-actions&#x27;).innerHTML = listHtml(step.actions);
+        root.querySelector(&#x27;#stage-artifact&#x27;).textContent = step.artifact;
+        root.querySelector(&#x27;#stage-gate&#x27;).innerHTML = `&lt;i data-lucide=&quot;flag&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;${escapeHtml(step.gate)}`;
+        root.querySelector(&#x27;#stage-criteria&#x27;).innerHTML = listHtml(step.criteria);
+
+        const icon = root.querySelector(&#x27;#stage-icon&#x27;);
+        icon.setAttribute(&#x27;data-lucide&#x27;, step.icon);
+        icon.removeAttribute(&#x27;data-lucide-replaced&#x27;);
+
+        [...nav.children].forEach((button, buttonIndex) =&gt; {
+          if (buttonIndex === current) button.setAttribute(&#x27;aria-current&#x27;, &#x27;step&#x27;);
+          else button.removeAttribute(&#x27;aria-current&#x27;);
+        });
+
+        actors.forEach((actor) =&gt; actor.classList.toggle(&#x27;is-active&#x27;, step.actors.includes(actor.dataset.actor)));
+        token.style.setProperty(&#x27;--token-index&#x27;, step.token);
+        progress.style.width = `${((current + 1) / steps.length) * 100}%`;
+
+        stageContent.classList.remove(&#x27;is-updating&#x27;);
+        void stageContent.offsetWidth;
+        stageContent.classList.add(&#x27;is-updating&#x27;);
+        refreshIcons();
+      }
+
+      function updatePlayButton(isPlaying) {
+        const iconName = isPlaying ? &#x27;pause&#x27; : &#x27;play&#x27;;
+        const text = isPlaying ? &#x27;暂停播放&#x27; : &#x27;自动播放&#x27;;
+        playButton.innerHTML = `&lt;i data-lucide=&quot;${iconName}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span&gt;${text}&lt;/span&gt;`;
+        playButton.setAttribute(&#x27;aria-label&#x27;, text);
+        refreshIcons();
+      }
+
+      function stopPlaying() {
+        if (timer) window.clearInterval(timer);
+        timer = null;
+        updatePlayButton(false);
+      }
+
+      function startPlaying() {
+        stopPlaying();
+        timer = window.setInterval(() =&gt; renderStep(current + 1), 6000);
+        updatePlayButton(true);
+      }
+
+      root.querySelector(&#x27;#previous-step&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+        stopPlaying();
+        renderStep(current - 1);
+      });
+
+      root.querySelector(&#x27;#next-step&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+        stopPlaying();
+        renderStep(current + 1);
+      });
+
+      playButton.addEventListener(&#x27;click&#x27;, () =&gt; {
+        if (timer) stopPlaying();
+        else startPlaying();
+      });
+
+      overviewButton.addEventListener(&#x27;click&#x27;, () =&gt; {
+        const visible = overview.classList.toggle(&#x27;is-visible&#x27;);
+        overviewButton.setAttribute(&#x27;aria-expanded&#x27;, String(visible));
+        overviewButton.querySelector(&#x27;span&#x27;).textContent = visible ? &#x27;收起总览&#x27; : &#x27;总览&#x27;;
+      });
+
+      root.querySelectorAll(&#x27;[data-document]&#x27;).forEach((button) =&gt; {
+        button.addEventListener(&#x27;click&#x27;, () =&gt; {
+          const selected = button.dataset.document;
+          root.querySelectorAll(&#x27;[data-document]&#x27;).forEach((peer) =&gt; peer.setAttribute(&#x27;aria-pressed&#x27;, String(peer === button)));
+          root.querySelectorAll(&#x27;[data-panel]&#x27;).forEach((panel) =&gt; panel.classList.toggle(&#x27;is-visible&#x27;, panel.dataset.panel === selected));
+        });
+      });
+
+      document.addEventListener(&#x27;visibilitychange&#x27;, () =&gt; {
+        if (document.hidden &amp;&amp; timer) stopPlaying();
+      });
+
+      renderStep(0);
+    })();
+  &lt;/script&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+
+  const getTrigger = (target) =&gt;
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest(&quot;[data-tooltip]&quot;)
+      : null;
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handleLeave = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    document.removeEventListener(&quot;pointerover&quot;, handlePointerOpen);
+    document.removeEventListener(&quot;pointerout&quot;, handleLeave);
+    document.removeEventListener(&quot;focusin&quot;, handleFocusIn);
+    document.removeEventListener(&quot;focusout&quot;, handleLeave);
+    document.removeEventListener(&quot;keydown&quot;, handleKeyDown);
+    document.removeEventListener(&quot;contextmenu&quot;, handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener(&quot;pointerover&quot;, handlePointerOpen);
+  document.addEventListener(&quot;pointerout&quot;, handleLeave);
+  document.addEventListener(&quot;focusin&quot;, handleFocusIn);
+  document.addEventListener(&quot;focusout&quot;, handleLeave);
+  document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+  document.addEventListener(&quot;contextmenu&quot;, handleContextMenu);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</body>
+</html>
