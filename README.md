@@ -58,6 +58,20 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.claude/skills/<skill-name>
   - `docs/团队AI研发工作流-Skill规格文档.md` — skill 规格与设计决策
   - `docs/团队AI研发工作流-角色使用手册.md` — 各角色使用指南
 
+## 与 Matt Pocock 流水线的关系
+
+本工作流与 Matt Pocock 流水线（brainstorming → PRD → to-issues → implement/tdd → feature-pipeline）**互补，不重叠**：
+
+| 阶段 | Matt 流水线 | 本工作流 |
+|:-----|:-----------|:---------|
+| 需求定义 | PRD（创作态） | 共识文档（事实源，从 PRD/原型提取） |
+| 任务拆解 | to-issues（PRD 任务） | consensus-doc 拆子需求 + story-to-contract 建 BE 子任务 |
+| 契约 | 无（story-to-contract 同源） | story-to-contract |
+| 实现 | implement / tdd | 交付核验模式（契约一致性） |
+| 知识沉淀 | docs/spec/lessons/ | docs/lessons/ + 契约"决策与踩坑" |
+
+衔接点：契约冻结后 → 用 implement/tdd 实现 → story-to-contract 交付核验模式校验契约一致性。已有项目接入顺序：project-onboarding（工程基线）→ workflow-setup（工作流层）。
+
 ## 流程对应
 
 12 步流程 → skill 映射：
