@@ -26,6 +26,7 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 - TAPD 可用 → TAPD（缺陷类型 + 自定义字段）
 - Linear 可用 → Linear（Issue + label）
 - GitHub Issues 可用 → GitHub（Issue + labels + Projects v2）
+- `OPENPROJECT_URL` + `OPENPROJECT_API_KEY` 环境变量存在 → OpenProject（自定义类型"待确认项"，用户可在 UI 添加）
 - 飞书 MCP 可用 → 飞书多维表格（**无 PM 平台团队的默认**）
 - 用户明确指定 → 指定优先于检测
 - 载体地址与角色映射写入 `docs/spec/团队配置.md`（不存在则创建）
@@ -54,6 +55,7 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 - **TAPD**：约定缺陷类型"待确认项"，自定义字段承载
 - **Linear**：约定 Issue + label `q-item`，自定义字段承载
 - **GitHub**：约定 Issue + labels，结构化信息用 Projects v2 字段
+- **OpenProject**：约定自定义工作项类型"待确认项"（UI 添加：管理 → 工作包类型 → 新建），优先级改 P0/P1/P2（可选）
 - 载体地址写入 `docs/spec/团队配置.md`
 
 ### Phase 5：角色账号登记

@@ -53,6 +53,7 @@ description: 从项目管理工具的工作项（Story/Task/Bug）和仓库共�
    - `tapd.cn` → TAPD
    - `linear.app` → Linear
    - `github.com` → GitHub Issues
+   - `work_packages` 路径 / OpenProject 实例 → OpenProject（需 `OPENPROJECT_URL` + `OPENPROJECT_API_KEY` 环境变量）
 2. 调用 `adapter.parseUrl(url)` 提取定位信息 → 获得 `ItemRef { workspaceId?, projectKey?, itemId, itemKey, itemType }`。
    - 只有 Key 时：从对话或项目配置获取平台上下文。
 3. 调用 `adapter.readItem(ref)` 读取工作项详情 → 获得 `ItemDetail { key, url, title, description, status, type, assignee, parent, children, comments, labels }`。

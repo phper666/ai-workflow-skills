@@ -84,13 +84,14 @@ User:        { id, name, email? }
 
 不同平台对同一概念叫法不同，适配器负责翻译：
 
-| 抽象概念 | Jira | Linear | GitHub | TAPD |
-|----------|------|--------|--------|------|
-| 工作项 | Issue | Issue | Issue | 需求(Story)/缺陷(Bug)/任务(Task) |
-| 子任务 | Sub-task | Sub-issue(parentId) | ❌ (task list) | 子需求(parent_id) |
-| 经办人 | Assignee | Assignee | Assignee | 处理人(owner) |
-| 迭代 | Sprint | Cycle | Milestone | 迭代 |
-| 项目 | Project | Team | Repository | 工作空间(workspace) |
+| 抽象概念 | Jira | Linear | GitHub | TAPD | OpenProject |
+|----------|------|--------|--------|------|------------|
+| 工作项 | Issue | Issue | Issue | 需求(Story)/缺陷(Bug)/任务(Task) | Work Package |
+| 子任务 | Sub-task | Sub-issue(parentId) | ❌ (task list) | 子需求(parent_id) | 子工作包(parent 关联) |
+| 经办人 | Assignee | Assignee | Assignee | 处理人(owner) | Assignee |
+| 迭代 | Sprint | Cycle | Milestone | 迭代 | Version |
+| 项目 | Project | Team | Repository | 工作空间(workspace) | Project |
+| 待确认项载体 | q-item 子任务 | Issue+label | Issue+labels | 自定义工作项/缺陷 | 自定义类型"待确认项" |
 
 ---
 
