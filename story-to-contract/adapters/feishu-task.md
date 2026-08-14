@@ -10,6 +10,24 @@
 
 无（走 MCP 认证；lark-cli 路径备选：`LARK_CLI` 指向二进制）
 
+## 授权（lark-cli user 身份，实测流程 2026-08）
+
+```
+1. 生成授权链接（10 分钟有效，scope 一次给全）：
+   lark-cli auth login --scope "task:custom_field:write task:tasklist:write task:section:write task:task:write" --no-wait --json
+   → 取 verification_url + device_code
+
+2. 用户打开 verification_url 点"同意授权"
+
+3. 完成轮询（⚠️ timeout 必须 ≥600s，用户授权在轮询期间完成）：
+   lark-cli auth login --device-code {device_code}
+
+4. 轮询输出 "OK: 授权成功!" 即生效——⚠️ 之后 auth status 可能仍显示 token None/scope 0（显示层异常，实测如此），
+   以实际 API 调用为准（custom_fields create 成功 = 授权有效）
+```
+
+⚠️ 常见失败：轮询 timeout 太短被杀（用户授权晚于轮询结束）；device_code 与链接不匹配（多次生成导致用户开错链接）；"本次新授予 scopes 为空"是正常的（之前已授予过）。
+
 ---
 
 ## 工具映射
@@ -60,8 +78,23 @@ lark-cli task tasks create --data '{
   "tasklists": [{ "tasklist_guid": "{清单guid}" }]
 }' --as user
 
+# 带 custom_fields 创建（字段须先在该清单创建，格式：guid + 选项 guid）
+lark-cli task tasks create --data '{
+  "summary": "...",
+  "tasklists": [{ "tasklist_guid": "{清单guid}" }],
+  "custom_fields": [
+    { "guid": "{字段guid}", "single_select_value": "{选项guid}" },
+    { "guid": "{字段guid}", "text_value": "CON-R001" }
+  ]
+}' --as user
+
 返回: { task_guid, task_id, url } → ItemRef { itemId: task_guid, key: task_id, url }
 ```
+
+**⚠️ custom_fields 正确格式（实测 2026-08）**：
+- 用 `guid` 引用字段（不是 field_name），单选值用 **选项的 guid**（不是选项名）——用选项名报 "isn't a visible option"
+- 字段必须先在该清单创建（`custom_fields create`，resource_type=tasklist + resource_id=清单guid）
+- 创建字段时选项返回 guid（`single_select_setting.options[].guid`）——保存映射：字段名→guid、选项名→guid
 
 **⚠️ 清单关联是关键**——不关联清单的任务不在任何项目里；custom_fields 也必须在目标清单配置后才能写入。
 

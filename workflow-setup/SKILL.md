@@ -57,11 +57,14 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 - **Linear**：约定 Issue + label `q-item`，自定义字段承载
 - **GitHub**：约定 Issue + labels，结构化信息用 Projects v2 字段
 - **OpenProject**：约定自定义工作项类型"待确认项"（UI 添加：管理 → 工作包类型 → 新建），优先级改 P0/P1/P2（可选）
-- **飞书任务清单（双清单方案）**：指引用户建两个任务清单并记录 guid——
-  - `{项目名}`：ticket 载体，看板列 [待办/进行中/审查中/完成]
-  - `{项目名}-q-item`：Q-items 载体，看板列 [待回答/已回答/已关闭]
-  - 清单内配置自定义字段（UI：字段配置）：优先级（单选 P0/P1/P2）、类型（单选 Story/Bug/Q-item）、编号/共识版本/规则编号/回写位置（文本）——**字段必须先配置，API 才能写入**
-  - 建清单：lark-cli `task tasklists create --data '{"name":"..."}'`；guid 写入团队配置
+- **飞书任务清单（双清单方案）**：全自动初始化（lark-cli）——
+  - 建清单：`task tasklists create --data '{"name":"{项目名}"}'` 和 `--data '{"name":"{项目名}-q-item"}'`，记录 guid
+  - 配字段：`task custom_fields create`（resource_type=tasklist + resource_id=清单guid）：
+    - ticket 清单：优先级（单选 P0/P1/P2）、类型（单选 Story/Bug/Task）、规则编号（文本）
+    - q-item 清单：优先级（单选 P0/P1/P2）、状态（单选 open/answered/closed，或用看板列）、编号（文本）、共识版本（文本）、规则编号（文本）、回写位置（文本）
+  - 选项 guid 在创建时返回，保存 字段名→guid、选项名→guid 映射到团队配置
+  - 若 custom_fields API 不可用（缺授权）→ 降级 extra JSON 承载（见载体适配.md）
+  - 建清单/字段/任务的工具映射见 `story-to-contract/adapters/feishu-task.md`
 - 载体地址写入 `docs/spec/团队配置.md`
 
 ### Phase 5：角色账号登记
