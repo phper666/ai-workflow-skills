@@ -76,6 +76,8 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 
 按载体执行：
 - **飞书任务清单**：`sections list` 查看板列——**默认 6 列即满足**（Backlog/Blocked/Todo/In Progress/Verify/Done），零配置；缺列才**自动创建**（`sections create`）
+  - ⚠️ **新清单自带一个空名默认列**（回归实测 2026-08）：处理方式 = **patch 改名为第一个必需态（Todo）**，再建其余缺失列——**不要删除默认列**（sections delete 是 high-risk-write，需用户 --yes 确认，agent 不得自行确认）
+  - 目标终态：恰好 6 列（Backlog/Blocked/Todo/In Progress/Verify/Done），无多余列
 - **飞书多维表格**：查状态字段单选选项 → 缺则补选项（6 选项）
 - **OpenProject / Linear**：默认状态已含必需态 → 用默认映射，不建
 - **Jira**：查工作流状态 → 缺则**提示用户配置**（Jira 工作流无法 API 创建）
