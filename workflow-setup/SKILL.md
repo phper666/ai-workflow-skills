@@ -71,14 +71,12 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 
 载体建好后**必检**（工作流需要的状态是否就绪，检查清单见 `consensus-scan/references/载体适配.md` 状态就绪检查章节）：
 
-- **Q-items 必需三态**：open（待回答）→ answered（已回答）→ closed（已关闭）
-- **ticket 必需状态**：open（待办）→ in_progress（进行中）→ review（验证/审查）→ done（完成）；backlog/blocked 可选
+- **统一 6 态模板**（双清单共用）：`Backlog → Todo → In Progress → Verify → Done` + `Blocked`
+- **ticket**：完整走 6 态；**Q-items 映射**：open=Todo、answered=Verify、closed=Done
 
 按载体执行：
-- **飞书任务清单**：`sections list` 查看板列 → 缺列**自动创建**（`sections create`）：
-  - q-item 清单补 [待回答/已回答/已关闭]
-  - ticket 清单补 [待办/进行中/验证/完成]（Backlog/Blocked 可选加）
-- **飞书多维表格**：查状态字段单选选项 → 缺则补选项
+- **飞书任务清单**：`sections list` 查看板列——**默认 6 列即满足**（Backlog/Blocked/Todo/In Progress/Verify/Done），零配置；缺列才**自动创建**（`sections create`）
+- **飞书多维表格**：查状态字段单选选项 → 缺则补选项（6 选项）
 - **OpenProject / Linear**：默认状态已含必需态 → 用默认映射，不建
 - **Jira**：查工作流状态 → 缺则**提示用户配置**（Jira 工作流无法 API 创建）
 - **GitHub**：answered 需 label `q-answered` → 缺则自动建 label
