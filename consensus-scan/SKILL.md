@@ -54,6 +54,15 @@ description: 团队 AI 研发工作流中的扫描与待确认闭环：对共识
 - **自动挂载**：`团队配置.md` 有角色账号映射 → 自动 assignee=对应账号（Jira 经办人 / 飞书负责人字段）；无账号 → 指定人名；映射缺失 → 提示登记
 - **不重复创建**：载体中已有同一编号问题 → 更新而非新建
 
+## Phase 4.5：状态流转前置检查
+
+闭环流转（open→answered→closed）前必检：
+
+1. 读 `docs/spec/团队配置.md` 的 `status_map`（抽象状态 → 载体实际状态名/guid）
+2. 缺失或未配置 → **先跑 workflow-setup Phase 4.5（状态就绪检查）**，不静默失败
+3. 状态映射存在 → 按映射流转：answered=移动到"已回答"列（或对应状态）、closed=完成/关闭
+4. 飞书任务场景：answered=移动 section、closed=完成任务（completed_at）或移动到"已关闭"列
+
 ## Phase 5：闭环校验（回答 → 回写 → 复核）
 
 PM（或待确认角色）回答后：
