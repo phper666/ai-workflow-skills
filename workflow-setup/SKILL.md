@@ -27,6 +27,7 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 - Linear 可用 → Linear（Issue + label）
 - GitHub Issues 可用 → GitHub（Issue + labels + Projects v2）
 - `OPENPROJECT_URL` + `OPENPROJECT_API_KEY` 环境变量存在 → OpenProject（自定义类型"待确认项"，用户可在 UI 添加）
+- **飞书任务模块可用（feishu MCP 有 create_task/get_task 或 lark-cli 可用）→ 飞书任务清单（双清单方案，推荐轻量团队）**
 - 飞书 MCP 可用 → 飞书多维表格（**无 PM 平台团队的默认**）
 - 用户明确指定 → 指定优先于检测
 - 载体地址与角色映射写入 `docs/spec/团队配置.md`（不存在则创建）
@@ -56,6 +57,11 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 - **Linear**：约定 Issue + label `q-item`，自定义字段承载
 - **GitHub**：约定 Issue + labels，结构化信息用 Projects v2 字段
 - **OpenProject**：约定自定义工作项类型"待确认项"（UI 添加：管理 → 工作包类型 → 新建），优先级改 P0/P1/P2（可选）
+- **飞书任务清单（双清单方案）**：指引用户建两个任务清单并记录 guid——
+  - `{项目名}`：ticket 载体，看板列 [待办/进行中/审查中/完成]
+  - `{项目名}-q-item`：Q-items 载体，看板列 [待回答/已回答/已关闭]
+  - 清单内配置自定义字段（UI：字段配置）：优先级（单选 P0/P1/P2）、类型（单选 Story/Bug/Q-item）、编号/共识版本/规则编号/回写位置（文本）——**字段必须先配置，API 才能写入**
+  - 建清单：lark-cli `task tasklists create --data '{"name":"..."}'`；guid 写入团队配置
 - 载体地址写入 `docs/spec/团队配置.md`
 
 ### Phase 5：角色账号登记
