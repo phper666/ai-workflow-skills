@@ -72,7 +72,7 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 载体建好后**必检**（工作流需要的状态是否就绪，检查清单见 `consensus-scan/references/载体适配.md` 状态就绪检查章节）：
 
 - **统一 6 态模板**（双清单共用）：`Backlog → Todo → In Progress → Verify → Done` + `Blocked`
-- **ticket**：完整走 6 态；**Q-items 映射**：open=Todo、answered=Verify、closed=Done
+- **ticket**：完整走 6 态；**Q-items 映射**：open=Todo、answered=Verify、closed=Done，**Blocked 对 q-item 同样有效**（等外部确认），复核不通过 Verify→Todo 打回
 
 按载体执行：
 - **飞书任务清单**：`sections list` 查看板列——**默认 6 列即满足**（Backlog/Blocked/Todo/In Progress/Verify/Done），零配置；缺列才**自动创建**（`sections create`）
