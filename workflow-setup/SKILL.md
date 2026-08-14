@@ -32,17 +32,21 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 - 用户明确指定 → 指定优先于检测
 - 载体地址与角色映射写入 `docs/spec/团队配置.md`（不存在则创建）
 
-### Phase 2：模板落地
+### Phase 2：目录与模板来源
 
-从本 skill 引用的其他 skill 读取模板，写入项目（模板内容以对应 skill 的 references 为准）：
+**不复制模板到项目**（模板单一源 = skill 仓库，与 story-to-contract 一致）。只需建目录，生成实际文档时从对应 skill 的 references 读取模板：
 
-| 模板 | 来源 | 落点 |
-|:-----|:-----|:-----|
-| 共识文档 14 节模板 | `consensus-doc/references/模板-共识文档.md` | `docs/spec/模板-共识文档.md` |
-| 变更摘要模板 | `change-propagation/references/模板-变更摘要.md` | `docs/spec/模板-变更摘要.md` |
-| 契约模板 | `story-to-contract/references/api-contract-template.md` | `docs/api/模板-契约文档.md` |
+| 生成什么时 | 模板来源（只读，不复制） |
+|:-----------|:-------------------------|
+| 共识文档（consensus-doc 生成） | `consensus-doc/references/模板-共识文档.md` |
+| 变更摘要（change-propagation 生成） | `change-propagation/references/模板-变更摘要.md` |
+| 契约文档（story-to-contract 生成） | `story-to-contract/references/api-contract-template.md` |
 
-若项目已有自己的文档约定（已有 `docs/` 或 wiki），遵循已有约定，只补缺失文件，不重构已有结构。
+```
+mkdir -p docs/spec docs/api
+```
+
+团队要自定义模板 → 改对应 skill 的 references（git 推送即团队同步），项目内不维护模板副本。存量项目已有复制模板（旧版接入）→ 可删除，不影响已有文档。若项目已有自己的文档约定（已有 `docs/` 或 wiki），遵循已有约定，只补缺失文件，不重构已有结构。
 
 ### Phase 3：规则索引
 
@@ -125,7 +129,7 @@ roles:
 ## 产出确认
 
 完成后向用户汇报：
-- 模板落地位置（3 个文件路径）
+- 文档目录（docs/spec/、docs/api/ 已建；模板不复制进项目，生成时从 skill references 读取）
 - 规则索引起始编号
 - Q-items 载体（平台 + 地址）
 - 角色映射（哪些人已登记，缺账号的标注）
