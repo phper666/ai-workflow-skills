@@ -1,13 +1,13 @@
 ---
-name: workflow-setup
-description: 把任意项目（新项目或已有项目）接入"团队 AI 研发工作流"。当用户说"给这个项目接入研发工作流"、"初始化项目流程"、"搭建共识/契约文档结构"、"登记团队角色"、"配置待确认项载体（Q-items）"、"接入 workflow"、"这个项目要跑共识到契约的流程"时使用。接入完成后项目可立即开始跑共识文档→扫描→待确认闭环→契约→技术方案→实现纪律→交付核验→变更传播→沉淀的全流程。项目已接入过时，重跑本 skill 只会更新配置（幂等），不会破坏已有文档。边界：只做工作流层接入（模板/规则编号/Q-items/角色登记）；工程基线（git/脚手架/测试框架）检查与初始化归 tech-design 工程基线三问，不在此重复。
+name: phper666-teamflow-workflow-setup
+description: 把任意项目（新项目或已有项目）接入"团队 AI 研发工作流"。当用户说"给这个项目接入研发工作流"、"初始化项目流程"、"搭建共识/契约文档结构"、"登记团队角色"、"配置待确认项载体（Q-items）"、"接入 workflow"、"这个项目要跑共识到契约的流程"时使用。接入完成后项目可立即开始跑共识文档→扫描→待确认闭环→契约→技术方案→实现纪律→交付核验→变更传播→沉淀的全流程。项目已接入过时，重跑本 skill 只会更新配置（幂等），不会破坏已有文档。边界：只做工作流层接入（模板/规则编号/Q-items/角色登记）；工程基线（git/脚手架/测试框架）检查与初始化归 phper666-teamflow-tech-design 工程基线三问，不在此重复。
 ---
 
 # 项目接入 AI 研发工作流
 
 把任意项目接入 15 环节研发工作流：需求探索（复杂必产 PRD+原型）→ 共识文档（业务事实源）→ 发布基线 → 跨角色扫描 → 待确认闭环 → 评审 → 拆解 → 契约 → 复核 → 澄清 → **技术方案（判级 + 工程基线三问，复杂必出）** → **实现纪律（分级执行）** → 交付核验（三层）→ 变更传播 → 沉淀。
 
-本 skill 只做**一次性接入**：落地模板、建规则索引、配置载体、登记角色、写导航。接入后的日常动作由其他 skill 承担（`consensus-doc` / `consensus-scan` / `story-to-contract` / `tech-design` / `implement-discipline` / `change-propagation` / `lesson-deposit`）。
+本 skill 只做**一次性接入**：落地模板、建规则索引、配置载体、登记角色、写导航。接入后的日常动作由其他 skill 承担（`phper666-teamflow-consensus-doc` / `phper666-teamflow-consensus-scan` / `phper666-teamflow-story-to-contract` / `phper666-teamflow-tech-design` / `phper666-teamflow-implement-discipline` / `phper666-teamflow-change-propagation` / `phper666-teamflow-lesson-deposit`）。
 
 ## 执行前
 
@@ -48,13 +48,13 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 
 ### Phase 2：目录与模板来源
 
-**不复制模板到项目**（模板单一源 = skill 仓库，与 story-to-contract 一致）。只需建目录，生成实际文档时从对应 skill 的 references 读取模板：
+**不复制模板到项目**（模板单一源 = skill 仓库，与 phper666-teamflow-story-to-contract 一致）。只需建目录，生成实际文档时从对应 skill 的 references 读取模板：
 
 | 生成什么时 | 模板来源（只读，不复制） |
 |:-----------|:-------------------------|
-| 共识文档（consensus-doc 生成） | `consensus-doc/references/模板-共识文档.md` |
-| 变更摘要（change-propagation 生成） | `change-propagation/references/模板-变更摘要.md` |
-| 契约文档（story-to-contract 生成） | `story-to-contract/references/api-contract-template.md` |
+| 共识文档（phper666-teamflow-consensus-doc 生成） | `phper666-teamflow-consensus-doc/references/模板-共识文档.md` |
+| 变更摘要（phper666-teamflow-change-propagation 生成） | `phper666-teamflow-change-propagation/references/模板-变更摘要.md` |
+| 契约文档（phper666-teamflow-story-to-contract 生成） | `phper666-teamflow-story-to-contract/references/api-contract-template.md` |
 
 ```
 mkdir -p docs/spec docs/api
@@ -68,7 +68,7 @@ mkdir -p docs/spec docs/api
 
 ### Phase 4：Q-items 载体配置
 
-按 Phase 1 的载体选择初始化（字段映射细节见 `consensus-scan/references/载体适配.md`，五平台通用字段：编号/问题/优先级/待确认角色/创建人/共识版本/章节/规则编号/状态/回答/回写位置/复核人/创建时间）：
+按 Phase 1 的载体选择初始化（字段映射细节见 `phper666-teamflow-consensus-scan/references/载体适配.md`，五平台通用字段：编号/问题/优先级/待确认角色/创建人/共识版本/章节/规则编号/状态/回答/回写位置/复核人/创建时间）：
 - **飞书多维表格**：建"待确认项"表（类型参考：编号/问题/回答/回写位置=文本，优先级/待确认角色/状态/共识版本=单选，创建人/复核人=人员或文本，章节/规则编号=文本，创建时间=日期）
 - **Jira**：约定 q-item 子任务类型，字段映射到 Jira 自定义字段
 - **TAPD**：约定缺陷类型"待确认项"，自定义字段承载
@@ -82,12 +82,12 @@ mkdir -p docs/spec docs/api
     - q-item 清单：优先级（单选 P0/P1/P2）、状态（单选 open/answered/closed，或用看板列）、编号（文本）、共识版本（文本）、规则编号（文本）、回写位置（文本）
   - 选项 guid 在创建时返回，保存 字段名→guid、选项名→guid 映射到团队配置
   - 若 custom_fields API 不可用（缺授权）→ 降级 extra JSON 承载（见载体适配.md）
-  - 建清单/字段/任务的工具映射见 `story-to-contract/adapters/feishu-task.md`
+  - 建清单/字段/任务的工具映射见 `phper666-teamflow-story-to-contract/adapters/feishu-task.md`
 - 载体地址写入 `docs/spec/团队配置.md`
 
 ### Phase 4.5：状态就绪检查
 
-载体建好后**必检**（工作流需要的状态是否就绪，检查清单见 `consensus-scan/references/载体适配.md` 状态就绪检查章节）：
+载体建好后**必检**（工作流需要的状态是否就绪，检查清单见 `phper666-teamflow-consensus-scan/references/载体适配.md` 状态就绪检查章节）：
 
 - **统一 6 态模板**（双清单共用）：`Backlog → Todo → In Progress → Verify → Done` + `Blocked`
 - **ticket**：完整走 6 态；**Q-items 映射**：open=Todo、answered=Verify、closed=Done，**Blocked 对 q-item 同样有效**（等外部确认），复核不通过 Verify→Todo 打回
@@ -101,7 +101,7 @@ mkdir -p docs/spec docs/api
 - **Jira**：查工作流状态 → 缺则**提示用户配置**（Jira 工作流无法 API 创建）
 - **GitHub**：answered 需 label `q-answered` → 缺则自动建 label
 
-检查结果写入 `docs/spec/团队配置.md` 的 status_map（抽象状态 → 载体实际状态名/guid），供 consensus-scan 闭环使用。缺失且无法自动补的（Jira）→ 明确告知用户配置后重跑本阶段。
+检查结果写入 `docs/spec/团队配置.md` 的 status_map（抽象状态 → 载体实际状态名/guid），供 phper666-teamflow-consensus-scan 闭环使用。缺失且无法自动补的（Jira）→ 明确告知用户配置后重跑本阶段。
 
 ### Phase 5：角色账号登记
 
@@ -117,7 +117,7 @@ roles:
 
 - 不知道账号 → 只记名字，挂载退化为"指定人名"
 - 中途有人加入/换角色 → 直接编辑此文件追加/修改一行即可，无需重跑本 skill
-- 此映射供 `consensus-scan`（问题自动挂载到人）和 `change-propagation`（影响清单指派责任人）使用
+- 此映射供 `phper666-teamflow-consensus-scan`（问题自动挂载到人）和 `phper666-teamflow-change-propagation`（影响清单指派责任人）使用
 
 ### Phase 6：导航与实现管道落地
 
@@ -127,7 +127,7 @@ roles:
 <!-- team-workflow:begin -->
 ## AI 研发工作流（已接入）
 
-- 流程定义见全局 AGENTS.md `team-workflow` 段（ai-workflow-skills 模板）；未加载全局模板 → 跑 workflow-setup 或按 README 加载
+- 流程定义见全局 AGENTS.md `team-workflow` 段（ai-workflow-skills 模板）；未加载全局模板 → 跑 phper666-teamflow-workflow-setup 或按 README 加载
 - 文档地图：docs/spec/（共识、规则索引、团队配置、变更摘要）、docs/api/（契约）、docs/design/（技术方案）、docs/prd/（需求）、docs/prototype/（原型）、docs/lessons/（经验）
 - 载体：Q-items 见 docs/spec/团队配置.md
 - 项目专属：<红线/约定，按项目补充>

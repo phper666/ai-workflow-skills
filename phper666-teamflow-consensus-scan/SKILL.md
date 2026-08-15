@@ -1,5 +1,5 @@
 ---
-name: consensus-scan
+name: phper666-teamflow-consensus-scan
 description: 团队 AI 研发工作流中的扫描与待确认闭环：对共识文档做 BE/FE/QA 三角色扫描（默认一人跑三角色，--role 单视角）、AI 查重聚类、合并扫描报告、创建/更新/闭环待确认项（Q-items，载体飞书多维表格或 Jira）、复盘重复问题升级为扫描规则。当用户说"扫描共识文档"、"我是 BE/FE/QA 扫描一下"、"合并扫描报告"、"处理待确认项"、"闭环待确认项"、"Q-0xx 怎么处理"、"复盘扫描规则"时使用。也用于 PM 反向提问（PM 建问题给 BE/FE/QA 确认）。
 ---
 
@@ -17,7 +17,7 @@ description: 团队 AI 研发工作流中的扫描与待确认闭环：对共识
 
 输入：共识文档（当前版本）。
 
-按视角扫描（维度与 `story-to-contract` Phase 4 一致，直接复用其问题分类语义）：
+按视角扫描（维度与 `phper666-teamflow-story-to-contract` Phase 4 一致，直接复用其问题分类语义）：
 
 | 视角 | 检查重点 |
 |:-----|:---------|
@@ -59,7 +59,7 @@ description: 团队 AI 研发工作流中的扫描与待确认闭环：对共识
 闭环流转（open→answered→closed）前必检：
 
 1. 读 `docs/spec/团队配置.md` 的 `status_map`（抽象状态 → 载体实际状态名/guid）
-2. 缺失或未配置 → **先跑 workflow-setup Phase 4.5（状态就绪检查）**，不静默失败
+2. 缺失或未配置 → **先跑 phper666-teamflow-workflow-setup Phase 4.5（状态就绪检查）**，不静默失败
 3. 状态映射存在 → 按映射流转：answered=移动到"已回答"列（或对应状态）、closed=完成/关闭
 4. 飞书任务场景：answered=移动 section、closed=完成任务（completed_at）或移动到"已关闭"列
 

@@ -1,9 +1,9 @@
 ## 团队 AI 工作流路由（调度层）
 
 **团队模式判定**：会话所在项目 `AGENTS.md` 含 `<!-- team-workflow -->` 标记或存在 `docs/spec/` → 团队流程可用。
-- 团队流程定义在**全局 AGENTS.md 的 `team-workflow` 段**（ai-workflow-skills 模板生成，安装时加载）；orchestrator 按 skill 名路由（`consensus-doc` `consensus-scan` `story-to-contract` `tech-design` `implement-discipline` `change-propagation` `lesson-deposit`），不重复定义管道细节。
-- **守卫**：团队模式已判定但全局 AGENTS.md 无 `team-workflow` 段 → 流程不可用，显式提示"加载 ai-workflow-skills 全局模板或跑 workflow-setup"，不静默降级。
-- **未接入**：团队流程需求（模糊新需求/卡片/TDD/契约变更等）且项目未接入 → 自动加载 `workflow-setup` 接入，再走团队流程。
+- 团队流程定义在**全局 AGENTS.md 的 `team-workflow` 段**（ai-workflow-skills 模板生成，安装时加载）；orchestrator 按 skill 名路由（`phper666-teamflow-consensus-doc` `phper666-teamflow-consensus-scan` `phper666-teamflow-story-to-contract` `phper666-teamflow-tech-design` `phper666-teamflow-implement-discipline` `phper666-teamflow-change-propagation` `phper666-teamflow-lesson-deposit`），不重复定义管道细节。
+- **守卫**：团队模式已判定但全局 AGENTS.md 无 `team-workflow` 段 → 流程不可用，显式提示"加载 ai-workflow-skills 全局模板或跑 phper666-teamflow-workflow-setup"，不静默降级。
+- **未接入**：团队流程需求（模糊新需求/卡片/TDD/契约变更等）且项目未接入 → 自动加载 `phper666-teamflow-workflow-setup` 接入，再走团队流程。
 - **版本嗅探**：`team-workflow` 段版本 < ai-workflow-skills 模板版本 → 提示重载全局模板。
 
 ## 独立任务并发路由（通用调度）
@@ -32,7 +32,7 @@
 ## 通用工程纪律（与团队无关，所有项目适用）
 
 - 明确小任务 → 直接派 fixer，不走全流程
-- Bug 排查 → fixer + `diagnosing-bugs`；踩坑可选 `lesson-deposit`
+- Bug 排查 → fixer + `diagnosing-bugs`；踩坑可选 `phper666-teamflow-lesson-deposit`
 - 架构改进 → fixer + `codebase-design`
 - 非平凡逻辑（分支/循环/解析器/资金/安全路径）必须 TDD，不得跳过
 - 不要先问用户"要不要走 spec 流程"——按规则自动判断

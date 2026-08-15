@@ -1,7 +1,7 @@
 interface:
   display_name: "Story 转接口契约"
   short_description: "从 PM 工具工作项、共识文档和代码生成接口契约，支持多平台"
-  default_prompt: "作为后端开发者，使用 $story-to-contract 读取工作项、共识、待确认项、代码、Flyway、OpenAPI 和相关契约，生成或增量完善同一路径的可联调接口契约；没有未关闭 P0 时询问是否创建后端实现子任务。"
+  default_prompt: "作为后端开发者，使用 $phper666-teamflow-story-to-contract 读取工作项、共识、待确认项、代码、Flyway、OpenAPI 和相关契约，生成或增量完善同一路径的可联调接口契约；没有未关闭 P0 时询问是否创建后端实现子任务。"
 
 dependencies:
   tools:

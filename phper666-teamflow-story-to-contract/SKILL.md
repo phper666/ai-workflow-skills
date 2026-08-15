@@ -1,5 +1,5 @@
 ---
-name: story-to-contract
+name: phper666-teamflow-story-to-contract
 description: 从项目管理工具的工作项（Story/Task/Bug）和仓库共识文档+现有代码生成或更新前后端共享的接口契约文档。支持对同一工作项重复执行并按当前共识、待确认项决策、代码、OpenAPI 和其他契约增量收敛已有文档。没有未关闭 P0 时询问是否创建后端实现子任务。用户明确要求创建时，即使存在 P0 也可在风险预览和二次确认后创建一个受阻子任务。默认不修改工作项状态、不提交或推送 Git。当前适配：Jira、TAPD。也用于契约复核模式（用户说"复核这个契约，我是 FE/QA"）和交付核验模式（用户说"XX 开发完了，核验"、"提测，按契约核验"）。
 ---
 
@@ -213,9 +213,9 @@ docs/api/{platform}-{item_id}-api-contract.md
 
 - FE 视角：联调可用性（字段覆盖、错误处理、示例、Mock/OpenAPI 一致、分页/时间语义）
 - QA 视角：可测试性（成功+失败场景、边界值、验收编号绑定、可直接执行）
-- 只查实现契约问题，**不重新猜测产品规则**；产品规则疑点转待确认闭环（consensus-scan），不在此解决
+- 只查实现契约问题，**不重新猜测产品规则**；产品规则疑点转待确认闭环（phper666-teamflow-consensus-scan），不在此解决
 - 输出：通过（契约置已冻结）/ 退回（意见清单，BE 修改后重新复核）/ 阻断问题登记开放问题
-- **通过后衔接**：契约冻结完成 → 下一步按 `tech-design` 判级——复杂/高风险需求（状态机、安全/权限/资金/数据、多模块、greenfield、外部系统集成）先产出 `docs/design/<id>-<module>-design.md` 技术方案并经评审，再进入实现；常规/简单需求直接进入实现
+- **通过后衔接**：契约冻结完成 → 下一步按 `phper666-teamflow-tech-design` 判级——复杂/高风险需求（状态机、安全/权限/资金/数据、多模块、greenfield、外部系统集成）先产出 `docs/design/<id>-<module>-design.md` 技术方案并经评审，再进入实现；常规/简单需求直接进入实现
 
 ## Phase 8：交付与可选 PM 回写
 
@@ -282,7 +282,7 @@ docs/api/{platform}-{item_id}-api-contract.md
 
 ### ① 设计核验（对照技术方案）
 
-仅当存在技术方案文档（`docs/design/<id>-<module>-design.md`，见 tech-design skill）时执行：
+仅当存在技术方案文档（`docs/design/<id>-<module>-design.md`，见 phper666-teamflow-tech-design skill）时执行：
 
 1. 对照技术方案逐项核验：架构决策、模块划分、关键机制落地情况——用代码证据，不凭印象
 2. 输出偏离清单：实现与设计方案的每处差异 + 处理结论
@@ -301,7 +301,7 @@ docs/api/{platform}-{item_id}-api-contract.md
 
 ### ③ PRD/业务核验（对照 PRD + 原型）
 
-产品需求产物 = **PRD + 原型**（UI 类需求），两者构成需求回溯链起点。复杂任务应在需求探索阶段产出（tech-design 前置）：
+产品需求产物 = **PRD + 原型**（UI 类需求），两者构成需求回溯链起点。复杂任务应在需求探索阶段产出（phper666-teamflow-tech-design 前置）：
 
 - **复杂任务：PRD/原型缺失 = 阻断**——需求不可回溯，补产后再核验（不静默放行）
 - **常规任务/存量需求**：缺失时标记“无 PRD/原型”，不阻塞但记录
@@ -309,14 +309,14 @@ docs/api/{platform}-{item_id}-api-contract.md
 核对清单：
 
 1. **产物存在性**：PRD 存在？原型存在（UI 类）？
-2. **判级匹配**：实际实现复杂度 vs tech-design 判级声明——防“该走复杂的走了常规”（实现是否跳过了本应执行的实现纪律）
-3. **实现纪律执行核对（执行钩子）**：implement-discipline 各环节证据——测试覆盖核心路径（单测 + 该有的集成测试）？lint 记录？review 无新增问题？semgrep 0 或已记录降级？（此核对归实现纪律一处管，不重复建 TDD 合规体系）
+2. **判级匹配**：实际实现复杂度 vs phper666-teamflow-tech-design 判级声明——防“该走复杂的走了常规”（实现是否跳过了本应执行的实现纪律）
+3. **实现纪律执行核对（执行钩子）**：phper666-teamflow-implement-discipline 各环节证据——测试覆盖核心路径（单测 + 该有的集成测试）？lint 记录？review 无新增问题？semgrep 0 或已记录降级？（此核对归实现纪律一处管，不重复建 TDD 合规体系）
 4. **需求落实核对**：PRD 需求逐项落实 + 原型交互/流程落实（有 PRD/原型时）
 
 输出：核对清单结果 + 缺口 → 补做或记录偏差。
-5. 有复用价值的实现决策/踩坑写入“决策与踩坑”章节（可复用才写，不写过程叙述），并同步候选 lessons（见 lesson-deposit skill 三硬标准）
+5. 有复用价值的实现决策/踩坑写入“决策与踩坑”章节（可复用才写，不写过程叙述），并同步候选 lessons（见 phper666-teamflow-lesson-deposit skill 三硬标准）
 
-偏差处理结论必须是可追踪的：记录在契约变更记录中，涉及共识语义的偏差先升级共识（consensus-scan 闭环）再改契约。
+偏差处理结论必须是可追踪的：记录在契约变更记录中，涉及共识语义的偏差先升级共识（phper666-teamflow-consensus-scan 闭环）再改契约。
 
 **核验通过 = 设计核验无偏离（或已显式记录）+ 契约核验零偏差 + ③ 核对清单无阻断项**（复杂任务 PRD/原型已补产、判级匹配、实现纪律证据齐），之后才可宣称交付完成、进入沉淀。
 

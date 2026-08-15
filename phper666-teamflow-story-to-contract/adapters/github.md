@@ -123,4 +123,4 @@ github_list_issues({ owner, repo, state: "open", labels: "q-item" })
 - 载体：Issue + labels（`q-item`、`q-p0`/`q-p1`/`q-p2`、`q-be`/`q-fe`/`q-qa`/`q-pm`）
 - 结构化信息（共识版本/规则编号/回写位置）：Projects v2 自定义字段（需 UI 配置）或 issue body 约定格式
 - answered 态：label `q-answered`
-- 详见 `consensus-scan/references/载体适配.md`
+- 详见 `phper666-teamflow-consensus-scan/references/载体适配.md`

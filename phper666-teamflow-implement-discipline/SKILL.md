@@ -1,5 +1,5 @@
 ---
-name: implement-discipline
+name: phper666-teamflow-implement-discipline
 description: 实现纪律（分级执行）：复杂需求完整流水线（TDD 核心路径 → lint 单遍 → Code Review → Semgrep 有则跑），常规需求轻量检查（lint 单次 + 工程基线三问复核），安全敏感需求强制安全扫描。工具可降级（lint/ocr/semgrep 缺失时跳过并记录，安全敏感例外）。原生实现，不依赖任何外部 skill 编排。当用户说"开始实现"、"写代码"、"实现这个功能"、或技术方案/契约已冻结进入实现阶段时使用。角色中立：不绑定任何具体 agent/平台角色。
 ---
 
@@ -9,7 +9,7 @@ description: 实现纪律（分级执行）：复杂需求完整流水线（TDD 
 
 ## 判级分流
 
-按 tech-design 判级矩阵进入：
+按 phper666-teamflow-tech-design 判级矩阵进入：
 
 | 级别 | 实现纪律 |
 |:-----|:---------|
@@ -58,12 +58,12 @@ description: 实现纪律（分级执行）：复杂需求完整流水线（TDD 
 
 - 复杂：测试覆盖核心路径（单测 + 该有的集成测试）+ lint 干净 + review 无新增问题 + semgrep 0（或已记录降级）
 - 常规：lint 干净 + 三问复核通过
-- 完成后进入交付核验（story-to-contract：设计/契约/PRD 三层核验）
+- 完成后进入交付核验（phper666-teamflow-story-to-contract：设计/契约/PRD 三层核验）
 
 ## 纪律
 
 - **原生实现**：本 skill 为完整内化实现，不调用外部编排体系（如 feature-pipeline 等）的 skill；工具（tdd 方法论、ocr 等）只作等价工具引用
 - 不设多轮强制循环：lint/review/semgrep 各一遍，不过则修到干净，不搞轮次仪式
 - 检查结果（测试/lint/review/扫描）记录在实现记录或核验记录，交付核验时核对（执行钩子）
-- 实现中发现的契约/共识语义问题 → 走对应闭环（契约走 story-to-contract 更新流程，共识走 consensus-scan Q-items），不静默绕过
-- 可复用的实现决策/踩坑 → 候选 lessons（lesson-deposit 三硬标准）
+- 实现中发现的契约/共识语义问题 → 走对应闭环（契约走 phper666-teamflow-story-to-contract 更新流程，共识走 phper666-teamflow-consensus-scan Q-items），不静默绕过
+- 可复用的实现决策/踩坑 → 候选 lessons（phper666-teamflow-lesson-deposit 三硬标准）

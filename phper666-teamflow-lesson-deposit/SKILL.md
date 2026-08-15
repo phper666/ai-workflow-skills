@@ -1,11 +1,11 @@
 ---
-name: lesson-deposit
+name: phper666-teamflow-lesson-deposit
 description: 经验沉淀（lessons）：只沉淀有用的——可复用设计决策、踩坑记录、可复用模式，写入 docs/lessons/<date>-<slug>.md。三硬标准过滤（可复用/非显而易见/有代价），引用计数自证（90 天无引用自动 archived），不依赖人工审核。当用户说"沉淀"、"记录经验"、"踩坑记录"、"教训"、"这个坑记一下"、或交付核验通过后需要知识回写时使用。角色中立：不绑定任何具体 agent/平台角色。
 ---
 
 # 经验沉淀（lessons）
 
-沉淀是事后经验（踩坑/教训/可复用模式），与事前决策（tech-design 技术方案）是两类产物，不混。**决策让人拍板，沉淀让时间验证。**
+沉淀是事后经验（踩坑/教训/可复用模式），与事前决策（phper666-teamflow-tech-design 技术方案）是两类产物，不混。**决策让人拍板，沉淀让时间验证。**
 
 ## 写之前：三硬标准（全中才写）
 
@@ -41,9 +41,9 @@ description: 经验沉淀（lessons）：只沉淀有用的——可复用设计
 
 ## 触发时机
 
-- 交付核验通过后：实现决策/踩坑的候选 lessons（story-to-contract 交付核验"决策与踩坑"章节同步候选）
+- 交付核验通过后：实现决策/踩坑的候选 lessons（phper666-teamflow-story-to-contract 交付核验"决策与踩坑"章节同步候选）
 - 踩坑当时：用户说"这个坑记一下"、"记个教训"
-- 复盘时：consensus-scan 复盘升级顺带审 lessons 质量（重复/过时的归档）
+- 复盘时：phper666-teamflow-consensus-scan 复盘升级顺带审 lessons 质量（重复/过时的归档）
 
 ## 纪律
 
