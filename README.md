@@ -11,7 +11,8 @@
 | `consensus-scan` | BE·FE·QA·PM | 三角色扫描（默认自动切换视角）+ 待确认项创建/闭环 + 复盘升级扫描规则 | "扫描共识文档" / "处理待确认项" |
 | `story-to-contract` | BE（FE/QA 复核） | 契约生成/幂等更新/复核/澄清/子任务创建/交付核验（设计核验 + 契约核验双核验） | "为 DH-12 生成契约" |
 | `change-propagation` | AI+责任人 | 变更传播：变更摘要 → 影响定位 → 分级处理 → 影响清单 → 待复核闭环 | "R012 改了，传播一下" |
-| `tech-design` | 实现角色 | 技术方案分级：复杂/高风险需求产出 docs/design/<id>-<module>-design.md 供评审与回验对照；常规/简单跳过 | "出个技术方案" |
+| `tech-design` | 实现角色 | 技术方案分级：复杂/高风险需求产出 docs/design/<id>-<module>-design.md 供评审与回验对照；常规/简单跳过；复杂任务前置需求探索（PRD+原型必产）；工程基线三问 | "出个技术方案" |
+| `implement-discipline` | 实现角色 | 实现纪律（分级）：复杂完整流水线（TDD/lint/Review/Semgrep），常规轻量检查；工具可降级；安全敏感强制扫描 | "开始实现" |
 | `lesson-deposit` | 实现角色 | 经验沉淀：三硬标准过滤 + 引用计数自证（90 天无引用 archived），docs/lessons/ | "这个坑记一下" |
 
 依赖：本仓库同时是**共享扫描规则库**的分发渠道——经验升级为扫描规则后提交到 `consensus-scan/references/扫描规则库.md` 共享区，团队成员 pull 即同步生效。
@@ -72,19 +73,24 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.claude/skills/<skill-name>
 | 实现 | implement / tdd | 契约冻结后先按级别出技术方案（tech-design，复杂需求）→ 实现 → 交付核验模式（设计核验 + 契约核验） |
 | 知识沉淀 | docs/spec/lessons/ | docs/lessons/ + lesson-deposit（三硬标准 + 引用计数自证） + 契约"决策与踩坑" |
 
-衔接点：契约冻结后 → tech-design 判级（复杂需求出技术方案）→ 用 implement/tdd 实现 → story-to-contract 交付核验模式（①设计核验对照技术方案 ②契约核验对照契约）。已有项目接入顺序：project-onboarding（工程基线）→ workflow-setup（工作流层）。
+衔接点：契约冻结后 → tech-design 判级（复杂需求：需求探索产 PRD+原型 → 工程基线三问 → 出技术方案）→ implement-discipline 实现纪律 → story-to-contract 交付核验模式（①设计核验对照技术方案 ②契约核验对照契约 ③PRD/业务核验）。已有项目接入顺序：project-onboarding（工程基线）→ workflow-setup（工作流层）。
 
 ## 流程对应
 
-12 步流程 → skill 映射：
+15 环节流程 → skill 映射：
 
 ```
-1 建共识 ─2 发基线 ─3 扫描 ─4 PM闭环 ─5 评审 ─6 拆解 ─7 契约 ─8 复核 ─9 澄清 ─10 核验 ─11 传播 ─12 沉淀
-   [consensus-doc]    [consensus-scan]    [consensus-doc]  [story-to-contract]     [change-     [lesson-deposit]
-                       + consensus-doc                       + tech-design(复杂)    propagation   + consensus-scan
-                                                              + consensus-scan
+前置0 需求探索 ─1 建共识 ─2 发基线 ─3 扫描 ─4 PM闭环 ─5 评审 ─6 拆解 ─7 契约 ─8 复核 ─9 澄清
+  [consensus-doc]  [consensus-doc]   [consensus-scan]  [consensus-doc]  [story-to-contract]
+  （PRD+原型必产，复杂）
+
+★技术方案 ─●实现纪律 ─10 交付核验(三层) ─11 传播 ─12 沉淀
+  [tech-design]  [implement-        [story-to-contract]   [change-     [lesson-deposit]
+   判级+工程基线]  discipline]       ①设计 ②契约 ③PRD     propagation]  + consensus-scan
 ```
 
-- 契约复核（步骤 8）后：tech-design 判级——复杂/高风险需求出技术方案（docs/design/）并经评审，常规/简单直接进实现
-- 交付核验（步骤 10）：双核验——①设计核验（对照技术方案，无方案则跳过）→ ②契约核验（对照契约）
+- 前置 0（复杂需求）：需求探索——PRD + 交互原型（UI 类）必产，回溯链起点
+- 契约复核（步骤 8）后：tech-design 判级（复杂/常规/安全敏感）+ 工程基线三问（git/脚手架/测试框架）+ 技术栈决策（选择题+填空，评审兜底）
+- 实现（●）：implement-discipline 分级执行——复杂：TDD 核心路径 → lint → Review → Semgrep；常规：lint 单次；安全敏感：强制安全扫描；工具可降级（安全敏感例外）
+- 交付核验（步骤 10）：三层——①设计核验（对照技术方案，无方案跳过）②契约核验（对照契约）③PRD/业务核验（PRD+原型落实 + 实现纪律执行核对）
 - 沉淀（步骤 12）：lesson-deposit 三硬标准入库，引用计数自证，90 天无引用 archived；consensus-scan 复盘顺带审质量
