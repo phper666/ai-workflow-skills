@@ -5,9 +5,9 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 
 # 项目接入 AI 研发工作流
 
-把任意项目接入 12 步研发工作流：共识文档（业务事实源）→ 跨角色扫描 → 待确认闭环 → 评审 → 拆解 → 契约 → 复核 → 澄清 → 开发核验 → 变更传播 → 沉淀。
+把任意项目接入 13 步研发工作流：共识文档（业务事实源）→ 跨角色扫描 → 待确认闭环 → 评审 → 拆解 → 契约 → 复核 → 澄清 → **技术方案（判级，复杂必出）** → 开发核验 → 变更传播 → 沉淀。
 
-本 skill 只做**一次性接入**：落地模板、建规则索引、配置载体、登记角色、写导航。接入后的日常动作由其他 skill 承担（`consensus-doc` / `consensus-scan` / `story-to-contract` / `change-propagation`）。
+本 skill 只做**一次性接入**：落地模板、建规则索引、配置载体、登记角色、写导航。接入后的日常动作由其他 skill 承担（`consensus-doc` / `consensus-scan` / `story-to-contract` / `tech-design` / `change-propagation` / `lesson-deposit`）。
 
 ## 执行前
 
