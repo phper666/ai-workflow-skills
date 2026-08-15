@@ -19,6 +19,20 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 
 ## Phases
 
+### Phase 0.5：全局就位检查（安装时自动，用户零手动复制）
+
+检查环境级工作流文件是否就位，缺失则询问后自动加载（**写入全局配置前必须询问用户**）：
+
+1. **全局 AGENTS.md**（`~/.config/opencode/AGENTS.md`，无则创建）：
+   - 无 `<!-- team-workflow -->` 段 → 询问"加载团队流程全局模板？（Y/n）" → 将 `ai-workflow-skills/templates/AGENTS.global.md` 全文追加（或写入空文件）
+   - 有段但版本号 < 模板版本（`templates/AGENTS.global.md` 的 begin 标记内版本）→ 提示"模板已更新"，询问是否替换段内容
+2. **opencode + slim 调度层**（检测 `~/.config/opencode/oh-my-opencode-slim/` 存在）：
+   - `orchestrator_append.md` 不存在 → 询问"安装调度层（orchestrator-append）？" → 从 `templates/orchestrator-append.md` 复制
+   - 已存在 → 提示差异（模板版本落后时可询问替换，原文件先备份 `.bak.<timestamp>`）
+3. **通用平台（无 slim）**：跳过 2，仅 1 生效——团队流程已在全局 AGENTS.md，调度层仅 opencode+slim 需要
+
+> 模板单一源 = `ai-workflow-skills/templates/`（git 版本化）；本阶段只做"加载/替换"，不修改模板本体。仓库尚未 clone 到本地时 → 提示先 `git clone git@github.com:phper666/ai-workflow-skills.git`（或按 README 安装）。
+
 ### Phase 1：环境检测
 
 检测当前会话可用工具，决定载体（**原则：Q-items 载体 = 团队现有 PM 平台，同平台管理，推广阻力最小**）：
