@@ -105,11 +105,12 @@ roles:
 - 中途有人加入/换角色 → 直接编辑此文件追加/修改一行即可，无需重跑本 skill
 - 此映射供 `consensus-scan`（问题自动挂载到人）和 `change-propagation`（影响清单指派责任人）使用
 
-### Phase 6：导航落地
+### Phase 6：导航与实现管道落地
 
-在项目 `AGENTS.md`（无则创建）写工作流入口段：
+在项目 `AGENTS.md`（无则创建）写工作流段（导航 + 实现管道，**用 `<!-- team-workflow:begin/end -->` 标记包裹**）：
 
 ```markdown
+<!-- team-workflow:begin -->
 ## AI 研发工作流（已接入）
 - 建立/更新共识文档 → consensus-doc
 - 扫描共识 / 处理待确认项 → consensus-scan
@@ -120,7 +121,25 @@ roles:
 - 共识规则变更传播 → change-propagation
 - 文档地图：docs/spec/（共识、规则索引、团队配置、变更摘要）、docs/api/（契约）、docs/design/（技术方案）、docs/prd/（需求）、docs/prototype/（原型）、docs/lessons/（经验）
 - 载体：Q-items 见 docs/spec/团队配置.md
+
+### 实现阶段管道（强制，三层保险）
+子需求实现必须按序执行，缺一不可：
+1. **实现** → implement-discipline（复杂需求 TDD 核心路径；非平凡逻辑不得跳过）
+2. **lint + type-check** → 自动跑，报错修复到干净
+3. **Code Review** → ocr review（或团队既有机制）→ 高/中问题修复 → 重审无新增
+4. **Semgrep** → 有则跑；无则核验记录记风险项
+5. **留痕** → 产出「实现记录/核验记录」文件（测试/lint/review/扫描结果）
+6. **交付核验** → story-to-contract 核验模式对照验收标准（设计/契约/PRD 三层）
+7. **沉淀** → lesson-deposit（三硬标准过滤）
+<!-- team-workflow:end -->
 ```
+
+写入规则（幂等 + 可回滚）：
+- 已有 `team-workflow` 标记 → **只替换标记内的内容**（更新不追加）
+- 无标记 → 在文件末尾追加标记段，不动已有内容；若发现旧版未标记导航段（标题「AI 研发工作流（已接入）」）→ 合并进标记段后移除旧段
+- 可回滚：删除标记段即完整移除，无残留
+
+可选（**写入前必须向用户确认**）：将「实现阶段管道」段同时写入全局 `~/.config/opencode/AGENTS.md`——所有项目生效，内容与项目段一致。
 
 ### Phase 7：存量模式（--existing 或项目已有存量文档）
 
@@ -141,6 +160,6 @@ roles:
 
 ## 纪律
 
-- **幂等**：重跑只更新配置，不重建模板、不覆盖已有文档、不产生 -v2 副本
+- **幂等**：重跑只更新配置，不重建模板、不覆盖已有文档、不产生 -v2 副本；AGENTS.md 段靠 `team-workflow` 标记去重（有标记替换、无标记追加），重复跑不产生重复段
 - 接入动作只写以上 5 类文件，**不碰**项目业务代码和已有业务文档
 - 载体选择一旦定下尽量不变；确需更换时只迁移 Q-items 数据（共识/契约文档在 git/wiki 中不受影响），流程逻辑不变
