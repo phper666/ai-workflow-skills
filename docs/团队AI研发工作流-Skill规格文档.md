@@ -10,14 +10,14 @@
 
 | # | Skill | 角色 | 步骤 | 写权 | 触发短语 |
 |:--|:------|:-----|:-----|:-----|:---------|
-| 1 | `workflow-setup` | 初始化者 | 接入 | 模板+AGENTS.md | "给这个项目接入研发工作流" |
-| 2 | `consensus-doc` | PM | 1, 2, 5, 6-PM侧 | `docs/spec/` | "建立这个模块的共识文档" / "评审前检查" / "拆解子需求" |
-| 3 | `consensus-scan` | BE·FE·QA·PM | 3, 4, 12-规则升级 | Q-items 载体 | "扫描共识文档" / "合并扫描报告" / "闭环待确认项" |
-| 4 | `story-to-contract` | BE（FE/QA 复核） | 6-BE侧, 7, 8, 9, 10, 12-文档侧 | `docs/api/` | "为 DH-12 生成契约" / "更新契约" / "交付核验" |
-| 5 | `change-propagation` | AI+责任人 | 11, 12-团队侧 | 影响清单 | "共识规则改了，传播一下" |
-| 6 | `tech-design` | 实现角色 | 0(复杂), 8 后, 10-设计核验 | `docs/design/` + `docs/prd/` + `docs/prototype/` | "出个技术方案" / "怎么实现" |
-| 7 | `implement-discipline` | 实现角色 | 实现环节（技术方案后/常规直达） | 实现记录 | "开始实现" |
-| 8 | `lesson-deposit` | 实现角色 | 10 后, 12 | `docs/lessons/` | "这个坑记一下" / "沉淀" |
+| 1 | `phper666-teamflow-workflow-setup` | 初始化者 | 接入 | 模板+AGENTS.md | "给这个项目接入研发工作流" |
+| 2 | `phper666-teamflow-consensus-doc` | PM | 1, 2, 5, 6-PM侧 | `docs/spec/` | "建立这个模块的共识文档" / "评审前检查" / "拆解子需求" |
+| 3 | `phper666-teamflow-consensus-scan` | BE·FE·QA·PM | 3, 4, 12-规则升级 | Q-items 载体 | "扫描共识文档" / "合并扫描报告" / "闭环待确认项" |
+| 4 | `phper666-teamflow-story-to-contract` | BE（FE/QA 复核） | 6-BE侧, 7, 8, 9, 10, 12-文档侧 | `docs/api/` | "为 DH-12 生成契约" / "更新契约" / "交付核验" |
+| 5 | `phper666-teamflow-change-propagation` | AI+责任人 | 11, 12-团队侧 | 影响清单 | "共识规则改了，传播一下" |
+| 6 | `phper666-teamflow-tech-design` | 实现角色 | 0(复杂), 8 后, 10-设计核验 | `docs/design/` + `docs/prd/` + `docs/prototype/` | "出个技术方案" / "怎么实现" |
+| 7 | `phper666-teamflow-implement-discipline` | 实现角色 | 实现环节（技术方案后/常规直达） | 实现记录 | "开始实现" |
+| 8 | `phper666-teamflow-lesson-deposit` | 实现角色 | 10 后, 12 | `docs/lessons/` | "这个坑记一下" / "沉淀" |
 
 **覆盖矩阵**（15 环节全部有家，无孤儿）：
 
@@ -29,11 +29,11 @@
                          工程基线]    执行]       ①设计②契约③PRD
 ```
 
-**协作方式**：skill 间通过文档路径 + 模板传递上下文；`change-propagation` 编排"重跑"其他 skill 的既有 phase，**不复制逻辑**。
+**协作方式**：skill 间通过文档路径 + 模板传递上下文；`phper666-teamflow-change-propagation` 编排"重跑"其他 skill 的既有 phase，**不复制逻辑**。
 
 ---
 
-## 1. `workflow-setup` — 接入胶水（最薄）
+## 1. `phper666-teamflow-workflow-setup` — 接入胶水（最薄）
 
 **定位**：把一个新项目或已有项目接入本流程，一次性完成。跑完即"可开工"。
 
@@ -55,7 +55,7 @@
 
 ---
 
-## 2. `consensus-doc` — 共识生命周期（PM 侧上游）
+## 2. `phper666-teamflow-consensus-doc` — 共识生命周期（PM 侧上游）
 
 **定位**：PM 对共识文档的完整上游生命周期：建立 → 发布 → 评审 → 拆解。一个模块一个文档，四件事串成线。
 
@@ -73,7 +73,7 @@
 
 ---
 
-## 3. `consensus-scan` — 扫描与待确认闭环（团队）
+## 3. `phper666-teamflow-consensus-scan` — 扫描与待确认闭环（团队）
 
 **定位**：步骤 3-4 的执行器：三角色扫描 → 去重聚类 → 待确认项创建 → 闭环回写校验；兼步骤 12 的"重复问题升级为扫描规则"。
 
@@ -83,7 +83,7 @@
 1. **扫描（模式双支持，结果一致）**：
    - 默认：单人跑三角色（agent 依次切换 BE/FE/QA 视角扫同一文档）
    - `--role=X`：单角色跑（各自会话异步执行）
-   - 扫描维度复用 story-to-contract Phase 4（范围/状态/字段/接口/数据/外部系统/验收）
+   - 扫描维度复用 phper666-teamflow-story-to-contract Phase 4（范围/状态/字段/接口/数据/外部系统/验收）
    - 问题格式统一：`[BLOCKER][Q-012][后端/产品] <问题>`
 2. **去重聚类**：按待确认项编号去重；已被共识/决策/代码回答的自动关闭；区分 P0/P1/P2 + Blocker/Major/Minor；问题绑定共识版本+章节+规则编号
 3. **merge 收口**（分角色跑后）：合并三角色报告，交叉引用，出合并问题集
@@ -101,7 +101,7 @@
 
 ---
 
-## 4. `story-to-contract` — 契约枢纽（BE 侧，已存在）
+## 4. `phper666-teamflow-story-to-contract` — 契约枢纽（BE 侧，已存在）
 
 **定位**：已实现的契约生命周期执行器，本方案**保留 + 微调**。核心能力（生成/复核/澄清/幂等更新/子任务创建）不动。
 
@@ -118,7 +118,7 @@
 
 ---
 
-## 5. `change-propagation` — 变更传播（AI + 责任人）
+## 5. `phper666-teamflow-change-propagation` — 变更传播（AI + 责任人）
 
 **定位**：步骤 11 的执行器 + 步骤 12 团队侧。上游共识变化 → 影响显性化 → 下游收敛 → 复核闭环。
 
@@ -128,8 +128,8 @@
 1. **变更摘要**：识别规则编号、旧结论、新结论、生效时间（复用 `docs/spec/模板-变更摘要.md`）
 2. **影响定位**：沿规则编号 grep 引用——子需求、契约（`docs/api/`）、测试场景；引用缺失时退化为全量通知+人工确认（不建图谱系统）
 3. **重跑编排**（不复制逻辑）：
-   - 受影响契约 → 按 story-to-contract 幂等更新语义重跑收敛
-   - 受影响子需求/测试 → 按 consensus-scan 定位待确认/测试影响
+   - 受影响契约 → 按 phper666-teamflow-story-to-contract 幂等更新语义重跑收敛
+   - 受影响子需求/测试 → 按 phper666-teamflow-consensus-scan 定位待确认/测试影响
 4. **影响清单 + 待复核标记**：产出影响清单（产物/责任人/状态），责任人确认后解除待复核
 5. **闭环确认**：**复核完成前不可宣称交付完成**；变更完成后更新 Jira 相关条目状态
 
@@ -139,7 +139,7 @@
 
 ## 6. Q-items 平台适配层
 
-复用 story-to-contract 的适配器模式（`adapters/interface.md`：parseUrl / readItem / createItem / addComment / getCurrentUser / listItems）。
+复用 phper666-teamflow-story-to-contract 的适配器模式（`adapters/interface.md`：parseUrl / readItem / createItem / addComment / getCurrentUser / listItems）。
 
 | 平台 | 载体 | 状态 |
 |:-----|:-----|:-----|
@@ -153,22 +153,22 @@ skill 主体只调抽象操作，平台差异锁在适配器内。
 
 ## 7. 接入路径
 
-**新项目**：`workflow-setup` 一步完成 → 从第一个共识文档开始走 12 步。
-**已有项目**：`workflow-setup --existing` → 存量不重写、标注未纳入 → 新需求开始走 → 规则编号逐步登记。
+**新项目**：`phper666-teamflow-workflow-setup` 一步完成 → 从第一个共识文档开始走 12 步。
+**已有项目**：`phper666-teamflow-workflow-setup --existing` → 存量不重写、标注未纳入 → 新需求开始走 → 规则编号逐步登记。
 
 ---
 
 ## 8. 实施顺序（依赖关系）
 
-1. **`workflow-setup`**（地基：模板+规则编号+载体配置，其余 skill 都依赖其产物）
-2. **`consensus-scan` + `consensus-doc`**（上游：阶段 1 试点要跑通 Gate A，两 skill 配套）
-3. **`story-to-contract` 微调**（补齐 5 项缺口；枢纽已可用，微调量小）
-4. **`change-propagation`**（依赖 2/3/4 的引用锚点建立后才有意义，放最后）
-5. **`tech-design` + `lesson-deposit`**（新增环节，随首个复杂需求落地时启用）
+1. **`phper666-teamflow-workflow-setup`**（地基：模板+规则编号+载体配置，其余 skill 都依赖其产物）
+2. **`phper666-teamflow-consensus-scan` + `phper666-teamflow-consensus-doc`**（上游：阶段 1 试点要跑通 Gate A，两 skill 配套）
+3. **`phper666-teamflow-story-to-contract` 微调**（补齐 5 项缺口；枢纽已可用，微调量小）
+4. **`phper666-teamflow-change-propagation`**（依赖 2/3/4 的引用锚点建立后才有意义，放最后）
+5. **`phper666-teamflow-tech-design` + `phper666-teamflow-lesson-deposit`**（新增环节，随首个复杂需求落地时启用）
 
 ---
 
-## 9. `tech-design` — 技术方案（分级）
+## 9. `phper666-teamflow-tech-design` — 技术方案（分级）
 
 **定位**：契约冻结后、实现前，把共识（what）和契约（what-between）之间的 how 落成可评审、可对照、可传播的方案。**角色中立，不绑定任何平台特定角色。**
 
@@ -178,11 +178,11 @@ skill 主体只调抽象操作，平台差异锁在适配器内。
 
 **内容骨架**：背景与范围（绑定共识版本+规则编号+契约路径）→ 架构决策（备选+取舍理由）→ 模块划分 → 关键机制实现形态 → 目录结构 → 风险与对策 → 核验记录（交付核验时填写偏离清单）
 
-**与交付核验的关系**：story-to-contract 交付核验模式 ①设计核验对照本方案；无方案的常规需求跳过设计核验。
+**与交付核验的关系**：phper666-teamflow-story-to-contract 交付核验模式 ①设计核验对照本方案；无方案的常规需求跳过设计核验。
 
 ---
 
-## 10. `implement-discipline` — 实现纪律（分级）
+## 10. `phper666-teamflow-implement-discipline` — 实现纪律（分级）
 
 **定位**：契约/技术方案就绪后的实现环节。**机器能强制的检查必须做，工具缺失可降级，安全敏感不降级。**
 
@@ -199,9 +199,9 @@ skill 主体只调抽象操作，平台差异锁在适配器内。
 
 ---
 
-## 11. `lesson-deposit` — 经验沉淀（自证）
+## 11. `phper666-teamflow-lesson-deposit` — 经验沉淀（自证）
 
-**定位**：事后经验（踩坑/可复用模式），与事前决策（tech-design）是两类产物。**决策让人拍板，沉淀让时间验证。**
+**定位**：事后经验（踩坑/可复用模式），与事前决策（phper666-teamflow-tech-design）是两类产物。**决策让人拍板，沉淀让时间验证。**
 
 **三硬标准**（全中才写）：可复用（换模块/项目还能用）· 非显而易见（读文档查不到）· 有代价（踩过坑）
 
@@ -211,4 +211,4 @@ skill 主体只调抽象操作，平台差异锁在适配器内。
 
 ---
 
-*规格版本：v1.2 · 日期：2026-08-16 · 决策记录：4+1 边界确认 · 步骤 10 归入契约核验 · Q-items 多平台适配 · 扫描双模式（结果一致）· 新增 tech-design/lesson-deposit/implement-discipline 环节 · 交付核验三层（设计/契约/PRD）· 变更摘要升级（版本分组+取代链）· 15 环节流程（需求探索前置 + 实现纪律）· 判级矩阵（复杂/常规/安全敏感）· 工程基线三问 · 术语表章节 · 多 agent 共识评审（吸收 2.5 项）*
+*规格版本：v1.2 · 日期：2026-08-16 · 决策记录：4+1 边界确认 · 步骤 10 归入契约核验 · Q-items 多平台适配 · 扫描双模式（结果一致）· 新增 phper666-teamflow-tech-design/phper666-teamflow-lesson-deposit/phper666-teamflow-implement-discipline 环节 · 交付核验三层（设计/契约/PRD）· 变更摘要升级（版本分组+取代链）· 15 环节流程（需求探索前置 + 实现纪律）· 判级矩阵（复杂/常规/安全敏感）· 工程基线三问 · 术语表章节 · 多 agent 共识评审（吸收 2.5 项）*

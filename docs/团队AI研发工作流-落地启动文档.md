@@ -1,7 +1,7 @@
 # 团队 AI 研发工作流 — 落地启动文档
 
 > 配套可视化：`ai-team-workflow.html`（12 步流程总览）
-> 配套执行器：`story-to-contract` skill（契约生成/更新自动化）
+> 配套执行器：`phper666-teamflow-story-to-contract` skill（契约生成/更新自动化）
 > 定位：新团队从 0 推行本工作流的启动手册 — 基础设施、推行节奏、分角色沟通、工具合规评估
 
 ---
@@ -64,7 +64,7 @@ docs/
 
 | 工具 | 对应步骤 | 状态 |
 |:-----|:---------|:-----|
-| `story-to-contract` skill | 6/7/8/9/11 的核心 | 已有，合规评估见附录 A |
+| `phper666-teamflow-story-to-contract` skill | 6/7/8/9/11 的核心 | 已有，合规评估见附录 A |
 | 扫描 prompt（三角色） | 3 | 需自建（可复用 skill Phase 4 维度） |
 | 共识文档模板 | 1 | 需自建 |
 | 变更传播流程 | 11 | 需定义（当前靠重跑 skill 收敛） |
@@ -120,7 +120,7 @@ docs/
 
 ---
 
-## 附录 A：story-to-contract skill 合规评估
+## 附录 A：phper666-teamflow-story-to-contract skill 合规评估
 
 ### A.1 结论
 
@@ -166,4 +166,4 @@ docs/
 
 ---
 
-*文档版本：v1.0 · 日期：2026-08-07 · 配套：ai-team-workflow.html + story-to-contract skill*
+*文档版本：v1.0 · 日期：2026-08-07 · 配套：ai-team-workflow.html + phper666-teamflow-story-to-contract skill*

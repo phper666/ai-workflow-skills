@@ -9,12 +9,12 @@
 
 | 角色 | 碰的 Skill | 触发时机 |
 |:-----|:-----------|:---------|
-| 初始化者 | `workflow-setup` | 项目开始前，用一次 |
-| 产品经理 | `consensus-doc`（4 模式）+ `consensus-scan`（闭环） | 每模块 + 每基线 + 扫描后 |
-| 后端 | `consensus-scan`（扫描）+ `story-to-contract`（4 模式） | 每基线 + 每个子需求 |
-| 前端 | `consensus-scan`（FE 视角）+ `story-to-contract`（复核） | 每基线 + 每契约 |
-| QA | `consensus-scan`（QA 视角）+ `story-to-contract`（复核/核验） | 每基线 + 每契约 + 交付前 |
-| AI/责任人 | `change-propagation` | 共识规则变更时 |
+| 初始化者 | `phper666-teamflow-workflow-setup` | 项目开始前，用一次 |
+| 产品经理 | `phper666-teamflow-consensus-doc`（4 模式）+ `phper666-teamflow-consensus-scan`（闭环） | 每模块 + 每基线 + 扫描后 |
+| 后端 | `phper666-teamflow-consensus-scan`（扫描）+ `phper666-teamflow-story-to-contract`（4 模式） | 每基线 + 每个子需求 |
+| 前端 | `phper666-teamflow-consensus-scan`（FE 视角）+ `phper666-teamflow-story-to-contract`（复核） | 每基线 + 每契约 |
+| QA | `phper666-teamflow-consensus-scan`（QA 视角）+ `phper666-teamflow-story-to-contract`（复核/核验） | 每基线 + 每契约 + 交付前 |
+| AI/责任人 | `phper666-teamflow-change-propagation` | 共识规则变更时 |
 
 ---
 
@@ -34,7 +34,7 @@ agent 做：检测 PM 平台（Jira/飞书/TAPD）→ 落地 3 份模板（共�
 
 ## 2. 产品经理
 
-**Skill**：`consensus-doc`（建/发/评/拆）+ `consensus-scan`（闭环）
+**Skill**：`phper666-teamflow-consensus-doc`（建/发/评/拆）+ `phper666-teamflow-consensus-scan`（闭环）
 
 **你的一天**：
 
@@ -74,7 +74,7 @@ agent：按模块切子需求 → 每个绑定共识版本+规则编号+验收�
 
 ## 3. 后端
 
-**Skill**：`consensus-scan`（扫描）+ `story-to-contract`（生成/澄清/核验/沉淀）
+**Skill**：`phper666-teamflow-consensus-scan`（扫描）+ `phper666-teamflow-story-to-contract`（生成/澄清/核验/沉淀）
 
 **你的一天**：
 
@@ -121,7 +121,7 @@ agent：写完成记录（交付/验证/构建/发布/测试结果，要有证�
 
 ## 4. 前端
 
-**Skill**：`consensus-scan`（FE 视角扫描）+ `story-to-contract`（复核模式）
+**Skill**：`phper666-teamflow-consensus-scan`（FE 视角扫描）+ `phper666-teamflow-story-to-contract`（复核模式）
 
 **你几乎不产生文档，只消费和挑刺。**
 
@@ -144,7 +144,7 @@ agent：字段覆盖交互所需？错误码够区分 4xx/业务错？示例自�
 
 ## 5. QA
 
-**Skill**：`consensus-scan`（QA 视角扫描）+ `story-to-contract`（复核/核验模式）
+**Skill**：`phper666-teamflow-consensus-scan`（QA 视角扫描）+ `phper666-teamflow-story-to-contract`（复核/核验模式）
 
 ### 5.1 扫描（QA 视角）
 > "扫描订单模块共识，我是 QA"
@@ -214,7 +214,7 @@ agent：读变更摘要 → 沿 R012 找引用（子需求/契约/测试）→ *
 
 **Q4：待确认项解决后谁更新共识？** PM（skill 强制：回答→回写→复核三连，回写位置必填，不做完不关闭）。回写后升版本+变更摘要。
 
-**Q5：共识更新后，已有契约怎么更新？** 不实时推送，按需收敛：主动（"传播一下"跑 change-propagation）或被动（下次更新契约时 skill 重读共识自动合入差异）。
+**Q5：共识更新后，已有契约怎么更新？** 不实时推送，按需收敛：主动（"传播一下"跑 phper666-teamflow-change-propagation）或被动（下次更新契约时 skill 重读共识自动合入差异）。
 
 **Q6：需求/共识改了，契约全部直接改？** 不。先影响分析再分级：纯语义跟随 AI 直接改；破坏兼容/权限/资金/数据等争议项等责任人确认。只有被引用模块的人介入。
 
@@ -239,7 +239,7 @@ AI 会"追问补足"，不会"编造补足"：提取时自动检测洞（流程�
 不是。默认单人跑=agent 自动三角色切换，零参数。--role 是可选：团队分工各自跑单视角（需 merge 收口）或只想省时间看单视角。唯一纪律：**视角必须全覆盖**。
 
 **Q5（原 Q6）：模块负责人=ticket 经办人？ticket 谁拆？**
-是——影响清单"待复核"责任人=ticket 经办人；没 owner 的影响项标"无负责人"由 PM 指派。ticket 两级拆：**PM 拆子需求**（绑定共识版本+规则编号+验收标准），**各角色拆自己的任务**（BE 用 story-to-contract 建，FE/QA 各自建）。不替别人建任务。
+是——影响清单"待复核"责任人=ticket 经办人；没 owner 的影响项标"无负责人"由 PM 指派。ticket 两级拆：**PM 拆子需求**（绑定共识版本+规则编号+验收标准），**各角色拆自己的任务**（BE 用 phper666-teamflow-story-to-contract 建，FE/QA 各自建）。不替别人建任务。
 
 **Q6（原 Q7）：经验判断错误写错踩坑会怎样？**
 影响限制在参考层，进不了执行层：决策与踩坑不是门禁不阻断流程；执行依据永远是共识+契约不是经验；有版本和变更记录可修正；错误经验升级成扫描规则会产生假阳性（误报）被团队发现撤下——假阳性是自纠机制。建议 lessons 文件加状态标记（新/已验证/已废弃）。
@@ -267,7 +267,7 @@ AI 会"追问补足"，不会"编造补足"：提取时自动检测洞（流程�
 
 ```
 Day 1  你:   "给这个项目接入研发工作流"           → setup：模板+规则+载体就绪
-Day 1  PM:   "建立订单模块共识，PRD 在 docs/prd/"  → consensus-doc：14 节 + CON-R001~R015
+Day 1  PM:   "建立订单模块共识，PRD 在 docs/prd/"  → phper666-teamflow-consensus-doc：14 节 + CON-R001~R015
 Day 2  PM:   "发布共识基线 v1.0"                  → 通知三角色扫描
 Day 3  BE:   "扫描，我是 BE"                      → Q-007~009
 Day 3  FE:   "扫描，我是 FE"                      → Q-010
