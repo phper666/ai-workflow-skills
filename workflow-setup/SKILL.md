@@ -107,39 +107,25 @@ roles:
 
 ### Phase 6：导航与实现管道落地
 
-在项目 `AGENTS.md`（无则创建）写工作流段（导航 + 实现管道，**用 `<!-- team-workflow:begin/end -->` 标记包裹**）：
+在项目 `AGENTS.md`（无则创建）写工作流段，**用 `<!-- team-workflow:begin/end -->` 标记包裹**。项目段只写「接入标记 + 项目专属信息」，**不复制管道全文**——管道定义单一源 = 全局模板 `ai-workflow-skills/templates/AGENTS.global.md`（安装时加载到全局 AGENTS.md），项目段引用它：
 
 ```markdown
 <!-- team-workflow:begin -->
 ## AI 研发工作流（已接入）
-- 建立/更新共识文档 → consensus-doc
-- 扫描共识 / 处理待确认项 → consensus-scan
-- 生成/更新/复核契约 → story-to-contract
-- 技术方案（判级/工程基线）→ tech-design
-- 实现纪律（TDD/lint/Review/Semgrep）→ implement-discipline
-- 经验沉淀 → lesson-deposit
-- 共识规则变更传播 → change-propagation
+
+- 流程定义见全局 AGENTS.md `team-workflow` 段（ai-workflow-skills 模板）；未加载全局模板 → 跑 workflow-setup 或按 README 加载
 - 文档地图：docs/spec/（共识、规则索引、团队配置、变更摘要）、docs/api/（契约）、docs/design/（技术方案）、docs/prd/（需求）、docs/prototype/（原型）、docs/lessons/（经验）
 - 载体：Q-items 见 docs/spec/团队配置.md
-
-### 实现阶段管道（强制，三层保险）
-子需求实现必须按序执行，缺一不可：
-1. **实现** → implement-discipline（复杂需求 TDD 核心路径；非平凡逻辑不得跳过）
-2. **lint + type-check** → 自动跑，报错修复到干净
-3. **Code Review** → ocr review（或团队既有机制）→ 高/中问题修复 → 重审无新增
-4. **Semgrep** → 有则跑；无则核验记录记风险项
-5. **留痕** → 产出「实现记录/核验记录」文件（测试/lint/review/扫描结果）
-6. **交付核验** → story-to-contract 核验模式对照验收标准（设计/契约/PRD 三层）
-7. **沉淀** → lesson-deposit（三硬标准过滤）
+- 项目专属：<红线/约定，按项目补充>
 <!-- team-workflow:end -->
 ```
 
 写入规则（幂等 + 可回滚）：
 - 已有 `team-workflow` 标记 → **只替换标记内的内容**（更新不追加）
-- 无标记 → 在文件末尾追加标记段，不动已有内容；若发现旧版未标记导航段（标题「AI 研发工作流（已接入）」）→ 合并进标记段后移除旧段
+- 无标记 → 在文件末尾追加标记段，不动已有内容；若发现旧版未标记导航段（标题「AI 研发工作流（已接入）」）或旧版含完整管道段的标记段 → 替换为新项目段
 - 可回滚：删除标记段即完整移除，无残留
 
-可选（**写入前必须向用户确认**）：将「实现阶段管道」段同时写入全局 `~/.config/opencode/AGENTS.md`——所有项目生效，内容与项目段一致。
+**项目级完整管道段 → 全局模板迁移**：存量项目若项目 AGENTS.md 含完整管道段（v1 早期格式）→ 替换为上面的项目段；全局 AGENTS.md 加载 `AGENTS.global.md` 模板（见仓库 README，写入前向用户确认）。
 
 ### Phase 7：存量模式（--existing 或项目已有存量文档）
 
