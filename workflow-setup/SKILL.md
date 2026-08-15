@@ -5,7 +5,7 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 
 # 项目接入 AI 研发工作流
 
-把任意项目接入 15 环节研发工作流：需求探索（复杂必产 PRD+原型）→ 共识文档（业务事实源）→ 跨角色扫描 → 待确认闭环 → 评审 → 拆解 → 契约 → 复核 → 澄清 → **技术方案（判级，复杂必出）** → **实现纪律（分级执行）** → 交付核验（三层）→ 变更传播 → 沉淀。
+把任意项目接入 15 环节研发工作流：需求探索（复杂必产 PRD+原型）→ 共识文档（业务事实源）→ 跨角色扫描 → 待确认闭环 → 评审 → 拆解 → 契约 → 复核 → 澄清 → **技术方案（判级 + 工程基线三问，复杂必出）** → **实现纪律（分级执行）** → 交付核验（三层）→ 变更传播 → 沉淀。
 
 本 skill 只做**一次性接入**：落地模板、建规则索引、配置载体、登记角色、写导航。接入后的日常动作由其他 skill 承担（`consensus-doc` / `consensus-scan` / `story-to-contract` / `tech-design` / `implement-discipline` / `change-propagation` / `lesson-deposit`）。
 
@@ -114,8 +114,11 @@ roles:
 - 建立/更新共识文档 → consensus-doc
 - 扫描共识 / 处理待确认项 → consensus-scan
 - 生成/更新/复核契约 → story-to-contract
+- 技术方案（判级/工程基线）→ tech-design
+- 实现纪律（TDD/lint/Review/Semgrep）→ implement-discipline
+- 经验沉淀 → lesson-deposit
 - 共识规则变更传播 → change-propagation
-- 文档地图：docs/spec/（共识、规则索引、团队配置）、docs/api/（契约）、docs/lessons/（经验）
+- 文档地图：docs/spec/（共识、规则索引、团队配置、变更摘要）、docs/api/（契约）、docs/design/（技术方案）、docs/prd/（需求）、docs/prototype/（原型）、docs/lessons/（经验）
 - 载体：Q-items 见 docs/spec/团队配置.md
 ```
 
