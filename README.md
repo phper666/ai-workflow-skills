@@ -48,11 +48,11 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.claude/skills/<skill-name>
 
 1. 项目负责人跑 `phper666-teamflow-workflow-setup`：`"给这个项目接入研发工作流"`
 2. 团队按角色使用对应 skill（见上表触发示例）
-3. 项目侧产物：`docs/spec/`（共识、规则索引、团队配置）、`docs/api/`（契约）、`docs/lessons/`（经验）
+3. 项目侧产物：`docs/spec/`（共识、规则索引、团队配置、变更摘要、影响清单）、`docs/api/`（契约）、`docs/design/`（技术方案）、`docs/prd/`（需求）、`docs/prototype/`（原型）、`docs/records/`（实现/核验记录）、`docs/lessons/`（经验）
 
 ## 维护约定
 
-- **单一源**：本仓库是 5 个 skill 的唯一源码位置，平台侧只放符号链接或副本
+- **单一源**：本仓库是 8 个 skill 的唯一源码位置，平台侧只放符号链接或副本
 - **共享规则升级**：跨项目验证有效的扫描规则 → 提交 `phper666-teamflow-consensus-scan/references/扫描规则库.md` 共享区 → 全员 pull
 - **适配器**：`phper666-teamflow-story-to-contract/adapters/` 按平台 MCP 工具名映射（Jira/TAPD/飞书），换平台只改映射，不动 skill 主体
 - **配套文档**（`docs/`）：
