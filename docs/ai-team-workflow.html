@@ -29,6 +29,7 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
   body {
     background: var(--bg);
@@ -74,11 +75,46 @@
   }
   .sub strong { color: var(--ink); font-weight: 700; }
 
+  /* Stage navigation */
+  .stage-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 12px 0;
+    margin: -12px -6px 28px;
+    background: rgba(244,246,249,.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    scrollbar-width: none;
+  }
+  .stage-nav::-webkit-scrollbar { display: none; }
+  .stage-nav a {
+    flex: 0 0 auto;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: color .2s, background .2s, border-color .2s, transform .2s;
+  }
+  .stage-nav a:hover {
+    color: var(--primary);
+    background: var(--primary-soft);
+    border-color: rgba(45,75,245,.15);
+    transform: translateY(-1px);
+  }
+
   /* Section titles */
   h2 {
     font-size: 18px;
     font-weight: 800;
-    margin: 42px 0 18px;
+    margin: 48px 0 18px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -89,6 +125,17 @@
     height: 22px;
     border-radius: 3px;
     background: var(--primary);
+  }
+  .section-num {
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--line);
+    opacity: .55;
+    width: 54px;
+    text-align: right;
+    user-select: none;
+    letter-spacing: -0.04em;
   }
 
   /* Stage tracks */
@@ -204,6 +251,56 @@
   }
   .step.gate-card .num { color: var(--gate); }
 
+  /* Hover & micro-interactions */
+  .step, .gate-card, .panel, .gate-node {
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .step:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 22px rgba(19,24,38,.10);
+  }
+  .stage.req .step:hover { border-color: rgba(37,99,235,.55); }
+  .stage.contract .step:hover { border-color: rgba(124,58,237,.55); }
+  .stage.impl .step:hover { border-color: rgba(5,150,105,.55); }
+  .stage.close .step:hover { border-color: rgba(217,119,6,.55); }
+  .step.star:hover {
+    border-color: rgba(124,58,237,.7);
+    box-shadow: 0 12px 28px rgba(124,58,237,.18);
+  }
+  .step.disc:hover {
+    border-color: rgba(5,150,105,.7);
+    box-shadow: 0 12px 28px rgba(5,150,105,.18);
+  }
+  .step.gate-card:hover {
+    border-color: rgba(201,40,26,.7);
+    box-shadow: 0 12px 28px rgba(201,40,26,.16);
+  }
+
+  /* Badge-style markers for ★ / ● */
+  .step.star .num, .step.disc .num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid currentColor;
+    background: #fff;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .step.star .num { color: var(--contract); }
+  .step.disc .num { color: var(--impl); }
+  .step.gate-card .num {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: var(--gate);
+    color: #fff;
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
+
   .flow-arrow {
     flex: 0 0 auto;
     align-self: center;
@@ -211,7 +308,15 @@
     font-size: 18px;
     font-weight: 700;
     user-select: none;
+    opacity: .7;
+    transition: opacity .2s, transform .2s;
   }
+  .stage.req .flow-arrow { color: var(--req); opacity: .35; }
+  .stage.contract .flow-arrow { color: var(--contract); opacity: .35; }
+  .stage.impl .flow-arrow { color: var(--impl); opacity: .35; }
+  .stage.close .flow-arrow { color: var(--close); opacity: .35; }
+  .stage-track:hover .flow-arrow { opacity: .7; }
+  .stage-track:hover .flow-arrow:hover { opacity: 1; transform: translateX(2px); }
 
   /* Gate connectors between stages */
   .gate-connector { margin: 2px 0 14px 26px; }
@@ -250,6 +355,11 @@
   .gate-node.major .gate-icon { width: 34px; height: 34px; font-size: 16px; }
   .gate-node.major b { font-size: 15px; }
   .gate-node.major .gate-body { flex: 1; }
+  .gate-node:hover {
+    transform: translateX(4px);
+    box-shadow: 0 8px 18px rgba(201,40,26,.14);
+    border-color: rgba(201,40,26,.45);
+  }
 
   /* Gate overview cards */
   .gates-grid {
@@ -264,6 +374,12 @@
     border-radius: 14px;
     padding: 18px;
     box-shadow: 0 1px 2px rgba(19,24,38,.04);
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  }
+  .gate-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(201,40,26,.14);
+    border-color: rgba(201,40,26,.45);
   }
   .gate-card header {
     display: flex;
@@ -301,6 +417,8 @@
     padding: 20px;
     box-shadow: 0 1px 2px rgba(19,24,38,.04);
   }
+  .panel:hover { box-shadow: 0 6px 18px rgba(19,24,38,.07); }
+  .panel.gate-major:hover { box-shadow: 0 8px 22px rgba(201,40,26,.12); }
   .panel.gate-major {
     border-left: 5px solid var(--gate);
     background: linear-gradient(90deg, var(--gate-soft) 0%, var(--surface) 45%);
@@ -371,13 +489,16 @@
     background: var(--surface);
   }
   thead th {
-    background: var(--primary-soft);
+    background: linear-gradient(180deg, var(--primary-soft) 0%, #ffffff 100%);
     color: var(--primary);
     font-weight: 800;
     padding: 11px 14px;
     text-align: left;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 2px solid var(--primary);
     white-space: nowrap;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
   }
   tbody td {
     padding: 11px 14px;
@@ -387,14 +508,17 @@
   }
   tbody tr:last-child td { border-bottom: none; }
   tbody tr:nth-child(even) { background: rgba(238,241,255,.35); }
+  tbody tr:hover { background: rgba(238,241,255,.7); }
 
   code {
     background: var(--code-bg);
     padding: 2px 5px;
     border-radius: 4px;
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "PingFang SC", monospace;
     font-size: 12px;
-    color: #334155;
+    font-weight: 600;
+    color: var(--ink);
+    border: 1px solid rgba(19,24,38,.06);
   }
 
   /* Tags */
@@ -451,7 +575,17 @@
     <div class="sub"><strong>15 环节 · 8 skills</strong> · 更新于 2026-08-16（含实现前置 Gate）</div>
   </header>
 
-  <h2>流程总览</h2>
+  <nav class="stage-nav" aria-label="阶段导航">
+    <a href="#flow">流程总览</a>
+    <a href="#gates">强制关卡</a>
+    <a href="#preflight">实现前置</a>
+    <a href="#matrix">判级矩阵</a>
+    <a href="#discipline">实现纪律</a>
+    <a href="#contract">契约防漂移</a>
+    <a href="#artifacts">产物目录</a>
+  </nav>
+
+  <h2 id="flow"><span class="section-num">01</span>流程总览</h2>
   <div class="pipeline">
 
     <!-- 需求阶段 -->
@@ -569,13 +703,13 @@
       </div>
       <div class="stage-track">
         <div class="step star">
-          <div class="num">★ 判级 / 技术方案</div>
+          <div class="num">★</div>
           <div class="name">判级 / 技术方案</div>
           <div class="skill">tech-design（方案 draft→frozen）</div>
         </div>
         <span class="flow-arrow">→</span>
         <div class="step disc">
-          <div class="num">● 实现纪律</div>
+          <div class="num">●</div>
           <div class="name">实现纪律</div>
           <div class="skill">implement-discipline</div>
         </div>
@@ -611,7 +745,7 @@
 
   </div>
 
-  <h2>强制关卡总览</h2>
+  <h2 id="gates"><span class="section-num">02</span>强制关卡总览</h2>
   <div class="gates-grid">
     <div class="gate-card">
       <header><span class="gate-badge">A</span><h3>Gate A · 评审就绪</h3></header>
@@ -631,7 +765,7 @@
     </div>
   </div>
 
-  <h2>实现前置 Gate（契约冻结 → 实现之间，缺一项不得开始实现）</h2>
+  <h2 id="preflight"><span class="section-num">03</span>实现前置 Gate（契约冻结 → 实现之间，缺一项不得开始实现）</h2>
   <div class="panel gate-major">
     <ul class="checklist">
       <li><div class="chk">①</div><div class="item"><b>判级：</b>跑 tech-design 判级，结论（复杂 / 常规 / 安全敏感）+ 一句理由，写入实现记录。</div></li>
@@ -641,7 +775,7 @@
     </ul>
   </div>
 
-  <h2>判级矩阵（tech-design）</h2>
+  <h2 id="matrix"><span class="section-num">04</span>判级矩阵（tech-design）</h2>
   <div class="table-wrap">
     <table>
       <thead>
@@ -667,7 +801,7 @@
     </table>
   </div>
 
-  <h2>实现纪律（implement-discipline，分级）</h2>
+  <h2 id="discipline"><span class="section-num">05</span>实现纪律（implement-discipline，分级）</h2>
   <div class="panel">
     <ul class="tier-list">
       <li><span class="tier complex">复杂</span><div>TDD 核心路径（非平凡逻辑 red→green→refactor）→ lint+type-check → Code Review（ocr 或团队机制）→ Semgrep（有则跑）。</div></li>
@@ -677,7 +811,7 @@
     <p style="margin-top:12px;font-size:13px;color:var(--muted);">工具降级记录在案，交付核验可见；留痕 <code>docs/records/&lt;id&gt;-record.md</code>（实现记录 + 核验记录两节）。</p>
   </div>
 
-  <h2>契约防漂移（story-to-contract）</h2>
+  <h2 id="contract"><span class="section-num">06</span>契约防漂移（story-to-contract）</h2>
   <div class="grid2">
     <div class="panel">
       <h3><span class="icon">◈</span>双文件单一事实源</h3>
@@ -699,7 +833,7 @@
     </div>
   </div>
 
-  <h2>产物目录（7 个）</h2>
+  <h2 id="artifacts"><span class="section-num">07</span>产物目录（7 个）</h2>
   <div class="table-wrap">
     <table>
       <thead>
