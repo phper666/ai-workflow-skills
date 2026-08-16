@@ -1,4 +1,4 @@
-<!-- team-workflow:begin v1 -->
+<!-- team-workflow:begin v4 -->
 ## 团队 AI 研发工作流（已接入）
 
 > 本段由 ai-workflow-skills 模板生成（templates/AGENTS.global.md），单一事实源，勿手动编辑正文。
@@ -16,6 +16,15 @@
 - 项目接入/更新 → phper666-teamflow-workflow-setup
 - **守卫**：当前环境未安装对应 skill → 跳过该步增强（管道顺序不变）；需要时按 ai-workflow-skills README 安装
 
+### 实现前置 Gate（契约冻结 → 实现之间，强制）
+
+进入实现管道前必须完成，**缺一项不得开始实现**：
+
+1. **判级** → 跑 phper666-teamflow-tech-design 判级，结论（复杂/常规/安全敏感）+ 一句理由，写入实现记录
+2. **复杂/高风险** → 必产 `docs/design/<id>-<module>-design.md` 且评审通过（**方案冻结**，状态约定见 phper666-teamflow-tech-design）；**无方案文档或未冻结 = 不得进入实现管道**
+3. **工程基线三问** → git/脚手架/测试框架逐项核验；缺失先搭（脚手架搭建属判级环节，不算实现步骤）
+4. **核验回查** → 交付核验的「判级匹配」对照实现复杂度，判级缺失或明显错判 → 核验不通过
+
 ### 实现阶段管道（强制，三层保险）
 
 子需求实现必须按序执行，缺一不可：
@@ -32,12 +41,12 @@
 
 - **模糊新需求** → 复杂：需求探索 → PRD+原型（UI 类）→ phper666-teamflow-consensus-doc 建共识（绑定 PRD/原型 + 术语表）；常规：直接建共识 → 拆子需求 → phper666-teamflow-story-to-contract 契约 → phper666-teamflow-tech-design 判级 → 实现管道 → 变更传播 → 沉淀
 - **大需求** → phper666-teamflow-consensus-doc 拆子需求（§14 附录）+ phper666-teamflow-tech-design 模块划分承载依赖；全部子需求核验通过后集成验证
-- **卡片拆解** → 契约已存在：按契约实现（契约 + 实现管道）→ 交付核验
-- **契约/规则变更** → phper666-teamflow-change-propagation 检测 + 契约更新
+- **卡片拆解** → 契约已存在：按契约实现 → phper666-teamflow-tech-design 判级（复杂/高风险先出技术方案再实现；常规直接实现）→ 实现管道 → 交付核验
+- **契约/规则变更** → phper666-teamflow-change-propagation 检测 + 契约更新 → 判级（变更传播后重新判级）→ 实现管道
 - **术语打磨/方案审查** → 共识术语表 + 对照规则编号逐项拷问（domain-modeling / grill-with-docs 兜底）
 
 ### 文档地图
 
 docs/spec/（共识、规则索引、团队配置、变更摘要）、docs/api/（契约）、docs/design/（技术方案）、docs/prd/（需求）、docs/prototype/（原型）、docs/lessons/（经验）
 
-<!-- team-workflow:end v1 -->
+<!-- team-workflow:end v4 -->
