@@ -63,7 +63,7 @@ description: 契约冻结后、实现前的技术方案设计（分级）：复�
 
 ## 产出
 
-`docs/design/<子需求id>-<模块>-design.md`（与 docs/api/ 平级；不引入第二套文档体系）
+`docs/design/<id>-<模块>-design.md`（与 docs/api/ 平级；不引入第二套文档体系）。`<id>` 优先用后端实现子任务 key（如 `scrum-6-壳骨架-design.md`）；无 ticket 时用共识拆解的子需求编号——同一子需求的 design 与 records（docs/records/）必须用同一 id，回溯链：工作项 → 子任务 → 方案 → 记录。
 
 ## 内容骨架
 
