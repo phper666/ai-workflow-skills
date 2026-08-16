@@ -82,135 +82,97 @@
     color: var(--ink);
   }
 
-  /* Pipeline */
-  .pipeline { display: flex; flex-direction: column; gap: 16px; }
-
-  .stage {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 24px;
-  }
-  .stage.req { border-left: 2px solid var(--req); }
-  .stage.contract { border-left: 2px solid var(--contract); }
-  .stage.impl { border-left: 2px solid var(--impl); }
-  .stage.close { border-left: 2px solid var(--close); }
-
-  .stage-head {
+  /* Compact flow */
+  .flow {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
     margin-bottom: 18px;
-  }
-  .stage-dot { width: 8px; height: 8px; border-radius: 50%; }
-  .stage.req .stage-dot { background: var(--req); }
-  .stage.contract .stage-dot { background: var(--contract); }
-  .stage.impl .stage-dot { background: var(--impl); }
-  .stage.close .stage-dot { background: var(--close); }
-  .stage-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .stage-range { font-weight: 400; text-transform: none; margin-left: 4px; }
-
-  .stage-track {
-    display: flex;
-    gap: 12px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    align-items: stretch;
   }
 
-  .step {
-    flex: 0 0 160px;
+  .step-sm {
+    flex: 0 0 122px;
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 16px;
+    border-radius: 8px;
+    padding: 10px 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
   }
-  .step:hover {
+  .step-sm:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(0,0,0,.06);
     border-color: var(--line-strong);
   }
-  .step .num {
-    font-size: 12px;
+  .step-sm.pre { border-style: dashed; }
+
+  .step-sm.req { border-top: 2px solid var(--req); }
+  .step-sm.contract { border-top: 2px solid var(--contract); }
+  .step-sm.impl { border-top: 2px solid var(--impl); }
+  .step-sm.close { border-top: 2px solid var(--close); }
+
+  .step-sm.star { border-left: 2px solid var(--contract); background: #faf9ff; }
+  .step-sm.disc { border-left: 2px solid var(--impl); background: #f6fdfb; }
+  .step-sm.gate-card { border-left: 2px solid var(--gate); background: var(--gate-soft); }
+
+  .stage-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
     font-weight: 600;
     color: var(--muted);
-    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
   }
-  .step .name {
-    font-size: 14px;
+  .stage-tag::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+  }
+  .step-sm.req .stage-tag::before { background: var(--req); }
+  .step-sm.contract .stage-tag::before { background: var(--contract); }
+  .step-sm.impl .stage-tag::before { background: var(--impl); }
+  .step-sm.close .stage-tag::before { background: var(--close); }
+
+  .step-sm .num {
+    font-size: 11px;
     font-weight: 600;
-    line-height: 1.4;
-  }
-  .step .skill {
-    font-size: 12px;
     color: var(--muted);
-    margin-top: 10px;
-    line-height: 1.5;
+    margin-bottom: 2px;
+  }
+  .step-sm.star .num { color: var(--contract); }
+  .step-sm.disc .num { color: var(--impl); }
+  .step-sm.gate-card .num { color: var(--gate); }
+
+  .step-sm .name {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .step-sm .skill {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.45;
     word-break: break-all;
   }
-  .step.pre { border-style: dashed; }
 
-  .step.star { border-left: 3px solid var(--contract); background: #faf9ff; }
-  .step.disc { border-left: 3px solid var(--impl); background: #f6fdfb; }
-  .step.gate-card { border-left: 3px solid var(--gate); background: var(--gate-soft); }
-  .step.star .num { color: var(--contract); }
-  .step.disc .num { color: var(--impl); }
-  .step.gate-card .num { color: var(--gate); }
-
-  .step.star .num, .step.disc .num {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1.5px solid currentColor;
-    background: var(--surface);
-    margin-bottom: 8px;
-  }
-
-  .flow-arrow {
-    flex: 0 0 auto;
-    align-self: center;
-    color: var(--line-strong);
-    font-size: 16px;
-    user-select: none;
-  }
-
-  /* Gate connectors */
-  .gate-connector { margin: 0 0 0 24px; }
-  .gate-node {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--gate);
-    border-radius: 10px;
-    padding: 10px 14px;
-    font-size: 13px;
-    color: var(--muted);
-  }
-  .gate-node b { color: var(--gate); font-weight: 600; }
-  .gate-node.major { display: flex; width: calc(100% - 24px); padding: 12px 16px; }
-  .gate-icon {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--gate);
-    color: #fff;
+  .gate-marker {
+    flex: 0 0 28px;
+    align-self: stretch;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--gate);
+    color: #fff;
+    border-radius: 8px;
     font-size: 12px;
     font-weight: 700;
   }
@@ -218,15 +180,18 @@
   /* Gate overview */
   .gates-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 640px) {
+    .gates-grid { grid-template-columns: 1fr; }
   }
   .gate-card {
     background: var(--surface);
     border: 1px solid var(--line);
     border-left: 3px solid var(--gate);
     border-radius: 10px;
-    padding: 18px;
+    padding: 16px;
   }
   .gate-card header {
     display: flex;
@@ -250,8 +215,7 @@
   .gate-card p {
     font-size: 13px;
     color: var(--muted);
-    line-height: 1.6;
-    margin-top: 6px;
+    line-height: 1.55;
   }
 
   /* Panels */
@@ -386,15 +350,12 @@
   @media (max-width: 860px) {
     body { padding: 32px 18px 64px; }
     h1 { font-size: 28px; }
-    .stage-track { flex-wrap: wrap; }
-    .step { flex: 1 1 140px; max-width: none; }
-    .flow-arrow { display: none; }
-    .gate-connector { margin-left: 0; }
-    .gate-node.major { width: 100%; }
+    .step-sm { flex: 0 0 108px; }
+    .gate-marker { flex: 0 0 24px; min-height: 40px; font-size: 11px; }
   }
 
   @media (max-width: 640px) {
-    .step { flex: 1 1 100%; }
+    .step-sm { flex: 1 1 100px; }
   }
 </style>
 </head>
@@ -417,161 +378,101 @@
   </header>
 
   <h2 id="flow">流程总览</h2>
-  <div class="pipeline">
+  <div class="flow">
 
-    <!-- 需求阶段 -->
-    <div class="stage req">
-      <div class="stage-head">
-        <div class="stage-dot"></div>
-        <div class="stage-label">需求阶段 <span class="stage-range">前置 0 — 6</span></div>
-      </div>
-      <div class="stage-track">
-        <div class="step pre">
-          <div class="num">前置 0</div>
-          <div class="name">需求探索</div>
-          <div class="skill">consensus-doc（复杂：PRD+原型必产）</div>
-        </div>
-        <span class="flow-arrow">→</span>
-        <div class="step">
-          <div class="num">1</div>
-          <div class="name">建共识</div>
-          <div class="skill">consensus-doc</div>
-        </div>
-        <span class="flow-arrow">→</span>
-        <div class="step">
-          <div class="num">2</div>
-          <div class="name">发基线</div>
-          <div class="skill">consensus-doc</div>
-        </div>
-        <span class="flow-arrow">→</span>
-        <div class="step">
-          <div class="num">3</div>
-          <div class="name">扫描</div>
-          <div class="skill">consensus-scan</div>
-        </div>
-        <span class="flow-arrow">→</span>
-        <div class="step">
-          <div class="num">4</div>
-          <div class="name">待确认闭环</div>
-          <div class="skill">consensus-scan</div>
-        </div>
-        <span class="flow-arrow">→</span>
-        <div class="step">
-          <div class="num">5</div>
-          <div class="name">评审</div>
-          <div class="skill">consensus-doc</div>
-        </div>
-        <span class="flow-arrow">→</span>
-        <div class="step">
-          <div class="num">6</div>
-          <div class="name">拆解</div>
-          <div class="skill">consensus-doc</div>
-        </div>
-      </div>
+    <!-- 需求阶段 0–6 -->
+    <div class="step-sm req pre">
+      <div class="stage-tag">需求 0–6</div>
+      <div class="num">前置 0</div>
+      <div class="name">需求探索</div>
+      <div class="skill">consensus-doc（复杂：PRD+原型必产）</div>
+    </div>
+    <div class="step-sm req">
+      <div class="num">1</div>
+      <div class="name">建共识</div>
+      <div class="skill">consensus-doc</div>
+    </div>
+    <div class="step-sm req">
+      <div class="num">2</div>
+      <div class="name">发基线</div>
+      <div class="skill">consensus-doc</div>
+    </div>
+    <div class="step-sm req">
+      <div class="num">3</div>
+      <div class="name">扫描</div>
+      <div class="skill">consensus-scan</div>
+    </div>
+    <div class="step-sm req">
+      <div class="num">4</div>
+      <div class="name">待确认闭环</div>
+      <div class="skill">consensus-scan</div>
+    </div>
+    <div class="step-sm req">
+      <div class="num">5</div>
+      <div class="name">评审</div>
+      <div class="skill">consensus-doc</div>
     </div>
 
-    <!-- Gate A -->
-    <div class="gate-connector">
-      <div class="gate-node">
-        <div class="gate-icon">A</div>
-        <b>Gate A · 评审就绪</b>
-        <span>（5 后）共识基线发布，规则编号完整，才可拆解子需求</span>
-      </div>
+    <div class="gate-marker">A</div>
+
+    <div class="step-sm req">
+      <div class="num">6</div>
+      <div class="name">拆解</div>
+      <div class="skill">consensus-doc</div>
     </div>
 
-    <!-- 契约阶段 -->
-    <div class="stage contract">
-      <div class="stage-head">
-        <div class="stage-dot"></div>
-        <div class="stage-label">契约阶段 <span class="stage-range">7 — 9</span></div>
-      </div>
-      <div class="stage-track">
-        <div class="step">
-          <div class="num">7</div>
-          <div class="name">契约</div>
-          <div class="skill">story-to-contract</div>
-        </div>
-        <span class="flow-arrow">→</span>
-        <div class="step">
-          <div class="num">8</div>
-          <div class="name">复核（FE/QA）</div>
-          <div class="skill">story-to-contract</div>
-        </div>
-        <span class="flow-arrow">→</span>
-        <div class="step">
-          <div class="num">9</div>
-          <div class="name">澄清</div>
-          <div class="skill">story-to-contract</div>
-        </div>
-      </div>
+    <!-- 契约阶段 7–9 -->
+    <div class="step-sm contract">
+      <div class="stage-tag">契约 7–9</div>
+      <div class="num">7</div>
+      <div class="name">契约</div>
+      <div class="skill">story-to-contract</div>
+    </div>
+    <div class="step-sm contract">
+      <div class="num">8</div>
+      <div class="name">复核（FE/QA）</div>
+      <div class="skill">story-to-contract</div>
     </div>
 
-    <!-- Gate B -->
-    <div class="gate-connector">
-      <div class="gate-node">
-        <div class="gate-icon">B</div>
-        <b>Gate B · 契约冻结</b>
-        <span>（8 后）FE+QA 两轮复核通过 + CONS-02 双文件一致，才可判级进实现</span>
-      </div>
+    <div class="gate-marker">B</div>
+
+    <div class="step-sm contract">
+      <div class="num">9</div>
+      <div class="name">澄清</div>
+      <div class="skill">story-to-contract</div>
     </div>
 
-    <!-- Gate C 强制关卡 -->
-    <div class="gate-connector">
-      <div class="gate-node major">
-        <div class="gate-icon">C</div>
-        <div>
-          <b>Gate C · 实现前置（强制）</b>
-          <span style="display:block;margin-top:4px;color:var(--muted);font-size:13px;">契约冻结 → 实现之间，缺一项不得开始实现：① 判级留痕 ② 复杂必产方案且 frozen ③ 工程基线三问 ④ 核验回查判级匹配</span>
-        </div>
-      </div>
+    <div class="gate-marker">C</div>
+
+    <!-- 实现阶段 ★●10 -->
+    <div class="step-sm impl star">
+      <div class="stage-tag">实现 ★●10</div>
+      <div class="num">★</div>
+      <div class="name">判级 / 技术方案</div>
+      <div class="skill">tech-design（方案 draft→frozen）</div>
+    </div>
+    <div class="step-sm impl disc">
+      <div class="num">●</div>
+      <div class="name">实现纪律</div>
+      <div class="skill">implement-discipline</div>
+    </div>
+    <div class="step-sm impl gate-card">
+      <div class="num">10 · Gate D</div>
+      <div class="name">交付核验</div>
+      <div class="skill">story-to-contract（三层）</div>
     </div>
 
-    <!-- 实现阶段 -->
-    <div class="stage impl">
-      <div class="stage-head">
-        <div class="stage-dot"></div>
-        <div class="stage-label">实现阶段 <span class="stage-range">★ 判级 / ● 纪律 / 10</span></div>
-      </div>
-      <div class="stage-track">
-        <div class="step star">
-          <div class="num">★</div>
-          <div class="name">判级 / 技术方案</div>
-          <div class="skill">tech-design（方案 draft→frozen）</div>
-        </div>
-        <span class="flow-arrow">→</span>
-        <div class="step disc">
-          <div class="num">●</div>
-          <div class="name">实现纪律</div>
-          <div class="skill">implement-discipline</div>
-        </div>
-        <span class="flow-arrow">→</span>
-        <div class="step gate-card">
-          <div class="num">10 · Gate D</div>
-          <div class="name">交付核验</div>
-          <div class="skill">story-to-contract（三层）</div>
-        </div>
-      </div>
+    <!-- 收尾阶段 11–12 -->
+    <div class="step-sm close">
+      <div class="stage-tag">收尾 11–12</div>
+      <div class="num">11</div>
+      <div class="name">变更传播</div>
+      <div class="skill">change-propagation</div>
     </div>
-
-    <!-- 收尾阶段 -->
-    <div class="stage close">
-      <div class="stage-head">
-        <div class="stage-dot"></div>
-        <div class="stage-label">收尾阶段 <span class="stage-range">11 — 12</span></div>
-      </div>
-      <div class="stage-track">
-        <div class="step">
-          <div class="num">11</div>
-          <div class="name">变更传播</div>
-          <div class="skill">change-propagation</div>
-        </div>
-        <span class="flow-arrow">→</span>
-        <div class="step">
-          <div class="num">12</div>
-          <div class="name">沉淀</div>
-          <div class="skill">lesson-deposit</div>
-        </div>
-      </div>
+    <div class="step-sm close">
+      <div class="num">12</div>
+      <div class="name">沉淀</div>
+      <div class="skill">lesson-deposit</div>
     </div>
 
   </div>
