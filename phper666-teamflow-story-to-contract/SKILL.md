@@ -199,7 +199,7 @@ docs/api/{platform}-{item_id}-api-contract.md
 
 - 每个接口可追溯到 Story/共识/验收；
 - 每个必填字段、业务规则和权限约束有失败场景；
-- OpenAPI 与 Markdown 一致；
+- OpenAPI 与 Markdown 一致（按 review-rubric CONS-02：md 接口清单行与 yaml paths 集合双向相等，含完整路径前缀）；
 - Schema 不使用模糊 `Map<String,Object>` 或占位值；
 - 状态码、错误码、分页、时间和幂等行为明确；
 - 敏感字段不出现在响应、日志示例和审计差异中；
@@ -214,7 +214,7 @@ docs/api/{platform}-{item_id}-api-contract.md
 - FE 视角：联调可用性（字段覆盖、错误处理、示例、Mock/OpenAPI 一致、分页/时间语义）
 - QA 视角：可测试性（成功+失败场景、边界值、验收编号绑定、可直接执行）
 - 只查实现契约问题，**不重新猜测产品规则**；产品规则疑点转待确认闭环（phper666-teamflow-consensus-scan），不在此解决
-- 输出：通过（契约置已冻结）/ 退回（意见清单，BE 修改后重新复核）/ 阻断问题登记开放问题
+- 输出：通过（契约置已冻结；已冻结 = 接口清单全部行已冻结 + CONS-02 双文件一致）/ 退回（意见清单，BE 修改后重新复核）/ 阻断问题登记开放问题
 - **通过后衔接**：契约冻结完成 → 下一步按 `phper666-teamflow-tech-design` 判级——复杂/高风险需求（状态机、安全/权限/资金/数据、多模块、greenfield、外部系统集成）先产出 `docs/design/<id>-<module>-design.md` 技术方案并经评审，再进入实现；常规/简单需求直接进入实现
 
 ## Phase 8：交付与可选 PM 回写

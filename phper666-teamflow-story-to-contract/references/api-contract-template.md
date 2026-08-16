@@ -64,11 +64,15 @@
 
 ## 接口清单
 
+> 本表为导航摘要，行与 OpenAPI paths 一一对应（含完整路径前缀），字段细节不在此重复。"状态"列取值：已冻结 / 受阻(Q-xxx)；已冻结 = 全部行已冻结。
+
 | # | 状态 | 方法 | 路径 | 用途 | 权限 | 幂等 |
 |---|---|---|---|---|---|---|
-| 1 | NEW | POST | /api/v1/connections | 创建连接 | connection:write | 见详情 |
+| 1 | 已冻结 | POST | /api/v1/connections | 创建连接 | connection:write | 见详情 |
 
 ## Schema 与枚举
+
+> 字段结构细节以 OpenAPI yaml 为准，本节仅列 Schema 名称与用途摘要；枚举值须与 yaml `enum:` 一致。
 
 ### {SchemaName}
 
