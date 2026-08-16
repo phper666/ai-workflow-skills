@@ -1,7 +1,7 @@
 # 团队 AI 研发工作流 — 角色使用手册
 
 > 配套：`ai-team-workflow.html`（流程可视化）· `团队AI研发工作流-落地启动文档.md`（落地手册）· `团队AI研发工作流-Skill规格文档.md`（skill 规格）
-> 定位：每个角色的"怎么用"手册。核心承诺：**每角色只需记住 2 个 skill 的触发句，其余全是 agent 干活。**
+> 定位：每个角色的"怎么用"手册。核心承诺：**每角色只需记住 2-3 个 skill 的触发句，其余全是 agent 干活。**
 
 ---
 
@@ -11,10 +11,12 @@
 |:-----|:-----------|:---------|
 | 初始化者 | `phper666-teamflow-workflow-setup` | 项目开始前，用一次 |
 | 产品经理 | `phper666-teamflow-consensus-doc`（4 模式）+ `phper666-teamflow-consensus-scan`（闭环） | 每模块 + 每基线 + 扫描后 |
-| 后端 | `phper666-teamflow-consensus-scan`（扫描）+ `phper666-teamflow-story-to-contract`（4 模式） | 每基线 + 每个子需求 |
+| 后端 | `phper666-teamflow-consensus-scan`（扫描）+ `phper666-teamflow-story-to-contract`（4 模式）+ 实现三件套（tech-design / implement-discipline / lesson-deposit） | 每基线 + 每个子需求 + 实现阶段 |
 | 前端 | `phper666-teamflow-consensus-scan`（FE 视角）+ `phper666-teamflow-story-to-contract`（复核） | 每基线 + 每契约 |
 | QA | `phper666-teamflow-consensus-scan`（QA 视角）+ `phper666-teamflow-story-to-contract`（复核/核验） | 每基线 + 每契约 + 交付前 |
 | AI/责任人 | `phper666-teamflow-change-propagation` | 共识规则变更时 |
+
+**流程链（9 步）**：共识 → 扫描 → 待确认闭环 → 契约 → 判级/技术方案 → 实现纪律 → 交付核验 → 变更传播 → 沉淀
 
 ---
 
@@ -74,7 +76,7 @@ agent：按模块切子需求 → 每个绑定共识版本+规则编号+验收�
 
 ## 3. 后端
 
-**Skill**：`phper666-teamflow-consensus-scan`（扫描）+ `phper666-teamflow-story-to-contract`（生成/澄清/核验/沉淀）
+**Skill**：`phper666-teamflow-consensus-scan`（扫描）+ `phper666-teamflow-story-to-contract`（生成/澄清/核验/沉淀）+ 实现三件套：`phper666-teamflow-tech-design`（判级/方案）、`phper666-teamflow-implement-discipline`（实现纪律）、`phper666-teamflow-lesson-deposit`（经验沉淀）
 
 **你的一天**：
 
@@ -89,7 +91,7 @@ agent：查状态转换合法性 / 数据唯一性 / 权限 / 第三方重试幂
 ### 3.2 生成契约（核心模式）
 > "为 DH-12（订单取消）生成契约"
 
-agent：读共识 → `rg` 定位代码（Controller/DTO/migration）→ 分类 UNCHANGED/NEW/MODIFIED → 产出 `docs/api/jira-dh-12-api-contract.md` → 未决问题标 `TBD(Q-007)` 不编造 → 自检两轮。
+agent：读共识 → `rg` 定位代码（Controller/DTO/migration）→ 分类 UNCHANGED/NEW/MODIFIED → 产出契约**双文件**（`docs/api/jira-dh-12-api-contract.md` 叙事 + OpenAPI yaml，字段以 yaml 为唯一权威）→ 契约状态只允许**三态（草案/待评审/已冻结）**，受阻信息写开放问题表 → 未决问题标 `TBD(Q-007)` 不编造 → 自检两轮。
 
 > 改需求时："更新这个契约" → 幂等收敛，不产生 -v2 副本。
 
@@ -99,7 +101,25 @@ agent 定性三分：
 - **产品问题** → 自动升级 PM（先改共识再改契约）
 - **跨模块** → 记协调事项 + 责任人 + 截止时间
 
-### 3.4 实现决策（AI 给方案，你拍板）
+### 3.4 判级与技术方案（契约冻结后先判级）
+> "DH-12 判级"
+
+agent 按 `phper666-teamflow-tech-design` 判级（复杂 / 常规 / 安全敏感），结论 + 一句理由写入实现记录。**实现前置 Gate（契约冻结 → 实现之间，强制，缺一项不得开始实现）**：
+- **复杂 / 高风险** → 必产 `docs/design/dh-12-order-cancel-design.md` 并评审通过 → 方案状态 **draft → frozen**（评审记录留痕）；无方案文档或未冻结 = 不得进实现
+- **工程基线三问** → git / 脚手架 / 测试框架逐项核验，缺失先搭（属判级环节，不算实现步骤）
+- **实现偏离方案** → 显式更新方案文档；重大偏离 → 方案回 draft 重审
+
+### 3.5 实现纪律（分级执行）
+> "按实现纪律开发 DH-12"
+
+agent 按 `phper666-teamflow-implement-discipline` 分级执行，顺序不可跳：
+- **复杂** → TDD 写核心路径 → lint + type-check → Code Review → Semgrep
+- **常规** → lint 单次 + 工程基线三问复核
+- **安全敏感** → 强制安全扫描，工具缺失**不得降级**；其余工具缺失可降级并在记录中说明
+
+结果留痕 `docs/records/dh-12-record.md`（实现记录 + 核验记录两节）。
+
+### 3.6 实现决策（AI 给方案，你拍板）
 > "取消接口怎么设计？"
 
 agent 给 2-3 个方案 → 你选 → agent 记录选择+理由 → 归类：
@@ -107,15 +127,15 @@ agent 给 2-3 个方案 → 你选 → agent 记录选择+理由 → 归类：
 - 影响产品语义（字段/状态机/权限）→ **自动升级 PM**，不得悄悄改
 - 可复用 → 写"决策与踩坑"
 
-### 3.5 交付核验
+### 3.7 交付核验
 > "DH-12 开发完了，核验"
 
-agent：对照契约 diff 实现（字段/错误码/权限/幂等）→ 输出"3 项偏差，2 修 1 走变更流程"。
+agent：对照契约 diff 实现（字段/错误码/权限/幂等）→ 输出"3 项偏差，2 修 1 走变更流程"。**回查判级匹配**：实现复杂度与判级结论不符、或判级缺失 → 核验不通过。
 
-### 3.6 完成沉淀
+### 3.8 完成沉淀
 > "更新 DH-12 完成记录"
 
-agent：写完成记录（交付/验证/构建/发布/测试结果，要有证据）+ 决策与踩坑章节。
+agent：写完成记录（交付/验证/构建/发布/测试结果，要有证据）+ 决策与踩坑章节；可复用的坑走 `phper666-teamflow-lesson-deposit` **三硬标准过滤** → `docs/lessons/<date>-<slug>.md`（90 天无引用归档）。
 
 ---
 
@@ -136,9 +156,9 @@ agent：查页面/字段/交互/空态/跨端差异 → 输出：
 ### 4.2 复核契约（你的把关点）
 > "复核 DH-12 契约，我是 FE"
 
-agent：字段覆盖交互所需？错误码够区分 4xx/业务错？示例自洽？Mock/OpenAPI 与文档一致？→ 通过 / 退回+意见清单。
+agent：字段覆盖交互所需？错误码够区分 4xx/业务错？示例自洽？Mock/OpenAPI 与文档一致？→ 通过 / 退回+意见清单。**CONS-02 硬检查：md 接口清单与 yaml paths 双向一致，不一致直接打回**；契约状态只允许三态（草案/待评审/已冻结）。
 
-**你的收益**：契约冻结后 → "开工" → 按 Mock/OpenAPI 并行开发，不等后端。联调期不靠猜。
+**你的收益**：契约**已冻结**后 → "开工" → 按 Mock/OpenAPI 并行开发，不等后端。联调期不靠猜。冻结后再改 → 走变更流程，不静默改契约。
 
 ---
 
@@ -157,7 +177,7 @@ agent：查验收口径可观察？边界/异常路径有定义？可测试性�
 ### 5.2 生成测试矩阵
 > "按 DH-12 契约生成接口测试矩阵"
 
-agent：从契约"联调与测试场景"表展开（成功/参数/权限/冲突/依赖失败 + 边界值）→ 每条用例标验收编号（测漏了有据可查）。
+agent：从契约"联调与测试场景"表展开（成功/参数/权限/冲突/依赖失败 + 边界值）→ 每条用例标验收编号（测漏了有据可查）。**前提：契约已冻结（三态锁定）且通过 CONS-02 双向一致检查，未冻结先打回**。
 
 ### 5.3 交付核验
 > "DH-12 提测，按契约核验"
@@ -201,6 +221,8 @@ agent：读变更摘要 → 沿 R012 找引用（子需求/契约/测试）→ *
 | 1 人全干 | 默认单人模式（agent 自动三角色切换） | 全部自己审 |
 
 **规则**：`--role=BE|FE|QA` 参数切视角；一个人跑多个视角时，**每次只带一顶帽子**（避免视角混在一起漏检）。
+
+**实现阶段简化**：小团队把判级/实现纪律/沉淀合并跑——判级一句话记录、TDD 只覆盖核心路径、沉淀只写真踩坑（90 天无引用自动归档，不用维护）。
 
 ---
 
@@ -285,4 +307,4 @@ Day 12 BE:   "更新 DH-12 完成记录"                → 决策与踩坑沉�
 
 ---
 
-*手册版本：v1.0 · 日期：2026-08-07 · 配套 skill 规格文档：团队AI研发工作流-Skill规格文档.md*
+*手册版本：v2.0 · 日期：2026-08-16 · 配套 skill 规格文档：团队AI研发工作流-Skill规格文档.md*
