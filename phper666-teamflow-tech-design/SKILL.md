@@ -23,7 +23,7 @@ description: 契约冻结后、实现前的技术方案设计（分级）：复�
 
 1. 探索式提问：目标 / 边界 / 约束 / 验收标准逐条确认
 2. **产出 PRD**：`docs/prd/<date>-<slug>-prd.md`（需求可回溯的权威文档）
-3. **产出原型**（UI 类需求）：交互原型（`docs/prototype/`），验证流程与交互
+3. **产出原型**（UI 类需求）：交互原型 `docs/prototype/<date>-<slug>-prototype`（与 PRD 同 slug，保证回溯链可对应），验证流程与交互
 4. PRD + 原型 → 建共识文档（phper666-teamflow-consensus-doc，绑定 PRD/原型链接）→ 契约 → 本方案
 5. 回溯链闭合：PRD + 原型 → 共识 → 契约 → 方案 → 实现 → 交付核验（三层含 PRD+原型落实核对）
 

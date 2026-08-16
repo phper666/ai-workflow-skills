@@ -6,446 +6,282 @@
 <title>团队 AI 研发工作流 · 15 环节</title>
 <style>
   :root {
-    --bg: #f4f6f9;
+    --bg: #fafafa;
     --surface: #ffffff;
-    --ink: #131826;
-    --muted: #556070;
-    --line: #d9dee6;
-    --primary: #2d4bf5;
-    --primary-soft: #eef1ff;
-    --code-bg: #f1f5f9;
-
-    --gate: #c9281a;
-    --gate-soft: #fff4f2;
+    --ink: #111827;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --line-strong: #d1d5db;
+    --primary: #4f46e5;
+    --primary-soft: #eef2ff;
+    --code-bg: #f3f4f6;
+    --gate: #dc2626;
+    --gate-soft: #fef2f2;
 
     --req: #2563eb;
-    --req-soft: #eff6ff;
     --contract: #7c3aed;
-    --contract-soft: #f5f3ff;
     --impl: #059669;
-    --impl-soft: #ecfdf5;
     --close: #d97706;
-    --close-soft: #fffbeb;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
 
   body {
     background: var(--bg);
     color: var(--ink);
-    font: 14px/1.7 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
-    padding: 40px 18px 72px;
+    font: 15px/1.65 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
+    padding: 48px 24px 96px;
     -webkit-font-smoothing: antialiased;
   }
 
-  .wrap { max-width: 1200px; margin: 0 auto; }
+  .wrap { max-width: 1120px; margin: 0 auto; }
 
   /* Header */
-  header { margin-bottom: 36px; }
+  header { margin-bottom: 40px; }
   .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
     font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    color: var(--primary);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--muted);
     text-transform: uppercase;
     margin-bottom: 10px;
   }
-  .eyebrow::before {
-    content: "";
-    display: block;
-    width: 18px;
-    height: 3px;
-    border-radius: 2px;
-    background: var(--primary);
-  }
   h1 {
-    font-size: 32px;
-    font-weight: 800;
+    font-size: 34px;
+    font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.02em;
     margin-bottom: 10px;
   }
   .sub {
     color: var(--muted);
-    font-size: 15px;
+    font-size: 16px;
   }
-  .sub strong { color: var(--ink); font-weight: 700; }
+  .sub strong { color: var(--ink); font-weight: 600; }
 
-  /* Stage navigation */
-  .stage-nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  .quick-links {
+    margin-top: 18px;
     display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding: 12px 0;
-    margin: -12px -6px 28px;
-    background: rgba(244,246,249,.88);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-    scrollbar-width: none;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    font-size: 13px;
   }
-  .stage-nav::-webkit-scrollbar { display: none; }
-  .stage-nav a {
-    flex: 0 0 auto;
-    font-size: 12px;
-    font-weight: 700;
+  .quick-links a {
     color: var(--muted);
     text-decoration: none;
-    padding: 6px 12px;
-    border-radius: 999px;
-    border: 1px solid transparent;
-    transition: color .2s, background .2s, border-color .2s, transform .2s;
   }
-  .stage-nav a:hover {
-    color: var(--primary);
-    background: var(--primary-soft);
-    border-color: rgba(45,75,245,.15);
-    transform: translateY(-1px);
-  }
+  .quick-links a:hover { color: var(--primary); text-decoration: underline; }
+  .quick-links span { color: var(--line-strong); }
 
-  /* Section titles */
+  /* Section headings */
   h2 {
-    font-size: 18px;
-    font-weight: 800;
-    margin: 48px 0 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  h2::before {
-    content: "";
-    width: 6px;
-    height: 22px;
-    border-radius: 3px;
-    background: var(--primary);
-  }
-  .section-num {
-    font-size: 44px;
-    font-weight: 800;
-    line-height: 1;
-    color: var(--line);
-    opacity: .55;
-    width: 54px;
-    text-align: right;
-    user-select: none;
-    letter-spacing: -0.04em;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 56px 0 22px;
+    color: var(--ink);
   }
 
-  /* Stage tracks */
-  .pipeline { margin-bottom: 10px; }
+  /* Pipeline */
+  .pipeline { display: flex; flex-direction: column; gap: 16px; }
+
   .stage {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 16px 18px;
-    margin-bottom: 12px;
-    position: relative;
+    border-radius: 14px;
+    padding: 24px;
   }
-  .stage.req { background: linear-gradient(90deg, var(--req-soft) 0%, var(--surface) 55%); border-left: 4px solid var(--req); }
-  .stage.contract { background: linear-gradient(90deg, var(--contract-soft) 0%, var(--surface) 55%); border-left: 4px solid var(--contract); }
-  .stage.impl { background: linear-gradient(90deg, var(--impl-soft) 0%, var(--surface) 55%); border-left: 4px solid var(--impl); }
-  .stage.close { background: linear-gradient(90deg, var(--close-soft) 0%, var(--surface) 55%); border-left: 4px solid var(--close); }
+  .stage.req { border-left: 2px solid var(--req); }
+  .stage.contract { border-left: 2px solid var(--contract); }
+  .stage.impl { border-left: 2px solid var(--impl); }
+  .stage.close { border-left: 2px solid var(--close); }
 
   .stage-head {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
   }
-  .stage-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .stage.req .stage-dot { background: var(--req); box-shadow: 0 0 0 3px rgba(37,99,235,.18); }
-  .stage.contract .stage-dot { background: var(--contract); box-shadow: 0 0 0 3px rgba(124,58,237,.18); }
-  .stage.impl .stage-dot { background: var(--impl); box-shadow: 0 0 0 3px rgba(5,150,105,.18); }
-  .stage.close .stage-dot { background: var(--close); box-shadow: 0 0 0 3px rgba(217,119,6,.18); }
-
+  .stage-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .stage.req .stage-dot { background: var(--req); }
+  .stage.contract .stage-dot { background: var(--contract); }
+  .stage.impl .stage-dot { background: var(--impl); }
+  .stage.close .stage-dot { background: var(--close); }
   .stage-label {
     font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.05em;
+    font-weight: 600;
+    color: var(--muted);
     text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
-  .stage.req .stage-label { color: var(--req); }
-  .stage.contract .stage-label { color: var(--contract); }
-  .stage.impl .stage-label { color: var(--impl); }
-  .stage.close .stage-label { color: var(--close); }
-  .stage-range { color: var(--muted); font-weight: 500; margin-left: 6px; text-transform: none; }
+  .stage-range { font-weight: 400; text-transform: none; margin-left: 4px; }
 
   .stage-track {
     display: flex;
-    align-items: stretch;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding-bottom: 2px;
   }
 
   .step {
-    flex: 0 0 150px;
+    flex: 0 0 160px;
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 12px 14px;
-    position: relative;
+    border-radius: 10px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 1px 2px rgba(19,24,38,.04);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .step:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+    border-color: var(--line-strong);
   }
   .step .num {
-    font-size: 11px;
-    font-weight: 800;
-    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 6px;
   }
   .step .name {
     font-size: 14px;
-    font-weight: 700;
-    line-height: 1.35;
+    font-weight: 600;
+    line-height: 1.4;
   }
   .step .skill {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
-    margin-top: 8px;
-    line-height: 1.45;
+    margin-top: 10px;
+    line-height: 1.5;
     word-break: break-all;
   }
-
   .step.pre { border-style: dashed; }
 
-  .stage.req .step { border-top: 3px solid var(--req); }
-  .stage.req .step .num { color: var(--req); }
-  .stage.contract .step { border-top: 3px solid var(--contract); }
-  .stage.contract .step .num { color: var(--contract); }
-  .stage.impl .step { border-top: 3px solid var(--impl); }
-  .stage.impl .step .num { color: var(--impl); }
-  .stage.close .step { border-top: 3px solid var(--close); }
-  .stage.close .step .num { color: var(--close); }
-
-  .step.star {
-    background: var(--contract-soft);
-    border-color: rgba(124,58,237,.35);
-    border-top-color: var(--contract);
-    box-shadow: 0 0 0 1px var(--contract-soft), 0 4px 12px rgba(124,58,237,.12);
-  }
-  .step.star .num { color: var(--contract); font-size: 13px; }
-
-  .step.disc {
-    background: var(--impl-soft);
-    border-color: rgba(5,150,105,.35);
-    border-top-color: var(--impl);
-    box-shadow: 0 0 0 1px var(--impl-soft), 0 4px 12px rgba(5,150,105,.12);
-  }
-  .step.disc .num { color: var(--impl); font-size: 13px; }
-
-  .step.gate-card {
-    background: var(--gate-soft);
-    border-color: rgba(201,40,26,.35);
-    border-top-color: var(--gate);
-    box-shadow: 0 0 0 1px var(--gate-soft), 0 4px 12px rgba(201,40,26,.10);
-  }
+  .step.star { border-left: 3px solid var(--contract); background: #faf9ff; }
+  .step.disc { border-left: 3px solid var(--impl); background: #f6fdfb; }
+  .step.gate-card { border-left: 3px solid var(--gate); background: var(--gate-soft); }
+  .step.star .num { color: var(--contract); }
+  .step.disc .num { color: var(--impl); }
   .step.gate-card .num { color: var(--gate); }
 
-  /* Hover & micro-interactions */
-  .step, .gate-card, .panel, .gate-node {
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-  }
-  .step:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 22px rgba(19,24,38,.10);
-  }
-  .stage.req .step:hover { border-color: rgba(37,99,235,.55); }
-  .stage.contract .step:hover { border-color: rgba(124,58,237,.55); }
-  .stage.impl .step:hover { border-color: rgba(5,150,105,.55); }
-  .stage.close .step:hover { border-color: rgba(217,119,6,.55); }
-  .step.star:hover {
-    border-color: rgba(124,58,237,.7);
-    box-shadow: 0 12px 28px rgba(124,58,237,.18);
-  }
-  .step.disc:hover {
-    border-color: rgba(5,150,105,.7);
-    box-shadow: 0 12px 28px rgba(5,150,105,.18);
-  }
-  .step.gate-card:hover {
-    border-color: rgba(201,40,26,.7);
-    box-shadow: 0 12px 28px rgba(201,40,26,.16);
-  }
-
-  /* Badge-style markers for ★ / ● */
   .step.star .num, .step.disc .num {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid currentColor;
-    background: #fff;
-    font-size: 13px;
-    margin-bottom: 6px;
-  }
-  .step.star .num { color: var(--contract); }
-  .step.disc .num { color: var(--impl); }
-  .step.gate-card .num {
-    display: inline-block;
-    padding: 2px 7px;
-    border-radius: 999px;
-    background: var(--gate);
-    color: #fff;
-    font-size: 10px;
-    margin-bottom: 6px;
+    border: 1.5px solid currentColor;
+    background: var(--surface);
+    margin-bottom: 8px;
   }
 
   .flow-arrow {
     flex: 0 0 auto;
     align-self: center;
-    color: var(--line);
-    font-size: 18px;
-    font-weight: 700;
+    color: var(--line-strong);
+    font-size: 16px;
     user-select: none;
-    opacity: .7;
-    transition: opacity .2s, transform .2s;
   }
-  .stage.req .flow-arrow { color: var(--req); opacity: .35; }
-  .stage.contract .flow-arrow { color: var(--contract); opacity: .35; }
-  .stage.impl .flow-arrow { color: var(--impl); opacity: .35; }
-  .stage.close .flow-arrow { color: var(--close); opacity: .35; }
-  .stage-track:hover .flow-arrow { opacity: .7; }
-  .stage-track:hover .flow-arrow:hover { opacity: 1; transform: translateX(2px); }
 
-  /* Gate connectors between stages */
-  .gate-connector { margin: 2px 0 14px 26px; }
+  /* Gate connectors */
+  .gate-connector { margin: 0 0 0 24px; }
   .gate-node {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    background: var(--gate-soft);
-    border: 1px solid rgba(201,40,26,.25);
-    border-left: 4px solid var(--gate);
-    border-radius: 12px;
-    padding: 10px 16px;
-    box-shadow: 0 2px 6px rgba(201,40,26,.08);
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gate);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--muted);
   }
+  .gate-node b { color: var(--gate); font-weight: 600; }
+  .gate-node.major { display: flex; width: calc(100% - 24px); padding: 12px 16px; }
   .gate-icon {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: var(--gate);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
-    font-weight: 800;
-  }
-  .gate-node b { color: var(--gate); font-size: 13px; }
-  .gate-node span { color: var(--muted); font-size: 12px; }
-
-  .gate-node.major {
-    display: flex;
-    width: calc(100% - 26px);
-    padding: 14px 18px;
-    border-width: 2px;
-  }
-  .gate-node.major .gate-icon { width: 34px; height: 34px; font-size: 16px; }
-  .gate-node.major b { font-size: 15px; }
-  .gate-node.major .gate-body { flex: 1; }
-  .gate-node:hover {
-    transform: translateX(4px);
-    box-shadow: 0 8px 18px rgba(201,40,26,.14);
-    border-color: rgba(201,40,26,.45);
+    font-size: 12px;
+    font-weight: 700;
   }
 
-  /* Gate overview cards */
+  /* Gate overview */
   .gates-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
   }
   .gate-card {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-top: 4px solid var(--gate);
-    border-radius: 14px;
+    border-left: 3px solid var(--gate);
+    border-radius: 10px;
     padding: 18px;
-    box-shadow: 0 1px 2px rgba(19,24,38,.04);
-    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
-  }
-  .gate-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(201,40,26,.14);
-    border-color: rgba(201,40,26,.45);
   }
   .gate-card header {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
+    gap: 8px;
+    margin-bottom: 6px;
   }
   .gate-badge {
-    background: var(--gate);
-    color: #fff;
+    background: var(--gate-soft);
+    color: var(--gate);
     font-size: 11px;
-    font-weight: 800;
-    padding: 3px 9px;
+    font-weight: 700;
+    padding: 2px 7px;
     border-radius: 999px;
-    letter-spacing: 0.03em;
   }
   .gate-card h3 {
-    font-size: 15px;
-    font-weight: 800;
-    color: var(--gate);
-    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
   }
   .gate-card p {
     font-size: 13px;
     color: var(--muted);
-    line-height: 1.65;
-    margin: 0;
+    line-height: 1.6;
+    margin-top: 6px;
   }
 
   /* Panels */
   .panel {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 20px;
-    box-shadow: 0 1px 2px rgba(19,24,38,.04);
+    border-radius: 12px;
+    padding: 24px;
   }
-  .panel:hover { box-shadow: 0 6px 18px rgba(19,24,38,.07); }
-  .panel.gate-major:hover { box-shadow: 0 8px 22px rgba(201,40,26,.12); }
   .panel.gate-major {
-    border-left: 5px solid var(--gate);
-    background: linear-gradient(90deg, var(--gate-soft) 0%, var(--surface) 45%);
+    border-left: 3px solid var(--gate);
+    background: var(--gate-soft);
   }
 
-  .checklist { list-style: none; padding: 0; }
-  .checklist li {
-    display: flex;
-    gap: 14px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .checklist li:last-child { border-bottom: none; }
+  .checklist { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .checklist li { display: flex; gap: 12px; }
   .checklist .chk {
-    flex: 0 0 26px;
-    height: 26px;
-    border-radius: 7px;
+    flex: 0 0 22px;
+    height: 22px;
+    border-radius: 6px;
     background: var(--gate);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
-    font-weight: 800;
+    font-size: 11px;
+    font-weight: 700;
   }
-  .checklist .item { flex: 1; font-size: 14px; }
-  .checklist .item b { color: var(--gate); }
+  .checklist .item { flex: 1; font-size: 14px; line-height: 1.6; }
+  .checklist .item b { color: var(--gate); font-weight: 600; }
 
   /* Two-column grid */
   .grid2 {
@@ -459,74 +295,70 @@
 
   .panel h3 {
     font-size: 15px;
-    font-weight: 800;
+    font-weight: 600;
     margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 8px;
   }
   .icon {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     border-radius: 6px;
     background: var(--primary-soft);
     color: var(--primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
+    font-size: 12px;
   }
   .panel ul { padding-left: 18px; }
-  .panel li { margin: 7px 0; font-size: 13.5px; color: var(--ink); line-height: 1.65; }
+  .panel li { margin: 8px 0; font-size: 14px; line-height: 1.65; color: var(--ink); }
   .panel li::marker { color: var(--muted); }
 
   /* Tables */
-  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--line); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
   table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 13px;
+    font-size: 14px;
     background: var(--surface);
   }
   thead th {
-    background: linear-gradient(180deg, var(--primary-soft) 0%, #ffffff 100%);
-    color: var(--primary);
-    font-weight: 800;
-    padding: 11px 14px;
-    text-align: left;
-    border-bottom: 2px solid var(--primary);
-    white-space: nowrap;
+    background: #fafafa;
+    color: var(--muted);
+    font-weight: 600;
     font-size: 12px;
-    letter-spacing: 0.03em;
     text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
   }
   tbody td {
-    padding: 11px 14px;
+    padding: 14px 16px;
     border-bottom: 1px solid var(--line);
     vertical-align: top;
     line-height: 1.6;
   }
   tbody tr:last-child td { border-bottom: none; }
-  tbody tr:nth-child(even) { background: rgba(238,241,255,.35); }
-  tbody tr:hover { background: rgba(238,241,255,.7); }
 
   code {
     background: var(--code-bg);
     padding: 2px 5px;
     border-radius: 4px;
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "PingFang SC", monospace;
-    font-size: 12px;
-    font-weight: 600;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12.5px;
     color: var(--ink);
-    border: 1px solid rgba(19,24,38,.06);
   }
 
   /* Tags */
   .tag {
     display: inline-block;
     font-size: 11px;
-    font-weight: 700;
-    padding: 2px 8px;
+    font-weight: 600;
+    padding: 2px 7px;
     border-radius: 999px;
     background: var(--primary-soft);
     color: var(--primary);
@@ -534,25 +366,26 @@
     vertical-align: middle;
   }
   .tag.gate { background: var(--gate-soft); color: var(--gate); }
-  .tag.impl { background: var(--impl-soft); color: var(--impl); }
+  .tag.impl { background: rgba(5,150,105,.08); color: var(--impl); }
 
   /* Tier list */
-  .tier-list { list-style: none; padding: 0; }
-  .tier-list li {
-    display: flex;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--line);
+  .tier-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .tier-list li { display: flex; gap: 10px; }
+  .tier {
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
   }
-  .tier-list li:last-child { border-bottom: none; }
-  .tier { flex: 0 0 auto; font-size: 12px; font-weight: 800; padding: 2px 10px; border-radius: 999px; }
-  .tier.complex { background: var(--contract-soft); color: var(--contract); }
+  .tier.complex { background: rgba(124,58,237,.08); color: var(--contract); }
   .tier.normal { background: var(--primary-soft); color: var(--primary); }
   .tier.secure { background: var(--gate-soft); color: var(--gate); }
 
   /* Responsive */
   @media (max-width: 860px) {
-    h1 { font-size: 26px; }
+    body { padding: 32px 18px 64px; }
+    h1 { font-size: 28px; }
     .stage-track { flex-wrap: wrap; }
     .step { flex: 1 1 140px; max-width: none; }
     .flow-arrow { display: none; }
@@ -561,7 +394,6 @@
   }
 
   @media (max-width: 640px) {
-    body { padding: 24px 14px 48px; }
     .step { flex: 1 1 100%; }
   }
 </style>
@@ -573,19 +405,18 @@
     <div class="eyebrow">Team AI Workflow</div>
     <h1>团队 AI 研发工作流</h1>
     <div class="sub"><strong>15 环节 · 8 skills</strong> · 更新于 2026-08-16（含实现前置 Gate）</div>
+    <div class="quick-links">
+      <a href="#flow">流程总览</a><span>/</span>
+      <a href="#gates">强制关卡</a><span>/</span>
+      <a href="#preflight">实现前置</a><span>/</span>
+      <a href="#matrix">判级矩阵</a><span>/</span>
+      <a href="#discipline">实现纪律</a><span>/</span>
+      <a href="#contract">契约防漂移</a><span>/</span>
+      <a href="#artifacts">产物目录</a>
+    </div>
   </header>
 
-  <nav class="stage-nav" aria-label="阶段导航">
-    <a href="#flow">流程总览</a>
-    <a href="#gates">强制关卡</a>
-    <a href="#preflight">实现前置</a>
-    <a href="#matrix">判级矩阵</a>
-    <a href="#discipline">实现纪律</a>
-    <a href="#contract">契约防漂移</a>
-    <a href="#artifacts">产物目录</a>
-  </nav>
-
-  <h2 id="flow"><span class="section-num">01</span>流程总览</h2>
+  <h2 id="flow">流程总览</h2>
   <div class="pipeline">
 
     <!-- 需求阶段 -->
@@ -688,7 +519,7 @@
     <div class="gate-connector">
       <div class="gate-node major">
         <div class="gate-icon">C</div>
-        <div class="gate-body">
+        <div>
           <b>Gate C · 实现前置（强制）</b>
           <span style="display:block;margin-top:4px;color:var(--muted);font-size:13px;">契约冻结 → 实现之间，缺一项不得开始实现：① 判级留痕 ② 复杂必产方案且 frozen ③ 工程基线三问 ④ 核验回查判级匹配</span>
         </div>
@@ -745,7 +576,7 @@
 
   </div>
 
-  <h2 id="gates"><span class="section-num">02</span>强制关卡总览</h2>
+  <h2 id="gates">强制关卡总览</h2>
   <div class="gates-grid">
     <div class="gate-card">
       <header><span class="gate-badge">A</span><h3>Gate A · 评审就绪</h3></header>
@@ -765,7 +596,7 @@
     </div>
   </div>
 
-  <h2 id="preflight"><span class="section-num">03</span>实现前置 Gate（契约冻结 → 实现之间，缺一项不得开始实现）</h2>
+  <h2 id="preflight">实现前置 Gate（契约冻结 → 实现之间，缺一项不得开始实现）</h2>
   <div class="panel gate-major">
     <ul class="checklist">
       <li><div class="chk">①</div><div class="item"><b>判级：</b>跑 tech-design 判级，结论（复杂 / 常规 / 安全敏感）+ 一句理由，写入实现记录。</div></li>
@@ -775,7 +606,7 @@
     </ul>
   </div>
 
-  <h2 id="matrix"><span class="section-num">04</span>判级矩阵（tech-design）</h2>
+  <h2 id="matrix">判级矩阵（tech-design）</h2>
   <div class="table-wrap">
     <table>
       <thead>
@@ -801,17 +632,17 @@
     </table>
   </div>
 
-  <h2 id="discipline"><span class="section-num">05</span>实现纪律（implement-discipline，分级）</h2>
+  <h2 id="discipline">实现纪律（implement-discipline，分级）</h2>
   <div class="panel">
     <ul class="tier-list">
       <li><span class="tier complex">复杂</span><div>TDD 核心路径（非平凡逻辑 red→green→refactor）→ lint+type-check → Code Review（ocr 或团队机制）→ Semgrep（有则跑）。</div></li>
       <li><span class="tier normal">常规</span><div>lint 单次 + 工程基线三问复核。</div></li>
       <li><span class="tier secure">安全敏感</span><div>强制安全扫描，工具缺失必须换等价工具或安装。</div></li>
     </ul>
-    <p style="margin-top:12px;font-size:13px;color:var(--muted);">工具降级记录在案，交付核验可见；留痕 <code>docs/records/&lt;id&gt;-record.md</code>（实现记录 + 核验记录两节）。</p>
+    <p style="margin-top:14px;font-size:13px;color:var(--muted);">工具降级记录在案，交付核验可见；留痕 <code>docs/records/&lt;id&gt;-record.md</code>（实现记录 + 核验记录两节）。</p>
   </div>
 
-  <h2 id="contract"><span class="section-num">06</span>契约防漂移（story-to-contract）</h2>
+  <h2 id="contract">契约防漂移（story-to-contract）</h2>
   <div class="grid2">
     <div class="panel">
       <h3><span class="icon">◈</span>双文件单一事实源</h3>
@@ -833,7 +664,7 @@
     </div>
   </div>
 
-  <h2 id="artifacts"><span class="section-num">07</span>产物目录（7 个）</h2>
+  <h2 id="artifacts">产物目录（7 个）</h2>
   <div class="table-wrap">
     <table>
       <thead>

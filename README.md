@@ -51,7 +51,7 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 | `docs/api/` | 契约双文件：叙事契约（追踪/规则/状态转换/测试场景）+ OpenAPI（字段结构唯一事实源）；状态三态：草案/待评审/已冻结 | `{platform}-{item}-api-contract.md` + `-openapi.yaml` | story-to-contract，每工作项一份 |
 | `docs/design/` | 技术方案（架构决策/模块划分/关键机制/工程基线），状态 draft→frozen | `<子需求id>-<模块>-design.md` | tech-design，仅复杂/高风险；未 frozen 不得进实现 |
 | `docs/prd/` | 需求文档（需求可回溯的权威文档） | `<date>-<slug>-prd.md` | 复杂需求前置（consensus-doc Phase 0） |
-| `docs/prototype/` | 交互原型 | 自由命名 | 复杂 UI 类需求 |
+| `docs/prototype/` | 交互原型 | `<date>-<slug>-prototype`（与 PRD 同 slug） | 复杂 UI 类需求 |
 | `docs/records/` | 实现记录（判级结论+测试/lint/review/扫描结果）+ 核验记录（核对结论+风险项）两节 | `<子需求id>-record.md` | implement-discipline，交付核验时核对 |
 | `docs/lessons/` | 经验沉淀（三硬标准过滤，90 天无引用 archived） | `<date>-<slug>.md` | lesson-deposit |
 
