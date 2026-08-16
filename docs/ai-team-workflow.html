@@ -60,109 +60,129 @@
   }
   .sub strong { color: var(--ink); font-weight: 600; }
 
-  .quick-links {
-    margin-top: 18px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 16px;
-    font-size: 13px;
-  }
-  .quick-links a {
-    color: var(--muted);
-    text-decoration: none;
-  }
-  .quick-links a:hover { color: var(--primary); text-decoration: underline; }
-  .quick-links span { color: var(--line-strong); }
-
   /* Section headings */
   h2 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
-    margin: 56px 0 22px;
     color: var(--ink);
-  }
-
-  /* Compact flow */
-  .flow {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 18px;
-    align-items: stretch;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::before {
+    content: "";
+    width: 5px;
+    height: 18px;
+    border-radius: 3px;
+    background: var(--primary);
   }
 
-  .step-sm {
-    flex: 0 0 122px;
+  /* Pipeline: one row per stage */
+  .pipeline { display: flex; flex-direction: column; gap: 12px; margin-bottom: 10px; }
+
+  .stage {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .stage.req { border-left: 2px solid var(--req); }
+  .stage.contract { border-left: 2px solid var(--contract); }
+  .stage.impl { border-left: 2px solid var(--impl); }
+  .stage.close { border-left: 2px solid var(--close); }
+
+  .stage-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .stage-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .stage.req .stage-dot { background: var(--req); }
+  .stage.contract .stage-dot { background: var(--contract); }
+  .stage.impl .stage-dot { background: var(--impl); }
+  .stage.close .stage-dot { background: var(--close); }
+  .stage-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .stage-range { font-weight: 400; text-transform: none; margin-left: 3px; }
+
+  .stage-track {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .step {
+    flex: 0 0 140px;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 8px;
-    padding: 10px 12px;
+    padding: 12px 13px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
   }
-  .step-sm:hover {
+  .step:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+    box-shadow: 0 6px 16px rgba(0,0,0,.06);
     border-color: var(--line-strong);
   }
-  .step-sm.pre { border-style: dashed; }
-
-  .step-sm.req { border-top: 2px solid var(--req); }
-  .step-sm.contract { border-top: 2px solid var(--contract); }
-  .step-sm.impl { border-top: 2px solid var(--impl); }
-  .step-sm.close { border-top: 2px solid var(--close); }
-
-  .step-sm.star { border-left: 2px solid var(--contract); background: #faf9ff; }
-  .step-sm.disc { border-left: 2px solid var(--impl); background: #f6fdfb; }
-  .step-sm.gate-card { border-left: 2px solid var(--gate); background: var(--gate-soft); }
-
-  .stage-tag {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 4px;
-  }
-  .stage-tag::before {
-    content: "";
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-  }
-  .step-sm.req .stage-tag::before { background: var(--req); }
-  .step-sm.contract .stage-tag::before { background: var(--contract); }
-  .step-sm.impl .stage-tag::before { background: var(--impl); }
-  .step-sm.close .stage-tag::before { background: var(--close); }
-
-  .step-sm .num {
+  .step .num {
     font-size: 11px;
     font-weight: 600;
     color: var(--muted);
     margin-bottom: 2px;
   }
-  .step-sm.star .num { color: var(--contract); }
-  .step-sm.disc .num { color: var(--impl); }
-  .step-sm.gate-card .num { color: var(--gate); }
-
-  .step-sm .name {
+  .step .name {
     font-size: 13px;
     font-weight: 600;
     line-height: 1.35;
   }
-  .step-sm .skill {
+  .step .skill {
     font-size: 10px;
     color: var(--muted);
     margin-top: 6px;
     line-height: 1.45;
     word-break: break-all;
   }
+  .step.pre { border-style: dashed; }
 
+  .step.star { border-left: 2px solid var(--contract); background: #faf9ff; }
+  .step.disc { border-left: 2px solid var(--impl); background: #f6fdfb; }
+  .step.gate-card { border-left: 2px solid var(--gate); background: var(--gate-soft); }
+  .step.star .num { color: var(--contract); }
+  .step.disc .num { color: var(--impl); }
+  .step.gate-card .num { color: var(--gate); }
+
+  .step.star .num, .step.disc .num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid currentColor;
+    background: #fff;
+    margin-bottom: 4px;
+    font-size: 11px;
+  }
+
+  .flow-arrow {
+    flex: 0 0 auto;
+    align-self: center;
+    color: var(--line-strong);
+    font-size: 14px;
+    user-select: none;
+  }
+
+  /* Gate markers inside stage tracks */
   .gate-marker {
     flex: 0 0 28px;
     align-self: stretch;
@@ -192,6 +212,8 @@
     border-left: 3px solid var(--gate);
     border-radius: 10px;
     padding: 16px;
+    display: flex;
+    flex-direction: column;
   }
   .gate-card header {
     display: flex;
@@ -216,21 +238,44 @@
     font-size: 13px;
     color: var(--muted);
     line-height: 1.55;
+    flex: 1;
   }
+
+  /* Details sections */
+  details { margin: 36px 0; }
+  details:first-of-type { margin-top: 48px; }
+  summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary h2 { flex: 1; margin: 0; }
+  .disclosure {
+    color: var(--muted);
+    font-size: 12px;
+    transition: color .15s;
+  }
+  summary:hover .disclosure { color: var(--primary); }
+  summary:hover h2 { color: var(--primary); }
+  .details-body { margin-top: 16px; }
 
   /* Panels */
   .panel {
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 12px;
-    padding: 24px;
+    padding: 22px;
   }
   .panel.gate-major {
     border-left: 3px solid var(--gate);
     background: var(--gate-soft);
   }
 
-  .checklist { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .checklist { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
   .checklist li { display: flex; gap: 12px; }
   .checklist .chk {
     flex: 0 0 22px;
@@ -350,12 +395,15 @@
   @media (max-width: 860px) {
     body { padding: 32px 18px 64px; }
     h1 { font-size: 28px; }
-    .step-sm { flex: 0 0 108px; }
+    .stage-track { flex-wrap: wrap; }
+    .step { flex: 1 1 130px; max-width: none; }
+    .flow-arrow { display: none; }
     .gate-marker { flex: 0 0 24px; min-height: 40px; font-size: 11px; }
   }
 
   @media (max-width: 640px) {
-    .step-sm { flex: 1 1 100px; }
+    .step { flex: 1 1 100%; }
+    .gates-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -366,118 +414,146 @@
     <div class="eyebrow">Team AI Workflow</div>
     <h1>团队 AI 研发工作流</h1>
     <div class="sub"><strong>15 环节 · 8 skills</strong> · 更新于 2026-08-16（含实现前置 Gate）</div>
-    <div class="quick-links">
-      <a href="#flow">流程总览</a><span>/</span>
-      <a href="#gates">强制关卡</a><span>/</span>
-      <a href="#preflight">实现前置</a><span>/</span>
-      <a href="#matrix">判级矩阵</a><span>/</span>
-      <a href="#discipline">实现纪律</a><span>/</span>
-      <a href="#contract">契约防漂移</a><span>/</span>
-      <a href="#artifacts">产物目录</a>
-    </div>
   </header>
 
-  <h2 id="flow">流程总览</h2>
-  <div class="flow">
+  <h2>流程总览</h2>
+  <div class="pipeline">
 
-    <!-- 需求阶段 0–6 -->
-    <div class="step-sm req pre">
-      <div class="stage-tag">需求 0–6</div>
-      <div class="num">前置 0</div>
-      <div class="name">需求探索</div>
-      <div class="skill">consensus-doc（复杂：PRD+原型必产）</div>
-    </div>
-    <div class="step-sm req">
-      <div class="num">1</div>
-      <div class="name">建共识</div>
-      <div class="skill">consensus-doc</div>
-    </div>
-    <div class="step-sm req">
-      <div class="num">2</div>
-      <div class="name">发基线</div>
-      <div class="skill">consensus-doc</div>
-    </div>
-    <div class="step-sm req">
-      <div class="num">3</div>
-      <div class="name">扫描</div>
-      <div class="skill">consensus-scan</div>
-    </div>
-    <div class="step-sm req">
-      <div class="num">4</div>
-      <div class="name">待确认闭环</div>
-      <div class="skill">consensus-scan</div>
-    </div>
-    <div class="step-sm req">
-      <div class="num">5</div>
-      <div class="name">评审</div>
-      <div class="skill">consensus-doc</div>
-    </div>
-
-    <div class="gate-marker">A</div>
-
-    <div class="step-sm req">
-      <div class="num">6</div>
-      <div class="name">拆解</div>
-      <div class="skill">consensus-doc</div>
-    </div>
-
-    <!-- 契约阶段 7–9 -->
-    <div class="step-sm contract">
-      <div class="stage-tag">契约 7–9</div>
-      <div class="num">7</div>
-      <div class="name">契约</div>
-      <div class="skill">story-to-contract</div>
-    </div>
-    <div class="step-sm contract">
-      <div class="num">8</div>
-      <div class="name">复核（FE/QA）</div>
-      <div class="skill">story-to-contract</div>
-    </div>
-
-    <div class="gate-marker">B</div>
-
-    <div class="step-sm contract">
-      <div class="num">9</div>
-      <div class="name">澄清</div>
-      <div class="skill">story-to-contract</div>
+    <!-- 需求阶段 -->
+    <div class="stage req">
+      <div class="stage-head">
+        <div class="stage-dot"></div>
+        <div class="stage-label">需求阶段 <span class="stage-range">前置 0 — 6</span></div>
+      </div>
+      <div class="stage-track">
+        <div class="step pre">
+          <div class="num">前置 0</div>
+          <div class="name">需求探索</div>
+          <div class="skill">consensus-doc（复杂：PRD+原型必产）</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="step">
+          <div class="num">1</div>
+          <div class="name">建共识</div>
+          <div class="skill">consensus-doc</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="step">
+          <div class="num">2</div>
+          <div class="name">发基线</div>
+          <div class="skill">consensus-doc</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="step">
+          <div class="num">3</div>
+          <div class="name">扫描</div>
+          <div class="skill">consensus-scan</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="step">
+          <div class="num">4</div>
+          <div class="name">待确认闭环</div>
+          <div class="skill">consensus-scan</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="step">
+          <div class="num">5</div>
+          <div class="name">评审</div>
+          <div class="skill">consensus-doc</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="gate-marker">A</div>
+        <span class="flow-arrow">→</span>
+        <div class="step">
+          <div class="num">6</div>
+          <div class="name">拆解</div>
+          <div class="skill">consensus-doc</div>
+        </div>
+      </div>
     </div>
 
-    <div class="gate-marker">C</div>
+    <!-- 契约阶段 -->
+    <div class="stage contract">
+      <div class="stage-head">
+        <div class="stage-dot"></div>
+        <div class="stage-label">契约阶段 <span class="stage-range">7 — 9</span></div>
+      </div>
+      <div class="stage-track">
+        <div class="step">
+          <div class="num">7</div>
+          <div class="name">契约</div>
+          <div class="skill">story-to-contract</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="step">
+          <div class="num">8</div>
+          <div class="name">复核（FE/QA）</div>
+          <div class="skill">story-to-contract</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="gate-marker">B</div>
+        <span class="flow-arrow">→</span>
+        <div class="step">
+          <div class="num">9</div>
+          <div class="name">澄清</div>
+          <div class="skill">story-to-contract</div>
+        </div>
+      </div>
+    </div>
 
-    <!-- 实现阶段 ★●10 -->
-    <div class="step-sm impl star">
-      <div class="stage-tag">实现 ★●10</div>
-      <div class="num">★</div>
-      <div class="name">判级 / 技术方案</div>
-      <div class="skill">tech-design（方案 draft→frozen）</div>
-    </div>
-    <div class="step-sm impl disc">
-      <div class="num">●</div>
-      <div class="name">实现纪律</div>
-      <div class="skill">implement-discipline</div>
-    </div>
-    <div class="step-sm impl gate-card">
-      <div class="num">10 · Gate D</div>
-      <div class="name">交付核验</div>
-      <div class="skill">story-to-contract（三层）</div>
+    <!-- 实现阶段 -->
+    <div class="stage impl">
+      <div class="stage-head">
+        <div class="stage-dot"></div>
+        <div class="stage-label">实现阶段 <span class="stage-range">★ 判级 / ● 纪律 / 10</span></div>
+      </div>
+      <div class="stage-track">
+        <div class="gate-marker">C</div>
+        <span class="flow-arrow">→</span>
+        <div class="step star">
+          <div class="num">★</div>
+          <div class="name">判级 / 技术方案</div>
+          <div class="skill">tech-design（方案 draft→frozen）</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="step disc">
+          <div class="num">●</div>
+          <div class="name">实现纪律</div>
+          <div class="skill">implement-discipline</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="step gate-card">
+          <div class="num">10 · Gate D</div>
+          <div class="name">交付核验</div>
+          <div class="skill">story-to-contract（三层）</div>
+        </div>
+      </div>
     </div>
 
-    <!-- 收尾阶段 11–12 -->
-    <div class="step-sm close">
-      <div class="stage-tag">收尾 11–12</div>
-      <div class="num">11</div>
-      <div class="name">变更传播</div>
-      <div class="skill">change-propagation</div>
-    </div>
-    <div class="step-sm close">
-      <div class="num">12</div>
-      <div class="name">沉淀</div>
-      <div class="skill">lesson-deposit</div>
+    <!-- 收尾阶段 -->
+    <div class="stage close">
+      <div class="stage-head">
+        <div class="stage-dot"></div>
+        <div class="stage-label">收尾阶段 <span class="stage-range">11 — 12</span></div>
+      </div>
+      <div class="stage-track">
+        <div class="step">
+          <div class="num">11</div>
+          <div class="name">变更传播</div>
+          <div class="skill">change-propagation</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="step">
+          <div class="num">12</div>
+          <div class="name">沉淀</div>
+          <div class="skill">lesson-deposit</div>
+        </div>
+      </div>
     </div>
 
   </div>
 
-  <h2 id="gates">强制关卡总览</h2>
+  <h2>强制关卡总览</h2>
   <div class="gates-grid">
     <div class="gate-card">
       <header><span class="gate-badge">A</span><h3>Gate A · 评审就绪</h3></header>
@@ -497,91 +573,111 @@
     </div>
   </div>
 
-  <h2 id="preflight">实现前置 Gate（契约冻结 → 实现之间，缺一项不得开始实现）</h2>
-  <div class="panel gate-major">
-    <ul class="checklist">
-      <li><div class="chk">①</div><div class="item"><b>判级：</b>跑 tech-design 判级，结论（复杂 / 常规 / 安全敏感）+ 一句理由，写入实现记录。</div></li>
-      <li><div class="chk">②</div><div class="item"><b>复杂/高风险：</b>必产 <code>docs/design/&lt;id&gt;-&lt;module&gt;-design.md</code> 且评审通过（<b>方案冻结</b> draft→frozen，评审记录留痕）；<b>无方案文档或未冻结 = 不得进入实现管道</b>。</div></li>
-      <li><div class="chk">③</div><div class="item"><b>工程基线三问：</b>git / 脚手架 / 测试框架逐项核验；缺失先搭（脚手架搭建属判级环节，不算实现步骤）。</div></li>
-      <li><div class="chk">④</div><div class="item"><b>核验回查：</b>交付核验的「判级匹配」对照实现复杂度，判级缺失或明显错判 → 核验不通过。</div></li>
-    </ul>
-  </div>
-
-  <h2 id="matrix">判级矩阵（tech-design）</h2>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>级别</th><th>触发条件</th><th>要求</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><b>复杂</b></td>
-          <td>跨模块、新架构/greenfield、契约变更、状态机、外部系统集成</td>
-          <td>必出技术方案文档 + 评审（frozen 才进实现）；需求探索必产 PRD+原型（UI 类）；完整实现纪律</td>
-        </tr>
-        <tr>
-          <td><b>常规</b></td>
-          <td>单模块、CRUD、纯 UI、已有模式简单延伸</td>
-          <td>跳过方案；轻量实现纪律（lint 单次 + 工程基线三问复核）</td>
-        </tr>
-        <tr>
-          <td><b>安全敏感</b></td>
-          <td>密钥/权限/支付/资金/数据（叠加在任一级之上）</td>
-          <td>强制安全扫描（Semgrep 或等价工具），不得降级</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h2 id="discipline">实现纪律（implement-discipline，分级）</h2>
-  <div class="panel">
-    <ul class="tier-list">
-      <li><span class="tier complex">复杂</span><div>TDD 核心路径（非平凡逻辑 red→green→refactor）→ lint+type-check → Code Review（ocr 或团队机制）→ Semgrep（有则跑）。</div></li>
-      <li><span class="tier normal">常规</span><div>lint 单次 + 工程基线三问复核。</div></li>
-      <li><span class="tier secure">安全敏感</span><div>强制安全扫描，工具缺失必须换等价工具或安装。</div></li>
-    </ul>
-    <p style="margin-top:14px;font-size:13px;color:var(--muted);">工具降级记录在案，交付核验可见；留痕 <code>docs/records/&lt;id&gt;-record.md</code>（实现记录 + 核验记录两节）。</p>
-  </div>
-
-  <h2 id="contract">契约防漂移（story-to-contract）</h2>
-  <div class="grid2">
-    <div class="panel">
-      <h3><span class="icon">◈</span>双文件单一事实源</h3>
-      <ul>
-        <li>字段级结构（Schema/参数/响应字段）+ 示例值 → <b>OpenAPI yaml 唯一权威</b></li>
-        <li>业务语义（错误语义/状态转换/幂等/审计/测试要点）→ md</li>
-        <li>md 接口清单 = 导航摘要表，行与 yaml paths 一一对应（含完整路径前缀）</li>
-        <li>双文件同生同步，禁止只改其一</li>
-      </ul>
+  <details>
+    <summary><h2 id="preflight">实现前置 Gate（契约冻结 → 实现之间，缺一项不得开始实现）</h2><span class="disclosure">▸</span></summary>
+    <div class="details-body">
+      <div class="panel gate-major">
+        <ul class="checklist">
+          <li><div class="chk">①</div><div class="item"><b>判级：</b>跑 tech-design 判级，结论（复杂 / 常规 / 安全敏感）+ 一句理由，写入实现记录。</div></li>
+          <li><div class="chk">②</div><div class="item"><b>复杂/高风险：</b>必产 <code>docs/design/&lt;id&gt;-&lt;module&gt;-design.md</code> 且评审通过（<b>方案冻结</b> draft→frozen，评审记录留痕）；<b>无方案文档或未冻结 = 不得进入实现管道</b>。</div></li>
+          <li><div class="chk">③</div><div class="item"><b>工程基线三问：</b>git / 脚手架 / 测试框架逐项核验；缺失先搭（脚手架搭建属判级环节，不算实现步骤）。</div></li>
+          <li><div class="chk">④</div><div class="item"><b>核验回查：</b>交付核验的「判级匹配」对照实现复杂度，判级缺失或明显错判 → 核验不通过。</div></li>
+        </ul>
+      </div>
     </div>
-    <div class="panel">
-      <h3><span class="icon">✓</span>强制检查与状态</h3>
-      <ul>
-        <li><span class="tag gate">CONS-02 Blocker</span>md 接口清单行 ↔ yaml paths 集合双向相等（(方法, 完整路径) 精确匹配），不一致 = 打回</li>
-        <li>契约状态三态锁定：<b>草案 / 待评审 / 已冻结</b>，禁止自创状态词</li>
-        <li>部分实施受阻 → 开放问题表（阻塞接口/字段列 + Q-xxx 行级标记）</li>
-        <li>已冻结 = 全部行已冻结 + CONS-02 双文件一致</li>
-      </ul>
-    </div>
-  </div>
+  </details>
 
-  <h2 id="artifacts">产物目录（7 个）</h2>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>目录</th><th>内容</th><th>命名</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><code>docs/spec/</code></td><td>共识、规则索引、团队配置、变更摘要、影响清单</td><td><code>{模块}-共识文档.md</code>、<code>规则索引.md</code>…</td></tr>
-        <tr><td><code>docs/api/</code></td><td>契约双文件（叙事 + OpenAPI）</td><td><code>{platform}-{item}-api-contract.md</code> + <code>-openapi.yaml</code></td></tr>
-        <tr><td><code>docs/design/</code></td><td>技术方案（draft→frozen）</td><td><code>&lt;id&gt;-&lt;module&gt;-design.md</code></td></tr>
-        <tr><td><code>docs/prd/</code></td><td>需求文档</td><td><code>&lt;date&gt;-&lt;slug&gt;-prd.md</code></td></tr>
-        <tr><td><code>docs/prototype/</code></td><td>交互原型</td><td>自由命名</td></tr>
-        <tr><td><code>docs/records/</code></td><td>实现/核验记录</td><td><code>&lt;id&gt;-record.md</code></td></tr>
-        <tr><td><code>docs/lessons/</code></td><td>经验沉淀（三硬标准，90 天无引用归档）</td><td><code>&lt;date&gt;-&lt;slug&gt;.md</code></td></tr>
-      </tbody>
-    </table>
-  </div>
+  <details>
+    <summary><h2 id="matrix">判级矩阵（tech-design）</h2><span class="disclosure">▸</span></summary>
+    <div class="details-body">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>级别</th><th>触发条件</th><th>要求</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>复杂</b></td>
+              <td>跨模块、新架构/greenfield、契约变更、状态机、外部系统集成</td>
+              <td>必出技术方案文档 + 评审（frozen 才进实现）；需求探索必产 PRD+原型（UI 类）；完整实现纪律</td>
+            </tr>
+            <tr>
+              <td><b>常规</b></td>
+              <td>单模块、CRUD、纯 UI、已有模式简单延伸</td>
+              <td>跳过方案；轻量实现纪律（lint 单次 + 工程基线三问复核）</td>
+            </tr>
+            <tr>
+              <td><b>安全敏感</b></td>
+              <td>密钥/权限/支付/资金/数据（叠加在任一级之上）</td>
+              <td>强制安全扫描（Semgrep 或等价工具），不得降级</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><h2 id="discipline">实现纪律（implement-discipline，分级）</h2><span class="disclosure">▸</span></summary>
+    <div class="details-body">
+      <div class="panel">
+        <ul class="tier-list">
+          <li><span class="tier complex">复杂</span><div>TDD 核心路径（非平凡逻辑 red→green→refactor）→ lint+type-check → Code Review（ocr 或团队机制）→ Semgrep（有则跑）。</div></li>
+          <li><span class="tier normal">常规</span><div>lint 单次 + 工程基线三问复核。</div></li>
+          <li><span class="tier secure">安全敏感</span><div>强制安全扫描，工具缺失必须换等价工具或安装。</div></li>
+        </ul>
+        <p style="margin-top:14px;font-size:13px;color:var(--muted);">工具降级记录在案，交付核验可见；留痕 <code>docs/records/&lt;id&gt;-record.md</code>（实现记录 + 核验记录两节）。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><h2 id="contract">契约防漂移（story-to-contract）</h2><span class="disclosure">▸</span></summary>
+    <div class="details-body">
+      <div class="grid2">
+        <div class="panel">
+          <h3><span class="icon">◈</span>双文件单一事实源</h3>
+          <ul>
+            <li>字段级结构（Schema/参数/响应字段）+ 示例值 → <b>OpenAPI yaml 唯一权威</b></li>
+            <li>业务语义（错误语义/状态转换/幂等/审计/测试要点）→ md</li>
+            <li>md 接口清单 = 导航摘要表，行与 yaml paths 一一对应（含完整路径前缀）</li>
+            <li>双文件同生同步，禁止只改其一</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3><span class="icon">✓</span>强制检查与状态</h3>
+          <ul>
+            <li><span class="tag gate">CONS-02 Blocker</span>md 接口清单行 ↔ yaml paths 集合双向相等（(方法, 完整路径) 精确匹配），不一致 = 打回</li>
+            <li>契约状态三态锁定：<b>草案 / 待评审 / 已冻结</b>，禁止自创状态词</li>
+            <li>部分实施受阻 → 开放问题表（阻塞接口/字段列 + Q-xxx 行级标记）</li>
+            <li>已冻结 = 全部行已冻结 + CONS-02 双文件一致</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><h2 id="artifacts">产物目录（7 个）</h2><span class="disclosure">▸</span></summary>
+    <div class="details-body">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>目录</th><th>内容</th><th>命名</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>docs/spec/</code></td><td>共识、规则索引、团队配置、变更摘要、影响清单</td><td><code>{模块}-共识文档.md</code>、<code>规则索引.md</code>…</td></tr>
+            <tr><td><code>docs/api/</code></td><td>契约双文件（叙事 + OpenAPI）</td><td><code>{platform}-{item}-api-contract.md</code> + <code>-openapi.yaml</code></td></tr>
+            <tr><td><code>docs/design/</code></td><td>技术方案（draft→frozen）</td><td><code>&lt;id&gt;-&lt;module&gt;-design.md</code></td></tr>
+            <tr><td><code>docs/prd/</code></td><td>需求文档</td><td><code>&lt;date&gt;-&lt;slug&gt;-prd.md</code></td></tr>
+            <tr><td><code>docs/prototype/</code></td><td>交互原型</td><td>自由命名</td></tr>
+            <tr><td><code>docs/records/</code></td><td>实现/核验记录</td><td><code>&lt;id&gt;-record.md</code></td></tr>
+            <tr><td><code>docs/lessons/</code></td><td>经验沉淀（三硬标准，90 天无引用归档）</td><td><code>&lt;date&gt;-&lt;slug&gt;.md</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
 
 </div>
 </body>
