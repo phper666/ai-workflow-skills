@@ -6,291 +6,328 @@
 <title>团队 AI 研发工作流 · 15 环节</title>
 <style>
   :root {
-    --bg: #fafafa;
+    --bg: #f4f6f9;
     --surface: #ffffff;
-    --ink: #111827;
-    --muted: #6b7280;
-    --line: #e5e7eb;
-    --line-strong: #d1d5db;
-    --primary: #4f46e5;
-    --primary-soft: #eef2ff;
-    --code-bg: #f3f4f6;
-    --gate: #dc2626;
-    --gate-soft: #fef2f2;
+    --ink: #131826;
+    --muted: #556070;
+    --line: #d9dee6;
+    --primary: #2d4bf5;
+    --primary-soft: #eef1ff;
+    --code-bg: #f1f5f9;
+
+    --gate: #c9281a;
+    --gate-soft: #fff4f2;
 
     --req: #2563eb;
+    --req-soft: #eff6ff;
     --contract: #7c3aed;
+    --contract-soft: #f5f3ff;
     --impl: #059669;
+    --impl-soft: #ecfdf5;
     --close: #d97706;
+    --close-soft: #fffbeb;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
 
   body {
     background: var(--bg);
     color: var(--ink);
-    font: 15px/1.65 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
-    padding: 48px 24px 96px;
+    font: 14px/1.7 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
+    padding: 40px 18px 72px;
     -webkit-font-smoothing: antialiased;
   }
 
-  .wrap { max-width: 1120px; margin: 0 auto; }
+  .wrap { max-width: 1200px; margin: 0 auto; }
 
   /* Header */
-  header { margin-bottom: 40px; }
+  header { margin-bottom: 36px; }
   .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--muted);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--primary);
     text-transform: uppercase;
     margin-bottom: 10px;
   }
+  .eyebrow::before {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--primary);
+  }
   h1 {
-    font-size: 34px;
-    font-weight: 700;
+    font-size: 32px;
+    font-weight: 800;
     line-height: 1.2;
     letter-spacing: -0.02em;
     margin-bottom: 10px;
   }
   .sub {
     color: var(--muted);
-    font-size: 16px;
+    font-size: 15px;
   }
-  .sub strong { color: var(--ink); font-weight: 600; }
+  .sub strong { color: var(--ink); font-weight: 700; }
 
-  /* Section headings */
+  /* Section titles */
   h2 {
     font-size: 18px;
-    font-weight: 600;
-    color: var(--ink);
+    font-weight: 800;
+    margin: 42px 0 18px;
     display: flex;
     align-items: center;
     gap: 10px;
   }
   h2::before {
     content: "";
-    width: 5px;
-    height: 18px;
+    width: 6px;
+    height: 22px;
     border-radius: 3px;
     background: var(--primary);
   }
 
-  /* Pipeline: one row per stage */
-  .pipeline { display: flex; flex-direction: column; gap: 12px; margin-bottom: 10px; }
-
+  /* Stage tracks */
+  .pipeline { margin-bottom: 10px; }
   .stage {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 16px 18px;
+    margin-bottom: 12px;
+    position: relative;
   }
-  .stage.req { border-left: 2px solid var(--req); }
-  .stage.contract { border-left: 2px solid var(--contract); }
-  .stage.impl { border-left: 2px solid var(--impl); }
-  .stage.close { border-left: 2px solid var(--close); }
+  .stage.req { background: linear-gradient(90deg, var(--req-soft) 0%, var(--surface) 55%); border-left: 4px solid var(--req); }
+  .stage.contract { background: linear-gradient(90deg, var(--contract-soft) 0%, var(--surface) 55%); border-left: 4px solid var(--contract); }
+  .stage.impl { background: linear-gradient(90deg, var(--impl-soft) 0%, var(--surface) 55%); border-left: 4px solid var(--impl); }
+  .stage.close { background: linear-gradient(90deg, var(--close-soft) 0%, var(--surface) 55%); border-left: 4px solid var(--close); }
 
   .stage-head {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     margin-bottom: 12px;
   }
-  .stage-dot { width: 7px; height: 7px; border-radius: 50%; }
-  .stage.req .stage-dot { background: var(--req); }
-  .stage.contract .stage-dot { background: var(--contract); }
-  .stage.impl .stage-dot { background: var(--impl); }
-  .stage.close .stage-dot { background: var(--close); }
+  .stage-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .stage.req .stage-dot { background: var(--req); box-shadow: 0 0 0 3px rgba(37,99,235,.18); }
+  .stage.contract .stage-dot { background: var(--contract); box-shadow: 0 0 0 3px rgba(124,58,237,.18); }
+  .stage.impl .stage-dot { background: var(--impl); box-shadow: 0 0 0 3px rgba(5,150,105,.18); }
+  .stage.close .stage-dot { background: var(--close); box-shadow: 0 0 0 3px rgba(217,119,6,.18); }
+
   .stage-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 800;
     letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
-  .stage-range { font-weight: 400; text-transform: none; margin-left: 3px; }
+  .stage.req .stage-label { color: var(--req); }
+  .stage.contract .stage-label { color: var(--contract); }
+  .stage.impl .stage-label { color: var(--impl); }
+  .stage.close .stage-label { color: var(--close); }
+  .stage-range { color: var(--muted); font-weight: 500; margin-left: 6px; text-transform: none; }
 
   .stage-track {
     display: flex;
-    gap: 8px;
+    align-items: stretch;
+    gap: 10px;
     flex-wrap: nowrap;
     overflow-x: auto;
+    padding-bottom: 2px;
   }
 
   .step {
-    flex: 0 0 140px;
+    flex: 0 0 150px;
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 12px 13px;
+    border-radius: 12px;
+    padding: 12px 14px;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-  }
-  .step:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0,0,0,.06);
-    border-color: var(--line-strong);
+    box-shadow: 0 1px 2px rgba(19,24,38,.04);
   }
   .step .num {
     font-size: 11px;
-    font-weight: 600;
-    color: var(--muted);
-    margin-bottom: 2px;
+    font-weight: 800;
+    margin-bottom: 4px;
   }
   .step .name {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
     line-height: 1.35;
   }
   .step .skill {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--muted);
-    margin-top: 6px;
+    margin-top: 8px;
     line-height: 1.45;
     word-break: break-all;
   }
+
   .step.pre { border-style: dashed; }
 
-  .step.star { border-left: 2px solid var(--contract); background: #faf9ff; }
-  .step.disc { border-left: 2px solid var(--impl); background: #f6fdfb; }
-  .step.gate-card { border-left: 2px solid var(--gate); background: var(--gate-soft); }
-  .step.star .num { color: var(--contract); }
-  .step.disc .num { color: var(--impl); }
-  .step.gate-card .num { color: var(--gate); }
+  .stage.req .step { border-top: 3px solid var(--req); }
+  .stage.req .step .num { color: var(--req); }
+  .stage.contract .step { border-top: 3px solid var(--contract); }
+  .stage.contract .step .num { color: var(--contract); }
+  .stage.impl .step { border-top: 3px solid var(--impl); }
+  .stage.impl .step .num { color: var(--impl); }
+  .stage.close .step { border-top: 3px solid var(--close); }
+  .stage.close .step .num { color: var(--close); }
 
-  .step.star .num, .step.disc .num {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1.5px solid currentColor;
-    background: #fff;
-    margin-bottom: 4px;
-    font-size: 11px;
+  .step.star {
+    background: var(--contract-soft);
+    border-color: rgba(124,58,237,.35);
+    border-top-color: var(--contract);
+    box-shadow: 0 0 0 1px var(--contract-soft), 0 4px 12px rgba(124,58,237,.12);
   }
+  .step.star .num { color: var(--contract); font-size: 13px; }
+
+  .step.disc {
+    background: var(--impl-soft);
+    border-color: rgba(5,150,105,.35);
+    border-top-color: var(--impl);
+    box-shadow: 0 0 0 1px var(--impl-soft), 0 4px 12px rgba(5,150,105,.12);
+  }
+  .step.disc .num { color: var(--impl); font-size: 13px; }
+
+  .step.gate-card {
+    background: var(--gate-soft);
+    border-color: rgba(201,40,26,.35);
+    border-top-color: var(--gate);
+    box-shadow: 0 0 0 1px var(--gate-soft), 0 4px 12px rgba(201,40,26,.10);
+  }
+  .step.gate-card .num { color: var(--gate); }
 
   .flow-arrow {
     flex: 0 0 auto;
     align-self: center;
-    color: var(--line-strong);
-    font-size: 14px;
+    color: var(--line);
+    font-size: 18px;
+    font-weight: 700;
     user-select: none;
   }
 
-  /* Gate markers inside stage tracks */
-  .gate-marker {
-    flex: 0 0 28px;
-    align-self: stretch;
-    min-height: 48px;
+  /* Gate connectors between stages */
+  .gate-connector { margin: 2px 0 14px 26px; }
+  .gate-node {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--gate-soft);
+    border: 1px solid rgba(201,40,26,.25);
+    border-left: 4px solid var(--gate);
+    border-radius: 12px;
+    padding: 10px 16px;
+    box-shadow: 0 2px 6px rgba(201,40,26,.08);
+  }
+  .gate-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gate);
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gate);
-    color: #fff;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 800;
   }
+  .gate-node b { color: var(--gate); font-size: 13px; }
+  .gate-node span { color: var(--muted); font-size: 12px; }
 
-  /* Gate overview */
+  .gate-node.major {
+    display: flex;
+    width: calc(100% - 26px);
+    padding: 14px 18px;
+    border-width: 2px;
+  }
+  .gate-node.major .gate-icon { width: 34px; height: 34px; font-size: 16px; }
+  .gate-node.major b { font-size: 15px; }
+  .gate-node.major .gate-body { flex: 1; }
+
+  /* Gate overview cards */
   .gates-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-  @media (max-width: 640px) {
-    .gates-grid { grid-template-columns: 1fr; }
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
   }
   .gate-card {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-left: 3px solid var(--gate);
-    border-radius: 10px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
+    border-top: 4px solid var(--gate);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 1px 2px rgba(19,24,38,.04);
   }
   .gate-card header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 6px;
+    gap: 10px;
+    margin-bottom: 10px;
   }
   .gate-badge {
-    background: var(--gate-soft);
-    color: var(--gate);
+    background: var(--gate);
+    color: #fff;
     font-size: 11px;
-    font-weight: 700;
-    padding: 2px 7px;
+    font-weight: 800;
+    padding: 3px 9px;
     border-radius: 999px;
+    letter-spacing: 0.03em;
   }
   .gate-card h3 {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--ink);
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--gate);
+    margin: 0;
   }
   .gate-card p {
     font-size: 13px;
     color: var(--muted);
-    line-height: 1.55;
-    flex: 1;
+    line-height: 1.65;
+    margin: 0;
   }
-
-  /* Details sections */
-  details { margin: 36px 0; }
-  details:first-of-type { margin-top: 48px; }
-  summary {
-    list-style: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    user-select: none;
-  }
-  summary::-webkit-details-marker { display: none; }
-  summary h2 { flex: 1; margin: 0; }
-  .disclosure {
-    color: var(--muted);
-    font-size: 12px;
-    transition: color .15s;
-  }
-  summary:hover .disclosure { color: var(--primary); }
-  summary:hover h2 { color: var(--primary); }
-  .details-body { margin-top: 16px; }
 
   /* Panels */
   .panel {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 22px;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 1px 2px rgba(19,24,38,.04);
   }
   .panel.gate-major {
-    border-left: 3px solid var(--gate);
-    background: var(--gate-soft);
+    border-left: 5px solid var(--gate);
+    background: linear-gradient(90deg, var(--gate-soft) 0%, var(--surface) 45%);
   }
 
-  .checklist { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
-  .checklist li { display: flex; gap: 12px; }
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .checklist li:last-child { border-bottom: none; }
   .checklist .chk {
-    flex: 0 0 22px;
-    height: 22px;
-    border-radius: 6px;
+    flex: 0 0 26px;
+    height: 26px;
+    border-radius: 7px;
     background: var(--gate);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 800;
   }
-  .checklist .item { flex: 1; font-size: 14px; line-height: 1.6; }
-  .checklist .item b { color: var(--gate); font-weight: 600; }
+  .checklist .item { flex: 1; font-size: 14px; }
+  .checklist .item b { color: var(--gate); }
 
   /* Two-column grid */
   .grid2 {
@@ -304,70 +341,68 @@
 
   .panel h3 {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 800;
     margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 8px;
   }
   .icon {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 6px;
     background: var(--primary-soft);
     color: var(--primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 13px;
   }
   .panel ul { padding-left: 18px; }
-  .panel li { margin: 8px 0; font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .panel li { margin: 7px 0; font-size: 13.5px; color: var(--ink); line-height: 1.65; }
   .panel li::marker { color: var(--muted); }
 
   /* Tables */
-  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--line); }
   table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 13px;
     background: var(--surface);
   }
   thead th {
-    background: #fafafa;
-    color: var(--muted);
-    font-weight: 600;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    padding: 12px 16px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-weight: 800;
+    padding: 11px 14px;
     text-align: left;
     border-bottom: 1px solid var(--line);
     white-space: nowrap;
   }
   tbody td {
-    padding: 14px 16px;
+    padding: 11px 14px;
     border-bottom: 1px solid var(--line);
     vertical-align: top;
     line-height: 1.6;
   }
   tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: rgba(238,241,255,.35); }
 
   code {
     background: var(--code-bg);
     padding: 2px 5px;
     border-radius: 4px;
     font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-    font-size: 12.5px;
-    color: var(--ink);
+    font-size: 12px;
+    color: #334155;
   }
 
   /* Tags */
   .tag {
     display: inline-block;
     font-size: 11px;
-    font-weight: 600;
-    padding: 2px 7px;
+    font-weight: 700;
+    padding: 2px 8px;
     border-radius: 999px;
     background: var(--primary-soft);
     color: var(--primary);
@@ -375,35 +410,35 @@
     vertical-align: middle;
   }
   .tag.gate { background: var(--gate-soft); color: var(--gate); }
-  .tag.impl { background: rgba(5,150,105,.08); color: var(--impl); }
+  .tag.impl { background: var(--impl-soft); color: var(--impl); }
 
   /* Tier list */
-  .tier-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
-  .tier-list li { display: flex; gap: 10px; }
-  .tier {
-    flex: 0 0 auto;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 999px;
+  .tier-list { list-style: none; padding: 0; }
+  .tier-list li {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
   }
-  .tier.complex { background: rgba(124,58,237,.08); color: var(--contract); }
+  .tier-list li:last-child { border-bottom: none; }
+  .tier { flex: 0 0 auto; font-size: 12px; font-weight: 800; padding: 2px 10px; border-radius: 999px; }
+  .tier.complex { background: var(--contract-soft); color: var(--contract); }
   .tier.normal { background: var(--primary-soft); color: var(--primary); }
   .tier.secure { background: var(--gate-soft); color: var(--gate); }
 
   /* Responsive */
   @media (max-width: 860px) {
-    body { padding: 32px 18px 64px; }
-    h1 { font-size: 28px; }
+    h1 { font-size: 26px; }
     .stage-track { flex-wrap: wrap; }
-    .step { flex: 1 1 130px; max-width: none; }
+    .step { flex: 1 1 140px; max-width: none; }
     .flow-arrow { display: none; }
-    .gate-marker { flex: 0 0 24px; min-height: 40px; font-size: 11px; }
+    .gate-connector { margin-left: 0; }
+    .gate-node.major { width: 100%; }
   }
 
   @media (max-width: 640px) {
+    body { padding: 24px 14px 48px; }
     .step { flex: 1 1 100%; }
-    .gates-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -462,13 +497,20 @@
           <div class="skill">consensus-doc</div>
         </div>
         <span class="flow-arrow">→</span>
-        <div class="gate-marker">A</div>
-        <span class="flow-arrow">→</span>
         <div class="step">
           <div class="num">6</div>
           <div class="name">拆解</div>
           <div class="skill">consensus-doc</div>
         </div>
+      </div>
+    </div>
+
+    <!-- Gate A -->
+    <div class="gate-connector">
+      <div class="gate-node">
+        <div class="gate-icon">A</div>
+        <b>Gate A · 评审就绪</b>
+        <span>（5 后）共识基线发布，规则编号完整，才可拆解子需求</span>
       </div>
     </div>
 
@@ -491,12 +533,30 @@
           <div class="skill">story-to-contract</div>
         </div>
         <span class="flow-arrow">→</span>
-        <div class="gate-marker">B</div>
-        <span class="flow-arrow">→</span>
         <div class="step">
           <div class="num">9</div>
           <div class="name">澄清</div>
           <div class="skill">story-to-contract</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gate B -->
+    <div class="gate-connector">
+      <div class="gate-node">
+        <div class="gate-icon">B</div>
+        <b>Gate B · 契约冻结</b>
+        <span>（8 后）FE+QA 两轮复核通过 + CONS-02 双文件一致，才可判级进实现</span>
+      </div>
+    </div>
+
+    <!-- Gate C 强制关卡 -->
+    <div class="gate-connector">
+      <div class="gate-node major">
+        <div class="gate-icon">C</div>
+        <div class="gate-body">
+          <b>Gate C · 实现前置（强制）</b>
+          <span style="display:block;margin-top:4px;color:var(--muted);font-size:13px;">契约冻结 → 实现之间，缺一项不得开始实现：① 判级留痕 ② 复杂必产方案且 frozen ③ 工程基线三问 ④ 核验回查判级匹配</span>
         </div>
       </div>
     </div>
@@ -508,16 +568,14 @@
         <div class="stage-label">实现阶段 <span class="stage-range">★ 判级 / ● 纪律 / 10</span></div>
       </div>
       <div class="stage-track">
-        <div class="gate-marker">C</div>
-        <span class="flow-arrow">→</span>
         <div class="step star">
-          <div class="num">★</div>
+          <div class="num">★ 判级 / 技术方案</div>
           <div class="name">判级 / 技术方案</div>
           <div class="skill">tech-design（方案 draft→frozen）</div>
         </div>
         <span class="flow-arrow">→</span>
         <div class="step disc">
-          <div class="num">●</div>
+          <div class="num">● 实现纪律</div>
           <div class="name">实现纪律</div>
           <div class="skill">implement-discipline</div>
         </div>
@@ -573,111 +631,91 @@
     </div>
   </div>
 
-  <details>
-    <summary><h2 id="preflight">实现前置 Gate（契约冻结 → 实现之间，缺一项不得开始实现）</h2><span class="disclosure">▸</span></summary>
-    <div class="details-body">
-      <div class="panel gate-major">
-        <ul class="checklist">
-          <li><div class="chk">①</div><div class="item"><b>判级：</b>跑 tech-design 判级，结论（复杂 / 常规 / 安全敏感）+ 一句理由，写入实现记录。</div></li>
-          <li><div class="chk">②</div><div class="item"><b>复杂/高风险：</b>必产 <code>docs/design/&lt;id&gt;-&lt;module&gt;-design.md</code> 且评审通过（<b>方案冻结</b> draft→frozen，评审记录留痕）；<b>无方案文档或未冻结 = 不得进入实现管道</b>。</div></li>
-          <li><div class="chk">③</div><div class="item"><b>工程基线三问：</b>git / 脚手架 / 测试框架逐项核验；缺失先搭（脚手架搭建属判级环节，不算实现步骤）。</div></li>
-          <li><div class="chk">④</div><div class="item"><b>核验回查：</b>交付核验的「判级匹配」对照实现复杂度，判级缺失或明显错判 → 核验不通过。</div></li>
-        </ul>
-      </div>
-    </div>
-  </details>
+  <h2>实现前置 Gate（契约冻结 → 实现之间，缺一项不得开始实现）</h2>
+  <div class="panel gate-major">
+    <ul class="checklist">
+      <li><div class="chk">①</div><div class="item"><b>判级：</b>跑 tech-design 判级，结论（复杂 / 常规 / 安全敏感）+ 一句理由，写入实现记录。</div></li>
+      <li><div class="chk">②</div><div class="item"><b>复杂/高风险：</b>必产 <code>docs/design/&lt;id&gt;-&lt;module&gt;-design.md</code> 且评审通过（<b>方案冻结</b> draft→frozen，评审记录留痕）；<b>无方案文档或未冻结 = 不得进入实现管道</b>。</div></li>
+      <li><div class="chk">③</div><div class="item"><b>工程基线三问：</b>git / 脚手架 / 测试框架逐项核验；缺失先搭（脚手架搭建属判级环节，不算实现步骤）。</div></li>
+      <li><div class="chk">④</div><div class="item"><b>核验回查：</b>交付核验的「判级匹配」对照实现复杂度，判级缺失或明显错判 → 核验不通过。</div></li>
+    </ul>
+  </div>
 
-  <details>
-    <summary><h2 id="matrix">判级矩阵（tech-design）</h2><span class="disclosure">▸</span></summary>
-    <div class="details-body">
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>级别</th><th>触发条件</th><th>要求</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>复杂</b></td>
-              <td>跨模块、新架构/greenfield、契约变更、状态机、外部系统集成</td>
-              <td>必出技术方案文档 + 评审（frozen 才进实现）；需求探索必产 PRD+原型（UI 类）；完整实现纪律</td>
-            </tr>
-            <tr>
-              <td><b>常规</b></td>
-              <td>单模块、CRUD、纯 UI、已有模式简单延伸</td>
-              <td>跳过方案；轻量实现纪律（lint 单次 + 工程基线三问复核）</td>
-            </tr>
-            <tr>
-              <td><b>安全敏感</b></td>
-              <td>密钥/权限/支付/资金/数据（叠加在任一级之上）</td>
-              <td>强制安全扫描（Semgrep 或等价工具），不得降级</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </details>
+  <h2>判级矩阵（tech-design）</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>级别</th><th>触发条件</th><th>要求</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>复杂</b></td>
+          <td>跨模块、新架构/greenfield、契约变更、状态机、外部系统集成</td>
+          <td>必出技术方案文档 + 评审（frozen 才进实现）；需求探索必产 PRD+原型（UI 类）；完整实现纪律</td>
+        </tr>
+        <tr>
+          <td><b>常规</b></td>
+          <td>单模块、CRUD、纯 UI、已有模式简单延伸</td>
+          <td>跳过方案；轻量实现纪律（lint 单次 + 工程基线三问复核）</td>
+        </tr>
+        <tr>
+          <td><b>安全敏感</b></td>
+          <td>密钥/权限/支付/资金/数据（叠加在任一级之上）</td>
+          <td>强制安全扫描（Semgrep 或等价工具），不得降级</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <details>
-    <summary><h2 id="discipline">实现纪律（implement-discipline，分级）</h2><span class="disclosure">▸</span></summary>
-    <div class="details-body">
-      <div class="panel">
-        <ul class="tier-list">
-          <li><span class="tier complex">复杂</span><div>TDD 核心路径（非平凡逻辑 red→green→refactor）→ lint+type-check → Code Review（ocr 或团队机制）→ Semgrep（有则跑）。</div></li>
-          <li><span class="tier normal">常规</span><div>lint 单次 + 工程基线三问复核。</div></li>
-          <li><span class="tier secure">安全敏感</span><div>强制安全扫描，工具缺失必须换等价工具或安装。</div></li>
-        </ul>
-        <p style="margin-top:14px;font-size:13px;color:var(--muted);">工具降级记录在案，交付核验可见；留痕 <code>docs/records/&lt;id&gt;-record.md</code>（实现记录 + 核验记录两节）。</p>
-      </div>
-    </div>
-  </details>
+  <h2>实现纪律（implement-discipline，分级）</h2>
+  <div class="panel">
+    <ul class="tier-list">
+      <li><span class="tier complex">复杂</span><div>TDD 核心路径（非平凡逻辑 red→green→refactor）→ lint+type-check → Code Review（ocr 或团队机制）→ Semgrep（有则跑）。</div></li>
+      <li><span class="tier normal">常规</span><div>lint 单次 + 工程基线三问复核。</div></li>
+      <li><span class="tier secure">安全敏感</span><div>强制安全扫描，工具缺失必须换等价工具或安装。</div></li>
+    </ul>
+    <p style="margin-top:12px;font-size:13px;color:var(--muted);">工具降级记录在案，交付核验可见；留痕 <code>docs/records/&lt;id&gt;-record.md</code>（实现记录 + 核验记录两节）。</p>
+  </div>
 
-  <details>
-    <summary><h2 id="contract">契约防漂移（story-to-contract）</h2><span class="disclosure">▸</span></summary>
-    <div class="details-body">
-      <div class="grid2">
-        <div class="panel">
-          <h3><span class="icon">◈</span>双文件单一事实源</h3>
-          <ul>
-            <li>字段级结构（Schema/参数/响应字段）+ 示例值 → <b>OpenAPI yaml 唯一权威</b></li>
-            <li>业务语义（错误语义/状态转换/幂等/审计/测试要点）→ md</li>
-            <li>md 接口清单 = 导航摘要表，行与 yaml paths 一一对应（含完整路径前缀）</li>
-            <li>双文件同生同步，禁止只改其一</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h3><span class="icon">✓</span>强制检查与状态</h3>
-          <ul>
-            <li><span class="tag gate">CONS-02 Blocker</span>md 接口清单行 ↔ yaml paths 集合双向相等（(方法, 完整路径) 精确匹配），不一致 = 打回</li>
-            <li>契约状态三态锁定：<b>草案 / 待评审 / 已冻结</b>，禁止自创状态词</li>
-            <li>部分实施受阻 → 开放问题表（阻塞接口/字段列 + Q-xxx 行级标记）</li>
-            <li>已冻结 = 全部行已冻结 + CONS-02 双文件一致</li>
-          </ul>
-        </div>
-      </div>
+  <h2>契约防漂移（story-to-contract）</h2>
+  <div class="grid2">
+    <div class="panel">
+      <h3><span class="icon">◈</span>双文件单一事实源</h3>
+      <ul>
+        <li>字段级结构（Schema/参数/响应字段）+ 示例值 → <b>OpenAPI yaml 唯一权威</b></li>
+        <li>业务语义（错误语义/状态转换/幂等/审计/测试要点）→ md</li>
+        <li>md 接口清单 = 导航摘要表，行与 yaml paths 一一对应（含完整路径前缀）</li>
+        <li>双文件同生同步，禁止只改其一</li>
+      </ul>
     </div>
-  </details>
+    <div class="panel">
+      <h3><span class="icon">✓</span>强制检查与状态</h3>
+      <ul>
+        <li><span class="tag gate">CONS-02 Blocker</span>md 接口清单行 ↔ yaml paths 集合双向相等（(方法, 完整路径) 精确匹配），不一致 = 打回</li>
+        <li>契约状态三态锁定：<b>草案 / 待评审 / 已冻结</b>，禁止自创状态词</li>
+        <li>部分实施受阻 → 开放问题表（阻塞接口/字段列 + Q-xxx 行级标记）</li>
+        <li>已冻结 = 全部行已冻结 + CONS-02 双文件一致</li>
+      </ul>
+    </div>
+  </div>
 
-  <details>
-    <summary><h2 id="artifacts">产物目录（7 个）</h2><span class="disclosure">▸</span></summary>
-    <div class="details-body">
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>目录</th><th>内容</th><th>命名</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><code>docs/spec/</code></td><td>共识、规则索引、团队配置、变更摘要、影响清单</td><td><code>{模块}-共识文档.md</code>、<code>规则索引.md</code>…</td></tr>
-            <tr><td><code>docs/api/</code></td><td>契约双文件（叙事 + OpenAPI）</td><td><code>{platform}-{item}-api-contract.md</code> + <code>-openapi.yaml</code></td></tr>
-            <tr><td><code>docs/design/</code></td><td>技术方案（draft→frozen）</td><td><code>&lt;id&gt;-&lt;module&gt;-design.md</code></td></tr>
-            <tr><td><code>docs/prd/</code></td><td>需求文档</td><td><code>&lt;date&gt;-&lt;slug&gt;-prd.md</code></td></tr>
-            <tr><td><code>docs/prototype/</code></td><td>交互原型</td><td>自由命名</td></tr>
-            <tr><td><code>docs/records/</code></td><td>实现/核验记录</td><td><code>&lt;id&gt;-record.md</code></td></tr>
-            <tr><td><code>docs/lessons/</code></td><td>经验沉淀（三硬标准，90 天无引用归档）</td><td><code>&lt;date&gt;-&lt;slug&gt;.md</code></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </details>
+  <h2>产物目录（7 个）</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>目录</th><th>内容</th><th>命名</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>docs/spec/</code></td><td>共识、规则索引、团队配置、变更摘要、影响清单</td><td><code>{模块}-共识文档.md</code>、<code>规则索引.md</code>…</td></tr>
+        <tr><td><code>docs/api/</code></td><td>契约双文件（叙事 + OpenAPI）</td><td><code>{platform}-{item}-api-contract.md</code> + <code>-openapi.yaml</code></td></tr>
+        <tr><td><code>docs/design/</code></td><td>技术方案（draft→frozen）</td><td><code>&lt;id&gt;-&lt;module&gt;-design.md</code></td></tr>
+        <tr><td><code>docs/prd/</code></td><td>需求文档</td><td><code>&lt;date&gt;-&lt;slug&gt;-prd.md</code></td></tr>
+        <tr><td><code>docs/prototype/</code></td><td>交互原型</td><td>自由命名</td></tr>
+        <tr><td><code>docs/records/</code></td><td>实现/核验记录</td><td><code>&lt;id&gt;-record.md</code></td></tr>
+        <tr><td><code>docs/lessons/</code></td><td>经验沉淀（三硬标准，90 天无引用归档）</td><td><code>&lt;date&gt;-&lt;slug&gt;.md</code></td></tr>
+      </tbody>
+    </table>
+  </div>
 
 </div>
 </body>
