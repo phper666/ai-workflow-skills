@@ -27,8 +27,16 @@
 bash <(curl -fsSL https://raw.githubusercontent.com/phper666/ai-workflow-skills/main/install.sh)
 ```
 
-自动完成：克隆到 `~/ai-workflow-skills` → 链接 8 个 skill 到 `~/.config/opencode/skills/` → 幂等追加 AGENTS.md 导航段。重跑即更新。
-平台变量覆盖：`SKILLS_DIR=~/.claude/skills`（其他平台目录）、`REPO_URL=...`、`SKILLS_SRC_DIR=...`。
+自动完成：克隆到 `~/ai-workflow-skills` → 链接 8 个 skill → 幂等追加 AGENTS.md 导航段。重跑即更新（git pull）。
+
+**平台选择**：
+- 终端交互跑 → 弹出菜单选平台：opencode（默认）/ Claude Code / Cursor / 自定义目录
+- curl 管道一键跑（无交互）→ 默认 opencode
+- 显式覆盖：`SKILLS_DIR=~/.claude/skills bash install.sh`（跳过菜单直接指定）、`REPO_URL=...`、`SKILLS_SRC_DIR=...`
+
+### AI 直接安装
+
+把本仓库 clone/复制到任意目录，用 agent（opencode 等）打开后说「安装」，agent 会读取仓库根 `AGENTS.md` 自动执行 `bash install.sh`（已在仓库内时跳过克隆，直接用当前目录）。
 
 ### 通用步骤
 
