@@ -21,6 +21,15 @@
 
 所有 skill 均为标准格式（SKILL.md + YAML frontmatter `name`/`description` + `references/`），兼容主流 agent 平台。
 
+### 一键安装（推荐）
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/phper666/ai-workflow-skills/main/install.sh)
+```
+
+自动完成：克隆到 `~/ai-workflow-skills` → 链接 8 个 skill 到 `~/.config/opencode/skills/` → 幂等追加 AGENTS.md 导航段。重跑即更新。
+平台变量覆盖：`SKILLS_DIR=~/.claude/skills`（其他平台目录）、`REPO_URL=...`、`SKILLS_SRC_DIR=...`。
+
 ### 通用步骤
 
 ```bash
