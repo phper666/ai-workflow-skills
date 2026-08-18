@@ -1,5 +1,6 @@
 ---
 name: phper666-teamflow-implement-discipline
+metadata.source: https://github.com/phper666/ai-workflow-skills
 description: 实现纪律（分级执行）：复杂需求完整流水线（TDD 核心路径 → lint 单遍 → Code Review → Semgrep 有则跑），常规需求轻量检查（lint 单次 + 工程基线三问复核），安全敏感需求强制安全扫描。工具可降级（lint/ocr/semgrep 缺失时跳过并记录，安全敏感例外）。原生实现，不依赖任何外部 skill 编排。当用户说"开始实现"、"写代码"、"实现这个功能"、或技术方案/契约已冻结进入实现阶段时使用。角色中立：不绑定任何具体 agent/平台角色。
 ---
 

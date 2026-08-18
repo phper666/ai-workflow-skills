@@ -1,5 +1,6 @@
 ---
 name: phper666-teamflow-workflow-setup
+metadata.source: https://github.com/phper666/ai-workflow-skills
 description: 把任意项目（新项目或已有项目）接入"团队 AI 研发工作流"。当用户说"给这个项目接入研发工作流"、"初始化项目流程"、"搭建共识/契约文档结构"、"登记团队角色"、"配置待确认项载体（Q-items）"、"接入 workflow"、"这个项目要跑共识到契约的流程"时使用。接入完成后项目可立即开始跑共识文档→扫描→待确认闭环→契约→技术方案→实现纪律→交付核验→变更传播→沉淀的全流程。项目已接入过时，重跑本 skill 只会更新配置（幂等），不会破坏已有文档。边界：只做工作流层接入（模板/规则编号/Q-items/角色登记）；工程基线（git/脚手架/测试框架）检查与初始化归 phper666-teamflow-tech-design 工程基线三问，不在此重复。
 ---
 

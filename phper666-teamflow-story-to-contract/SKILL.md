@@ -1,5 +1,6 @@
 ---
 name: phper666-teamflow-story-to-contract
+metadata.source: https://github.com/phper666/ai-workflow-skills
 description: 从项目管理工具的工作项（Story/Task/Bug）和仓库共识文档+现有代码生成或更新前后端共享的接口契约文档。支持对同一工作项重复执行并按当前共识、待确认项决策、代码、OpenAPI 和其他契约增量收敛已有文档。没有未关闭 P0 时询问是否创建后端实现子任务。用户明确要求创建时，即使存在 P0 也可在风险预览和二次确认后创建一个受阻子任务。默认不修改工作项状态、不提交或推送 Git。当前适配：Jira、TAPD。也用于契约复核模式（用户说"复核这个契约，我是 FE/QA"）和交付核验模式（用户说"XX 开发完了，核验"、"提测，按契约核验"）。
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: phper666-teamflow-consensus-scan
+metadata.source: https://github.com/phper666/ai-workflow-skills
 description: 团队 AI 研发工作流中的扫描与待确认闭环：对共识文档做 BE/FE/QA 三角色扫描（默认一人跑三角色，--role 单视角）、AI 查重聚类、合并扫描报告、创建/更新/闭环待确认项（Q-items，载体飞书多维表格或 Jira）、复盘重复问题升级为扫描规则。当用户说"扫描共识文档"、"我是 BE/FE/QA 扫描一下"、"合并扫描报告"、"处理待确认项"、"闭环待确认项"、"Q-0xx 怎么处理"、"复盘扫描规则"时使用。也用于 PM 反向提问（PM 建问题给 BE/FE/QA 确认）。
 ---
 

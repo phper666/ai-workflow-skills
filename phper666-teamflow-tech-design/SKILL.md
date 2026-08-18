@@ -1,5 +1,6 @@
 ---
 name: phper666-teamflow-tech-design
+metadata.source: https://github.com/phper666/ai-workflow-skills
 description: 契约冻结后、实现前的技术方案设计（分级）：复杂/高风险需求产出 docs/design/<id>-<module>-design.md 技术方案文档供评审与回验对照；常规/简单需求跳过；复杂任务前置需求探索（PRD+原型必产）；含工程基线三问检查与技术栈决策。当用户说"技术方案"、"设计文档"、"设计方案"、"怎么实现"、"02-design"、"先设计再开发"、或实现前需要架构决策/模块划分/关键机制设计时使用。也用于交付核验时的设计对照（实现 vs 设计方案）。角色中立：不绑定任何具体 agent/平台角色。
 ---
 

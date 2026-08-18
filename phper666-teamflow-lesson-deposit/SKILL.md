@@ -1,5 +1,6 @@
 ---
 name: phper666-teamflow-lesson-deposit
+metadata.source: https://github.com/phper666/ai-workflow-skills
 description: 经验沉淀（lessons）：只沉淀有用的——可复用设计决策、踩坑记录、可复用模式，写入 docs/lessons/<date>-<slug>.md。三硬标准过滤（可复用/非显而易见/有代价），引用计数自证（90 天无引用自动 archived），不依赖人工审核。当用户说"沉淀"、"记录经验"、"踩坑记录"、"教训"、"这个坑记一下"、或交付核验通过后需要知识回写时使用。角色中立：不绑定任何具体 agent/平台角色。
 ---
 
