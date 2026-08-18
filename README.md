@@ -54,6 +54,14 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 
 将 `~/ai-workflow-skills/<skill-name>` 复制或符号链接到该平台约定的 skills 目录（如 `~/.claude/skills/`、项目内 `.agents/skills/`、`.cursor/skills/` 等）。
 
+## 实战案例
+
+| 项目 | 说明 | 用到的 skill |
+|:-----|:-----|:-------------|
+| [dsh-hull-desktop](https://github.com/phper666/dsh-hull-desktop) | Electron 桌面壳，包住 DeepSeek Harness（dsh）：子进程守护、npm overlay 原位升级、任务看板、托盘/通知/开机自启。纯壳不 fork/patch，两条独立升级通道 | workflow-setup（接入）→ consensus-doc（共识/拆解）→ story-to-contract（契约）→ tech-design（技术方案）→ implement-discipline（实现纪律）→ lesson-deposit（沉淀） |
+
+> 状态说明：案例项目处于早期脚手架阶段，展示的是「工作流如何驱动一个真实项目从接入到推进」，非已完成产品。
+
 ## 项目接入工作流（安装后）
 
 1. 项目负责人跑 `phper666-teamflow-workflow-setup`：`"给这个项目接入研发工作流"`
