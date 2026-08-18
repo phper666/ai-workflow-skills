@@ -68,17 +68,7 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 
 ## 与 Matt Pocock 流水线的关系
 
-本工作流与 Matt Pocock 流水线（brainstorming → PRD → to-issues → implement/tdd → feature-pipeline）**互补，不重叠**：
-
-| 阶段 | Matt 流水线 | 本工作流 |
-|:-----|:-----------|:---------|
-| 需求定义 | PRD（创作态） | 共识文档（事实源，从 PRD/原型提取） |
-| 任务拆解 | to-issues（PRD 任务） | phper666-teamflow-consensus-doc 拆子需求 + phper666-teamflow-story-to-contract 建 BE 子任务 |
-| 契约 | 无（phper666-teamflow-story-to-contract 同源） | phper666-teamflow-story-to-contract |
-| 实现 | implement / tdd | 契约冻结后先按级别出技术方案（phper666-teamflow-tech-design，复杂需求）→ 实现 → 交付核验模式（设计核验 + 契约核验） |
-| 知识沉淀 | docs/spec/lessons/ | docs/lessons/ + phper666-teamflow-lesson-deposit（三硬标准 + 引用计数自证） + 契约"决策与踩坑" |
-
-衔接点：契约冻结后 → phper666-teamflow-tech-design 判级（复杂需求：需求探索产 PRD+原型 → 工程基线三问 → 出技术方案）→ phper666-teamflow-implement-discipline 实现纪律 → phper666-teamflow-story-to-contract 交付核验模式（①设计核验对照技术方案 ②契约核验对照契约 ③PRD/业务核验）。已有项目接入顺序：project-onboarding（工程基线）→ phper666-teamflow-workflow-setup（工作流层）。
+方法论吸收了 Matt Pocock 流水线（brainstorming → PRD → implement/tdd）的部分思想并内化为原生实现；本仓库**不依赖、不安装**任何外部 skills。
 
 ## 流程对应
 
