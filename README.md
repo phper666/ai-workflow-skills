@@ -60,6 +60,7 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 - **单一源**：本仓库是 8 个 skill 的唯一源码位置，平台侧只放符号链接或副本
 - **共享规则升级**：跨项目验证有效的扫描规则 → 提交 `phper666-teamflow-consensus-scan/references/扫描规则库.md` 共享区 → 全员 pull
 - **适配器**：`phper666-teamflow-story-to-contract/adapters/` 按平台 MCP 工具名映射（Jira/TAPD/飞书），换平台只改映射，不动 skill 主体
+- **上游跟踪**：方法论吸收点见「与 Matt Pocock 流水线的关系」映射表；上游 release 时人工评估同步，无自动更新链路
 - **配套文档**（`docs/`）：
   - `docs/ai-team-workflow.html` — 12 步流程可视化（浏览器打开）
   - `docs/团队AI研发工作流-落地启动文档.md` — 落地手册（基础设施/rollout/沟通）
@@ -69,6 +70,19 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 ## 与 Matt Pocock 流水线的关系
 
 方法论吸收了 Matt Pocock 流水线（brainstorming → PRD → implement/tdd）的部分思想并内化为原生实现；本仓库**不依赖、不安装**任何外部 skills。
+
+### 吸收点映射（上游跟踪用）
+
+| 本仓库落点 | 吸收来源（Matt Pocock） | 吸收时间 |
+|:-----------|:------------------------|:---------|
+| `tech-design` 需求探索（PRD+原型必产） | brainstorming | 2026-08 |
+| `tech-design` 工程基线三问 | project-init | 2026-08 |
+| `implement-discipline` TDD → lint → Review → Semgrep | implement / tdd | 2026-08 |
+| `story-to-contract` 交付核验第三层（PRD/业务核验） | PRD 回验 | 2026-08 |
+| `consensus-doc` 领域术语表采集 | domain-modeling | 2026-08 |
+| `consensus-doc` 子需求依赖 DAG 拆解 | 大需求分解 | 2026-08 |
+
+上游 release 时按此表人工评估吸收点是否过时，按需同步；**无自动更新链路**（内化复制，非依赖）。业务层（共识/契约/变更传播/防漂移）不在此表——与 Matt 流水线无关。
 
 ## 流程对应
 
