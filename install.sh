@@ -6,8 +6,24 @@ set -euo pipefail
 
 REPO_URL="${REPO_URL:-https://github.com/phper666/ai-workflow-skills.git}"
 SRC_DIR="${SKILLS_SRC_DIR:-$HOME/ai-workflow-skills}"
-SKILLS_DIR="${SKILLS_DIR:-$HOME/.config/opencode/skills}"
 AGENTS="$HOME/.config/opencode/AGENTS.md"
+
+# 平台选择：显式 SKILLS_DIR > 交互菜单 > 默认 opencode
+if [ -z "${SKILLS_DIR:-}" ] && [ -t 0 ]; then
+  echo "== 选择安装到哪个 agent 平台："
+  echo "   1) opencode        (~/.config/opencode/skills/)  [默认]"
+  echo "   2) Claude Code     (~/.claude/skills/)"
+  echo "   3) Cursor          (~/.cursor/skills/)"
+  echo "   4) 自定义目录"
+  read -r -p "   输入 1-4（回车默认 1）: " CHOICE || true
+  case "$CHOICE" in
+    2) SKILLS_DIR="$HOME/.claude/skills" ;;
+    3) SKILLS_DIR="$HOME/.cursor/skills" ;;
+    4) read -r -p "   输入目录路径: " SKILLS_DIR ;;
+    *) SKILLS_DIR="${SKILLS_DIR:-$HOME/.config/opencode/skills}" ;;
+  esac
+fi
+SKILLS_DIR="${SKILLS_DIR:-$HOME/.config/opencode/skills}"
 SKILLS=(phper666-teamflow-change-propagation phper666-teamflow-consensus-doc phper666-teamflow-consensus-scan phper666-teamflow-implement-discipline phper666-teamflow-lesson-deposit phper666-teamflow-story-to-contract phper666-teamflow-tech-design phper666-teamflow-workflow-setup)
 
 echo "== 1/3 克隆/更新仓库"
