@@ -78,12 +78,12 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 | `docs/prd/` | 需求文档（需求可回溯的权威文档） | `<date>-<slug>-prd.md` | 复杂需求前置（consensus-doc Phase 0） |
 | `docs/prototype/` | 交互原型 | `<date>-<slug>-prototype`（与 PRD 同 slug） | 复杂 UI 类需求 |
 | `docs/records/` | 实现记录（判级结论+测试/lint/review/扫描结果）+ 核验记录（核对结论+风险项）两节 | `<id>-{prd_slug}-record.md`（与 design 同 id + 同 prd_slug） | implement-discipline，交付核验时核对 |
-| `docs/lessons/` | 经验沉淀（三硬标准过滤，90 天无引用 archived） | `<date>-<slug>.md`（不加 prd_slug，跨期复用） | lesson-deposit |
+| `docs/lessons/` | 经验沉淀（三硬标准过滤，90 天无引用 archived） | `<date>-<slug>-{prd_slug}-lesson.md`（出生标记，跨期复用不受影响） | lesson-deposit |
 
 ### 子需求编号约定（跨期）
 
 - **id 含「期」维度**：`<期>-<子需求>`（如 `M2-S1`）或按模块用独立编号段（如看板期 `B1-B5`）；**禁止跨期复用编号**（任何一期不得沿用其他期的编号段，避免同名冲突与语义漂移）
-- **跨目录统一前缀**：同一子需求在 design/records/api 用同一编号前缀 + 同一 prd_slug（`B1-看板-m2-design.md` / `B1-m2-record.md` / `feishu-b1-m2-api-contract.md`），追溯「某子需求的契约/设计/记录」不靠人肉拼；lessons 不加 prd_slug（跨期复用）
+- **跨目录统一前缀**：同一子需求在 design/records/api/lessons 用同一编号前缀 + 同一 prd_slug（`B1-看板-m2-design.md` / `B1-m2-record.md` / `feishu-b1-m2-api-contract.md` / `2026-08-16-b1-xxx-m2-lesson.md`），追溯「某子需求的契约/设计/记录/经验」不靠人肉拼
 - **prd_slug 标识来源 PRD**：`{prd_slug}` = 来源 PRD 文件名中的 slug（`2026-08-14-m1-prd.md` → `m1`），一期可多个 PRD，期前缀不唯一映射 PRD；api/design/records 文件名必带，lessons 不带
 - **全库统一**：大小写（建议全小写）、slug 语言（建议全中文模块名）一致；契约前缀避免锁死平台（`feishu-` 换平台即失效）
 
