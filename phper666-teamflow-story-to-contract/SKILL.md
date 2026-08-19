@@ -175,7 +175,7 @@ docs/api/{platform}-{item_id}-api-contract.md
 - Jira: `docs/api/jira-scrum-5-api-contract.md`
 - TAPD: `docs/api/tapd-1123456789001000001-api-contract.md`
 
-**跨期约束**：item_id 必须含「期」维度——多期项目禁止跨期复用编号（M2 不得沿用 M1 的 S 编号段）；同一子需求的契约/设计/记录/经验用同一编号前缀（如 `feishu-b1-api-contract.md` ↔ `B1-看板-design.md` ↔ `B1-record.md`），便于跨目录追溯。**平台前缀（`{platform}`）是格式固定部分，必须保留**（`feishu-`/`jira-`/`tapd-` 标识来源平台），约束只作用于 item_id 部分。
+**跨期约束**：item_id 必须含「期」维度——多期项目禁止跨期复用编号（任何一期不得沿用其他期的编号段）；同一子需求的契约/设计/记录/经验用同一编号前缀（如 `feishu-b1-api-contract.md` ↔ `B1-看板-design.md` ↔ `B1-record.md`），便于跨目录追溯。**平台前缀（`{platform}`）是格式固定部分，必须保留**（`feishu-`/`jira-`/`tapd-` 标识来源平台），约束只作用于 item_id 部分。
 
 生成内容必须覆盖：
 
