@@ -73,17 +73,18 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 | 目录 | 装什么 | 文件命名 | 产出 skill / 时机 |
 |:-----|:-------|:---------|:------------------|
 | `docs/spec/` | 共识文档（15 节骨架，版本化；替换式大变更才归档）、规则索引（CON-R001 起登记表）、团队配置（载体+角色映射+status_map）、变更摘要（追加式单文件，最新在前）、影响清单 | `{模块}-共识文档.md`、`规则索引.md`、`团队配置.md`、`变更摘要.md`、`影响清单-<编号>.md` | workflow-setup（索引/配置）、consensus-doc（共识）、change-propagation（摘要/清单） |
-| `docs/api/` | 契约双文件：叙事契约（追踪/规则/状态转换/测试场景）+ OpenAPI（字段结构唯一事实源）；状态三态：草案/待评审/已冻结 | `{platform}-{item}-api-contract.md` + `-openapi.yaml` | story-to-contract，每工作项一份 |
-| `docs/design/` | 技术方案（架构决策/模块划分/关键机制/工程基线），状态 draft→frozen | `<id>-<模块>-design.md`（id 优先用 BE 子任务 key） | tech-design，仅复杂/高风险；未 frozen 不得进实现 |
+| `docs/api/` | 契约双文件：叙事契约（追踪/规则/状态转换/测试场景）+ OpenAPI（字段结构唯一事实源）；状态三态：草案/待评审/已冻结 | `{platform}-{item}-{prd_slug}-api-contract.md` + `-openapi.yaml` | story-to-contract，每工作项一份 |
+| `docs/design/` | 技术方案（架构决策/模块划分/关键机制/工程基线），状态 draft→frozen | `<id>-<模块>-{prd_slug}-design.md`（id 优先用 BE 子任务 key） | tech-design，仅复杂/高风险；未 frozen 不得进实现 |
 | `docs/prd/` | 需求文档（需求可回溯的权威文档） | `<date>-<slug>-prd.md` | 复杂需求前置（consensus-doc Phase 0） |
 | `docs/prototype/` | 交互原型 | `<date>-<slug>-prototype`（与 PRD 同 slug） | 复杂 UI 类需求 |
-| `docs/records/` | 实现记录（判级结论+测试/lint/review/扫描结果）+ 核验记录（核对结论+风险项）两节 | `<id>-record.md`（与 design 同 id） | implement-discipline，交付核验时核对 |
-| `docs/lessons/` | 经验沉淀（三硬标准过滤，90 天无引用 archived） | `<date>-<slug>.md` | lesson-deposit |
+| `docs/records/` | 实现记录（判级结论+测试/lint/review/扫描结果）+ 核验记录（核对结论+风险项）两节 | `<id>-{prd_slug}-record.md`（与 design 同 id + 同 prd_slug） | implement-discipline，交付核验时核对 |
+| `docs/lessons/` | 经验沉淀（三硬标准过滤，90 天无引用 archived） | `<date>-<slug>.md`（不加 prd_slug，跨期复用） | lesson-deposit |
 
 ### 子需求编号约定（跨期）
 
 - **id 含「期」维度**：`<期>-<子需求>`（如 `M2-S1`）或按模块用独立编号段（如看板期 `B1-B5`）；**禁止跨期复用编号**（任何一期不得沿用其他期的编号段，避免同名冲突与语义漂移）
-- **跨目录统一前缀**：同一子需求在 design/records/api/lessons 用同一编号前缀（`B1-看板-design.md` / `B1-record.md` / `B1-api-contract.md` / `B1-lesson.md`），追溯「某子需求的契约/设计/记录/经验」不靠人肉拼
+- **跨目录统一前缀**：同一子需求在 design/records/api 用同一编号前缀 + 同一 prd_slug（`B1-看板-m2-design.md` / `B1-m2-record.md` / `feishu-b1-m2-api-contract.md`），追溯「某子需求的契约/设计/记录」不靠人肉拼；lessons 不加 prd_slug（跨期复用）
+- **prd_slug 标识来源 PRD**：`{prd_slug}` = 来源 PRD 文件名中的 slug（`2026-08-14-m1-prd.md` → `m1`），一期可多个 PRD，期前缀不唯一映射 PRD；api/design/records 文件名必带，lessons 不带
 - **全库统一**：大小写（建议全小写）、slug 语言（建议全中文模块名）一致；契约前缀避免锁死平台（`feishu-` 换平台即失效）
 
 ## 维护约定

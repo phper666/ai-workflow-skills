@@ -168,14 +168,14 @@ use_cases:
 优先使用仓库已有契约目录和命名。没有既有规则时使用：
 
 ```text
-docs/api/{platform}-{item_id}-api-contract.md
+docs/api/{platform}-{item_id}-{prd_slug}-api-contract.md
 ```
 
-文件名中的 item_id 转为小写。示例：
-- Jira: `docs/api/jira-scrum-5-api-contract.md`
-- TAPD: `docs/api/tapd-1123456789001000001-api-contract.md`
+文件名中的 item_id 转为小写。`{prd_slug}` = 来源 PRD 文件名中的 slug（如 `2026-08-14-m1-prd.md` → `m1`），标识该契约由哪个 PRD 生成（一期可多个 PRD，期前缀不唯一映射 PRD）。示例：
+- Jira: `docs/api/jira-scrum-5-m1-api-contract.md`
+- TAPD: `docs/api/tapd-1123456789001000001-m1-api-contract.md`
 
-**跨期约束**：item_id 必须含「期」维度——多期项目禁止跨期复用编号（任何一期不得沿用其他期的编号段）；同一子需求的契约/设计/记录/经验用同一编号前缀（如 `feishu-b1-api-contract.md` ↔ `B1-看板-design.md` ↔ `B1-record.md`），便于跨目录追溯。**平台前缀（`{platform}`）是格式固定部分，必须保留**（`feishu-`/`jira-`/`tapd-` 标识来源平台），约束只作用于 item_id 部分。
+**跨期约束**：item_id 必须含「期」维度——多期项目禁止跨期复用编号（任何一期不得沿用其他期的编号段）；同一子需求的契约/设计/记录用同一编号前缀 + 同一 prd_slug（如 `feishu-b1-m2-api-contract.md` ↔ `B1-看板-m2-design.md` ↔ `B1-m2-record.md`），便于跨目录追溯。**平台前缀（`{platform}`）是格式固定部分，必须保留**（`feishu-`/`jira-`/`tapd-` 标识来源平台），约束只作用于 item_id 部分。lessons 不加 prd_slug（跨期复用，PRD 映射语义错误）。
 
 生成内容必须覆盖：
 
