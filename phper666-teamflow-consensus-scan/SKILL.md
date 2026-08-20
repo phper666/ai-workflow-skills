@@ -18,6 +18,8 @@ description: 团队 AI 研发工作流中的扫描与待确认闭环：对共识
 
 输入：共识文档（当前版本）。
 
+查变更摘要（核对规则变更历史/取代链时）：用 grep/ctx_search 按版本号/规则号定点读 `docs/spec/变更摘要-<模块>.md`，**禁全文加载**。
+
 按视角扫描（维度与 `phper666-teamflow-story-to-contract` Phase 4 一致，直接复用其问题分类语义）：
 
 | 视角 | 检查重点 |

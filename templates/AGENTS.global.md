@@ -1,4 +1,4 @@
-<!-- team-workflow:begin v5 -->
+<!-- team-workflow:begin v6 -->
 ## 团队 AI 研发工作流（已接入）
 
 > 本段由 ai-workflow-skills 模板生成（templates/AGENTS.global.md），单一事实源，勿手动编辑正文。
@@ -47,13 +47,13 @@
 
 ### 文档地图
 
-docs/spec/（共识、规则索引、团队配置、变更摘要）、docs/api/（契约）、docs/design/（技术方案）、docs/prd/（需求）、docs/prototype/（原型）、docs/lessons/（经验）
+docs/spec/（共识、规则索引、团队配置、变更摘要、变更摘要-<模块>.md）、docs/api/（契约）、docs/design/（技术方案）、docs/prd/（需求）、docs/prototype/（原型）、docs/lessons/（经验）
 
 ### 文档目录政策（禁止重构）
 
 - **目录是装饰层，禁止扫目录导航**：AI 找文档靠规则编号（CON-Rxxx）+ 固定路径 + 规则索引 + 变更摘要 + 本导航段，不靠 `ls` 目录。文件多不是问题，不要提议按模块/期拆目录
 - **分组视图在文件名前缀**：期前缀（S1/B1）+ prd_slug（`feishu-s1-m1-api-contract.md`）已编码模块/期/PRD，glob 即分组（`ls docs/api/*m1*`）
 - **升级触发器**：仅当单目录 > 3k-5k 文件或全量 glob 打爆上下文时，才考虑局部升级（模块顶层 → 模块内按期）；升级前必须过「幂等性 + 硬编码路径 + 分发模板兼容」三问，且不移动存量文件
-- **变更摘要滚动归档**：`docs/spec/变更摘要.md` 超 5000 行或跨年 → `mv` 为 `变更摘要-<年份>.md`，指针永远指向当年文件
+- **变更摘要滚动归档**：L2 模块文件 `docs/spec/变更摘要-<模块>.md` >100 条 或 跨年 → `git mv` 为 `变更摘要-<模块>-<年份>.md`，指针永远指向当前文件（L1 索引 `变更摘要.md` 永小，不轮转）
 
-<!-- team-workflow:end v5 -->
+<!-- team-workflow:end v6 -->

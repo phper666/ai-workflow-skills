@@ -66,13 +66,13 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 
 1. 项目负责人跑 `phper666-teamflow-workflow-setup`：`"给这个项目接入研发工作流"`
 2. 团队按角色使用对应 skill（见上表触发示例）
-3. 项目侧产物：`docs/spec/`（共识、规则索引、团队配置、变更摘要、影响清单）、`docs/api/`（契约）、`docs/design/`（技术方案）、`docs/prd/`（需求）、`docs/prototype/`（原型）、`docs/records/`（实现/核验记录）、`docs/lessons/`（经验）
+3. 项目侧产物：`docs/spec/`（共识、规则索引、团队配置、变更摘要、变更摘要-<模块>.md、影响清单）、`docs/api/`（契约）、`docs/design/`（技术方案）、`docs/prd/`（需求）、`docs/prototype/`（原型）、`docs/records/`（实现/核验记录）、`docs/lessons/`（经验）
 
 ### 产物目录说明
 
 | 目录 | 装什么 | 文件命名 | 产出 skill / 时机 |
 |:-----|:-------|:---------|:------------------|
-| `docs/spec/` | 共识文档（15 节骨架，版本化；替换式大变更才归档）、规则索引（CON-R001 起登记表）、团队配置（载体+角色映射+status_map）、变更摘要（追加式单文件，最新在前）、影响清单 | `{模块}-共识文档.md`、`规则索引.md`、`团队配置.md`、`变更摘要.md`、`影响清单-<编号>.md` | workflow-setup（索引/配置）、consensus-doc（共识）、change-propagation（摘要/清单） |
+| `docs/spec/` | 共识文档（15 节骨架，版本化；替换式大变更才归档）、规则索引（CON-R001 起登记表）、团队配置（载体+角色映射+status_map）、变更摘要（三层：L1 索引 `变更摘要.md` + L2 模块详情 `变更摘要-<模块>.md` + L3 归档 `变更摘要-<模块>-<年份>.md`）、影响清单 | `{模块}-共识文档.md`、`规则索引.md`、`团队配置.md`、`变更摘要.md`、`变更摘要-<模块>.md`、`影响清单-<编号>.md` | workflow-setup（索引/配置）、consensus-doc（共识）、change-propagation（摘要/清单） |
 | `docs/api/` | 契约双文件：叙事契约（追踪/规则/状态转换/测试场景）+ OpenAPI（字段结构唯一事实源）；状态三态：草案/待评审/已冻结 | `{platform}-{item}-{prd_slug}-api-contract.md` + `-openapi.yaml` | story-to-contract，每工作项一份 |
 | `docs/design/` | 技术方案（架构决策/模块划分/关键机制/工程基线），状态 draft→frozen | `<id>-<模块>-{prd_slug}-design.md`（id 优先用 BE 子任务 key） | tech-design，仅复杂/高风险；未 frozen 不得进实现 |
 | `docs/prd/` | 需求文档（需求可回溯的权威文档） | `<date>-<slug>-prd.md` | 复杂需求前置（consensus-doc Phase 0） |

@@ -46,7 +46,7 @@ description: 团队 AI 研发工作流中 PM 侧的共识文档生命周期管�
 1. 升版本号 + 更新时间（版本不可歧义，如 v1.0；禁止 `final_v2_最终版` 式命名）
 2. 关联原型、Jira Epic/父需求、来源材料链接
 3. 生成扫描通知：范围 + 截止时间（内容：请 BE/FE/QA 在 X 前完成扫描）
-4. 版本记录写入 `docs/spec/变更摘要.md`（版本行 + 本版本规则变化条目，模板见 phper666-teamflow-change-propagation references）——**版本记录的详情事实源在此文件**；文档附录版本记录表只留一行指针（`版本 | 日期 | 变更摘要条目引用`），不复制详情
+4. 版本记录写入 `docs/spec/变更摘要-<模块>.md`（L2 详情：版本行 + 本版本规则变化条目，模板见 phper666-teamflow-change-propagation references），同时双写一行索引到 `docs/spec/变更摘要.md`（L1）——**版本记录的详情事实源在 L2 模块文件**；文档附录版本记录表只留一行指针（`版本 | 日期 | 变更摘要条目引用`），不复制详情
 
 **产出**：共识基线版本 + 扫描通知。后续所有问题必须绑定此版本。
 
@@ -60,12 +60,12 @@ description: 团队 AI 研发工作流中 PM 侧的共识文档生命周期管�
 - [ ] P0 待确认项已清零（查 Q-items 载体，见 phper666-teamflow-consensus-scan）
 - [ ] 文档版本可追踪
 - [ ] 适用范围 / 不做事项已写
-- [ ] 本版本有规则变化时，`docs/spec/变更摘要.md` 已生成对应条目（版本行 + 规则条目，见 phper666-teamflow-change-propagation 模板）
+- [ ] 本版本有规则变化时，`docs/spec/变更摘要-<模块>.md` 已生成对应条目（版本行 + 规则条目，见 phper666-teamflow-change-propagation 模板）
 
 会后模式：用户说"评审结论回写"时执行：
 1. 评审中确定的结论写入正文（不留在会议纪要）
 2. 会议新发现的问题 → 走待确认闭环（phper666-teamflow-consensus-scan），不例外
-3. 升版本 + 输出结构化变更摘要（`docs/spec/变更摘要.md` 追加条目，模板见 `phper666-teamflow-change-propagation/references/模板-变更摘要.md`）
+3. 升版本 + 输出结构化变更摘要（`docs/spec/变更摘要-<模块>.md` 追加条目，模板见 `phper666-teamflow-change-propagation/references/模板-变更摘要.md`）
 
 **评审的作用是验证已成形共识，不是第一次发现问题**。会前发现问题多，说明 Phase 1 或扫描没做完，先回去补，不硬开评审。
 
