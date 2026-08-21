@@ -66,5 +66,6 @@ description: 实现纪律（分级执行）：复杂需求完整流水线（TDD 
 - **原生实现**：本 skill 为完整内化实现，不调用外部编排体系（如 feature-pipeline 等）的 skill；工具（tdd 方法论、ocr 等）只作等价工具引用
 - 不设多轮强制循环：lint/review/semgrep 各一遍，不过则修到干净，不搞轮次仪式
 - 检查结果（判级结论 + 测试/lint/review/扫描）记录在 `docs/records/<id>-record.md`（两节：实现记录 + 核验记录；核验结论与风险项记核验记录节），交付核验时核对（执行钩子）；`<id>` 与技术方案（docs/design/）同 id——优先后端实现子任务 key，无 ticket 用子需求编号
+- **散任务类留痕**（无 id/契约，见需求分类路由「散任务类」）：复杂/有价值的散任务（复杂 Bug/重构/优化）→ `docs/records/[模块][类型]-<描述slug>-record.md`（同两节：判级+改动+验证）；调研 → 产出 ADR（docs/spec/decisions/）+ 结论回写共识；常规散任务 → git commit + tracker 状态即可，不强求 record 文档
 - 实现中发现的契约/共识语义问题 → 走对应闭环（契约走 phper666-teamflow-story-to-contract 更新流程，共识走 phper666-teamflow-consensus-scan Q-items），不静默绕过
 - 可复用的实现决策/踩坑 → 候选 lessons（phper666-teamflow-lesson-deposit 三硬标准）
