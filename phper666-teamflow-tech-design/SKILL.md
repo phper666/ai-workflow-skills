@@ -64,7 +64,7 @@ description: 契约冻结后、实现前的技术方案设计（分级）：复�
 
 ## 产出
 
-`docs/design/<id>-<模块>-{prd_slug}-design.md`（与 docs/api/ 平级；不引入第二套文档体系）。`<id>` 优先用后端实现子任务 key（如 `scrum-6-壳骨架-m1-design.md`）；无 ticket 时用共识拆解的子需求编号——同一子需求的 design 与 records（docs/records/，`<id>-{prd_slug}-record.md`）必须用同一 id 与同一 prd_slug，回溯链：工作项 → 子任务 → 方案 → 记录。`{prd_slug}` = 来源 PRD 文件名中的 slug（如 `2026-08-14-m1-prd.md` → `m1`），标识该方案由哪个 PRD 生成（一期可多个 PRD）；**无 PRD（常规需求直接建共识）→ 省略 `{prd_slug}`**（`scrum-6-壳骨架-design.md`，不留空占位）。**跨期约束**：id 必须含「期」维度——多期项目（M1/M2…）禁止跨期复用编号（任何一期不得沿用其他期的编号段）；建议 `<期>-<子需求>`（`M2-S1`）或按模块用独立编号段（看板期 `B1-B5`），避免同名冲突与语义漂移。
+`docs/design/<id>-<模块>-{prd_slug}-design.md`（与 docs/api/ 平级；不引入第二套文档体系）。`<id>` 优先用后端实现子任务 key（如 `scrum-6-壳骨架-m1-design.md`）；无 ticket 时用共识拆解的子需求编号——同一子需求的 design 与 records（docs/records/，`<id>-{prd_slug}-record.md`）必须用同一 id 与同一 prd_slug，回溯链：工作项 → 子任务 → 方案 → 记录。`{prd_slug}` = 需求标识（复杂需求 = PRD 文件名中的 slug，如 `2026-08-14-m1-prd.md` → `m1`；常规需求 = 需求 slug，手给短标识如 `login`），标识该方案由哪个需求生成（一期可多个需求）；**需求标识必填，不留空占位**（`scrum-6-壳骨架-login-design.md`）。**跨期约束**：id 必须含「期」维度——多期项目（M1/M2…）禁止跨期复用编号（任何一期不得沿用其他期的编号段）；建议 `<期>-<子需求>`（`M2-S1`）或按模块用独立编号段（看板期 `B1-B5`），避免同名冲突与语义漂移。
 
 ## 内容骨架
 

@@ -83,8 +83,8 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 ### 子需求编号约定（跨期）
 
 - **id 含「期」维度**：`<期>-<子需求>`（如 `M2-S1`）或按模块用独立编号段（如看板期 `B1-B5`）；**禁止跨期复用编号**（任何一期不得沿用其他期的编号段，避免同名冲突与语义漂移）
-- **跨目录统一前缀**：同一子需求在 design/records/api/lessons 用同一编号前缀 + 同一 prd_slug（`B1-看板-m2-design.md` / `B1-m2-record.md` / `feishu-b1-m2-api-contract.md` / `2026-08-16-b1-xxx-m2-lesson.md`），追溯「某子需求的契约/设计/记录/经验」不靠人肉拼
-- **prd_slug 标识来源 PRD**：`{prd_slug}` = 来源 PRD 文件名中的 slug（`2026-08-14-m1-prd.md` → `m1`），一期可多个 PRD，期前缀不唯一映射 PRD；api/design/records 文件名必带，lessons 不带
+- **跨目录统一前缀**：同一子需求在 design/records/api/lessons 用同一编号前缀 + 同一需求标识（`B1-看板-m2-design.md` / `B1-m2-record.md` / `feishu-b1-m2-api-contract.md` / `2026-08-16-b1-xxx-m2-lesson.md`），追溯「某子需求的契约/设计/记录/经验」不靠人肉拼
+- **需求标识必填**：`{prd_slug}` = 需求标识——复杂需求 = PRD 文件名 slug（`2026-08-14-m1-prd.md` → `m1`），常规需求 = 需求 slug（手给短标识如 `login`）；api/design/records/lessons 文件名必带，不留空占位；散任务类（Bug/优化/调研等）不走需求标识，用 `[模块][类型] <描述>`
 - **全库统一**：大小写（建议全小写）、slug 语言（建议全中文模块名）一致；契约前缀避免锁死平台（`feishu-` 换平台即失效）
 
 ## 维护约定
