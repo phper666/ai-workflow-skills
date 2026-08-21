@@ -172,7 +172,7 @@ use_cases:
 docs/api/{platform}-{item_id}-{prd_slug}-api-contract.md
 ```
 
-文件名中的 item_id 转为小写。`{prd_slug}` = 需求标识（复杂需求 = PRD 文件名中的 slug，如 `2026-08-14-m1-prd.md` → `m1`；常规需求 = 需求 slug，手给短标识如 `login`），标识该契约由哪个需求生成（一期可多个需求，期前缀不唯一映射需求）；**需求标识必填，不留空占位**（`jira-scrum-5-login-api-contract.md`）。示例：
+文件名中的 item_id 转为小写。`{prd_slug}` = 需求标识（复杂需求 = PRD 文件名中的 slug，如 `2026-08-14-m1-prd.md` → `m1`；常规需求 = 需求 slug，手给短标识如 `login`），标识该契约由哪个需求生成（一期可多个需求，期前缀不唯一映射需求）；**需求标识必填，不留空占位**（`jira-scrum-5-login-api-contract.md`）。**命名一致**：契约 `{platform}-{item_id}-{需求标识}-api-contract.md` 与共识文档 `共识-{模块}-{需求标识}.md` 用同一需求标识（共识 `共识-桌面壳-m1.md` ↔ 契约 `feishu-s1-m1-api-contract.md`），同需求跨产物追溯一致。示例：
 - Jira: `docs/api/jira-scrum-5-m1-api-contract.md`
 - TAPD: `docs/api/tapd-1123456789001000001-m1-api-contract.md`
 
