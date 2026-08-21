@@ -172,7 +172,7 @@ use_cases:
 docs/api/{platform}-{item_id}-{prd_slug}-api-contract.md
 ```
 
-文件名中的 item_id 转为小写。`{prd_slug}` = 来源 PRD 文件名中的 slug（如 `2026-08-14-m1-prd.md` → `m1`），标识该契约由哪个 PRD 生成（一期可多个 PRD，期前缀不唯一映射 PRD）。示例：
+文件名中的 item_id 转为小写。`{prd_slug}` = 来源 PRD 文件名中的 slug（如 `2026-08-14-m1-prd.md` → `m1`），标识该契约由哪个 PRD 生成（一期可多个 PRD，期前缀不唯一映射 PRD）；**无 PRD（常规需求直接建共识）→ 省略 `{prd_slug}`**（`jira-scrum-5-api-contract.md`，不留空占位）。示例：
 - Jira: `docs/api/jira-scrum-5-m1-api-contract.md`
 - TAPD: `docs/api/tapd-1123456789001000001-m1-api-contract.md`
 

@@ -25,7 +25,7 @@ description: 经验沉淀（lessons）：只沉淀有用的——可复用设计
 
 ## 产出
 
-`docs/lessons/<date>-<slug>-{prd_slug}-lesson.md`（slug 用主题词，如 `2026-08-15-overlay-atomic-swap-m1-lesson.md`；`{prd_slug}` = 来源 PRD 文件名中的 slug，如 `2026-08-14-m1-prd.md` → `m1`，标识该经验由哪个 PRD 阶段讨论出来——出生标记，不影响跨期复用，适用范围由文档内「适用范围」字段管）
+`docs/lessons/<date>-<slug>-{prd_slug}-lesson.md`（slug 用主题词，如 `2026-08-15-overlay-atomic-swap-m1-lesson.md`；`{prd_slug}` = 来源 PRD 文件名中的 slug，如 `2026-08-14-m1-prd.md` → `m1`，标识该经验由哪个 PRD 阶段讨论出来——出生标记，不影响跨期复用，适用范围由文档内「适用范围」字段管；**无 PRD（常规需求直接建共识）→ 省略 `{prd_slug}`**，如 `2026-08-15-overlay-atomic-swap-lesson.md`）
 
 ```markdown
 # <决策/踩坑标题>
