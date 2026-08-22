@@ -448,7 +448,7 @@
   <header>
     <div class="eyebrow">Team AI Workflow</div>
     <h1>团队 AI 研发工作流</h1>
-    <div class="sub"><strong>15 环节 · 11 skills</strong> · 更新于 2026-08-22（含实现前置 Gate · git 三件套 · UI 规范 · 需求标识）</div>
+    <div class="sub"><strong>15 环节 · 12 skills</strong> · 更新于 2026-08-22（含实现前置 Gate · git 三件套 + PR 合并 · UI 规范 · 需求标识）</div>
   </header>
 
   <h2>流程总览</h2>
@@ -762,8 +762,67 @@
           <td>回滚 / 撤已合并需求</td>
           <td>固定三步：先列历史看清再动 → 双重确认 → 自动备份（<code>backup/&lt;分支&gt;-&lt;时间戳&gt;</code>）；合并过主分支 = <b>revert 不 reset</b>（保留历史）；<code>reset --hard</code> 仅限本地未推送</td>
         </tr>
+        <tr>
+          <td><b>git-pr</b></td>
+          <td>提 PR / 合并需求到主分支</td>
+          <td>按合并模式 full/semi/manual 走流程（见下节）；合并前做需求标识唯一性 gate，合并后清理 <code>feature/&lt;需求标识&gt;</code> 分支</td>
+        </tr>
       </tbody>
     </table>
+  </div>
+
+  <h2>PR 合并模式（git-pr，feature → PR → 主分支）</h2>
+  <div class="grid2">
+    <div class="panel">
+      <h3><span class="icon">◈</span>配置（两级）</h3>
+      <ul>
+        <li><b>需求级覆盖</b>：表「合并模式（需求级覆盖）」<code>项目 | 需求标识 | 模式</code>，命中当前需求标识 → 用该模式</li>
+        <li><b>项目级默认</b>：表「合并模式（项目级默认）」<code>项目 | 默认模式</code>，需求级无覆盖 → 用项目默认</li>
+        <li>查找顺序：需求级覆盖 &gt; 项目级默认 &gt; 问用户</li>
+        <li><b>切换模式 = 改 <code>docs/spec/团队配置.md</code> 一行</b>，不改 skill 代码</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="icon">✓</span>合并 gate（合并前强制）</h3>
+      <ul>
+        <li><b>主分支 = 唯一事实源</b>：检测 PR 新增文档名 vs 主分支已有 slug（需求标识唯一性）</li>
+        <li>冲突 → <b>自动改名</b>（<code>m1</code> → <code>m1b</code>）+ 同步改所有引用（文档名/规则编号/契约/设计/记录）→ 再合并</li>
+        <li>检测放在<b>合并时</b>而非生成前（避免生成前竞态窗口）</li>
+        <li>需求不做 → 不合并，feature 分支留着（主分支干净）；合并后清理分支 + 标记完成</li>
+      </ul>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>模式</th><th>流程</th><th>merge 按钮谁按</th><th>检测合并</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>full 全自主</b></td>
+          <td>AI 提 PR → 合并 gate → AI 自己 merge → 清理分支</td>
+          <td>AI</td>
+          <td>不需要（AI 自己合，结果自知）</td>
+        </tr>
+        <tr>
+          <td><b>semi 半自主</b></td>
+          <td>AI 提 PR → 等人工 approve → merge → <b>检测合并</b> → 清理分支</td>
+          <td>AI 或人工（按团队约定）</td>
+          <td>要（<code>gh pr view &lt;编号&gt; --json state,mergedAt</code>，state=MERGED = 已合并）</td>
+        </tr>
+        <tr>
+          <td><b>manual 人工</b></td>
+          <td>AI 提 PR → 人工全权 merge → 后续推进时 <b>检测合并</b> → 清理分支</td>
+          <td>人工</td>
+          <td>要（同上；gh 不可用时兜底 <code>git branch --merged origin/main</code>）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel" style="margin-top:16px;">
+    <p style="font-size:13px;color:var(--muted);line-height:1.65;">
+      <b>三模式区别只在「merge 按钮谁按」</b>；「检测合并」是 semi/manual 通用能力（merge 非 AI 自做时 AI 无法自知结果，必须显式检测），full 不需要。检测合并也用于继续对话时判断上一步 PR 是否已合并——未合并则提示用户，不静默继续。合并是变更 → 需要时走 change-propagation 更新变更摘要。
+    </p>
   </div>
 
   <h2>UI 规范（docs/ui/UI规范.md）</h2>
