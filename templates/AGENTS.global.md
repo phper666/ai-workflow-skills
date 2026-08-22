@@ -1,4 +1,4 @@
-<!-- team-workflow:begin v11 -->
+<!-- team-workflow:begin v12 -->
 ## 团队 AI 研发工作流（已接入）
 
 > 本段由 ai-workflow-skills 模板生成（templates/AGENTS.global.md），单一事实源，勿手动编辑正文。
@@ -65,7 +65,7 @@ feature 分支合并到主分支时，**主分支是唯一事实源**：
 
 ### 文档地图
 
-docs/spec/（共识、规则索引、团队配置、变更摘要、变更摘要-<模块>.md）、docs/api/（契约）、docs/design/（技术方案）、docs/prd/（需求）、docs/prototype/（原型）、docs/lessons/（经验）
+docs/spec/（共识、规则索引、团队配置、变更摘要、变更摘要-<模块>.md）、docs/api/（契约）、docs/design/（技术方案）、docs/prd/（需求）、docs/prototype/（原型）、docs/ui/（UI 规范：项目级视觉规范，配色/字体/组件/布局）、docs/lessons/（经验）
 
 ### 文档目录政策（禁止重构）
 
@@ -83,4 +83,4 @@ docs/spec/（共识、规则索引、团队配置、变更摘要、变更摘要-
 - **用户显式指定某个 skill**（如 `/caveman-commit`）→ 尊重用户选择，不覆盖
 - **冲突双保险**：本优先级声明（AGENTS 层）+ 各 skill description 强制声明（skill 层）；检测到同类 skill 冲突见 install.sh 提示
 
-<!-- team-workflow:end v11 -->
+<!-- team-workflow:end v12 -->
