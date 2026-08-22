@@ -1,8 +1,8 @@
 # 团队 AI 研发工作流 — Skill 规格文档
 
 > 配套：`ai-team-workflow.html`（12 步流程可视化）· `团队AI研发工作流-落地启动文档.md`（落地手册）
-> 定位：把 12 步流程沉淀为 8 个 skill（1 接入 + 7 运行时），分角色使用，可插拔接入任意项目。
-> 设计原则：每角色最多碰 2 个 skill；触发用自然语言短句；写权分区无冲突；覆盖全部 12 步。
+> 定位：把 12 步流程沉淀为 8 个 teamflow skill（1 接入 + 7 运行时）+ 3 个 git 工具 skill（commit/worktree/rollback）+ UI 规范 + 验证基线，分角色使用，可插拔接入任意项目。
+> 设计原则：每角色最多碰 2 个 teamflow skill，git 三件套全员按需；触发用自然语言短句；写权分区无冲突；覆盖全部 12 步。
 
 ---
 
@@ -18,6 +18,11 @@
 | 6 | `phper666-teamflow-tech-design` | 实现角色 | 0(复杂), 8 后, 10-设计核验 | `docs/design/` + `docs/prd/` + `docs/prototype/` | "出个技术方案" / "怎么实现" |
 | 7 | `phper666-teamflow-implement-discipline` | 实现角色 | 实现环节（技术方案后/常规直达） | 实现记录 | "开始实现" |
 | 8 | `phper666-teamflow-lesson-deposit` | 实现角色 | 10 后, 12 | `docs/lessons/` | "这个坑记一下" / "沉淀" |
+| 9 | `phper666-git-commit` | 全员 | 提交时 | — | "commit" / "提交" / "写 commit message" |
+| 10 | `phper666-git-worktree` | 全员 | 多需求并行 | — | "worktree" / "多需求并行" / "切换需求" |
+| 11 | `phper666-git-rollback` | 全员 | 回滚/撤销时 | — | "回滚" / "撤销" / "撤掉这个需求" |
+
+**配套资产**：`docs/ui/UI规范.md`（项目级视觉规范）+ `evals/`（验证基线）——见 §12、§13。
 
 **覆盖矩阵**（15 环节全部有家，无孤儿）：
 
@@ -64,9 +69,13 @@
 
 **Phases**：
 1. **建文档**：按 14 节模板采集业务事实（流程/状态机/权限/字段/规则/枚举/第三方/未决项/页面/后端任务/端差异）；关键规则建编号+事实来源；显式记录未决项、适用范围、不做事项
-2. **发布基线**：升版本号+更新时间；绑定原型、Jira Epic/父需求、来源链接；生成扫描通知（范围+截止时间）
-3. **评审就绪（Gate A checklist 模式）**：会前验证——结构完整无自相矛盾、关键规则可唯一引用、P0 待确认项清零、版本可追踪；会后把评审结论回写正文+输出结构化变更摘要
-4. **拆解（PM 侧）**：按模块拆子需求，每个子需求绑定共识版本+规则编号+验收标准+不做事项；标注依赖；**只建 PM 侧子需求**，各角色子任务由各角色自己的 skill 建
+2. **需求标识 + 命名规范**：共识文档命名 `共识-{模块}-{需求标识}.md`（如 `共识-桌面壳-m1.md`）。**需求标识** = 复杂需求用 PRD slug（PRD 文件名 slug，如 `2026-08-14-m1-prd.md` → `m1`），常规需求用需求 slug（手给短标识如 `login`）；无 PRD 的常规需求 → 建共识时手给需求 slug，检测 `docs/` 已用 slug 避免重复（有 → 改 `login2`）。同模块不同需求文档名不冲突，各需求独立隔离
+3. **规则编号**：关键业务规则稳定编号 `CON-R-{需求标识}-{序号}` 起（如 `CON-R-m1-001`——**各需求独立编号域，不撞号**）；查 `docs/spec/规则索引.md` 现有编号避免冲突；存量 `CON-R001` 历史编号不重排（新规则用新格式）
+4. **发布基线**：升版本号+更新时间；绑定原型、Jira Epic/父需求、来源链接；生成扫描通知（范围+截止时间）
+5. **评审就绪（Gate A checklist 模式）**：会前验证——结构完整无自相矛盾、关键规则可唯一引用、P0 待确认项清零、版本可追踪；会后把评审结论回写正文+输出结构化变更摘要
+6. **拆解（PM 侧）**：按模块拆子需求，每个子需求绑定共识版本+规则编号+验收标准+不做事项；标注依赖；**只建 PM 侧子需求**，各角色子任务由各角色自己的 skill 建
+
+**UI 规范联动**：UI 类需求原型后 → 提取/更新项目级 UI 规范（`docs/ui/UI规范.md`，模板见 `templates/UI规范模板.md`），写入版本记录（绑定共识版本）——供前端实现做视觉基准、变更传播定位受影响前端实现（见 §12）。
 
 **模板**：`docs/spec/模板-共识文档.md`（14 节）+ `docs/spec/模板-变更摘要.md`
 
@@ -224,4 +233,82 @@ skill 主体只调抽象操作，平台差异锁在适配器内。
 
 ---
 
-*规格版本：v1.3 · 日期：2026-08-16 · 决策记录：4+1 边界确认 · 步骤 10 归入契约核验 · Q-items 多平台适配 · 扫描双模式（结果一致）· 新增 phper666-teamflow-tech-design/phper666-teamflow-lesson-deposit/phper666-teamflow-implement-discipline 环节 · 交付核验三层（设计/契约/PRD）· 变更摘要升级（版本分组+取代链）· 15 环节流程（需求探索前置 + 实现纪律）· 判级矩阵（复杂/常规/安全敏感）· 工程基线三问 · 术语表章节 · 多 agent 共识评审（吸收 2.5 项）· 实现前置 Gate（判级+方案冻结+工程基线三问+核验回查，缺一不进实现）· 方案状态机（draft→frozen+评审留痕，重大偏离回 draft）· 契约防漂移（单一事实源/三态锁定/CONS-02/同生同步）· docs/records/ 实现留痕*
+## 12. `phper666-git-commit` / `phper666-git-worktree` / `phper666-git-rollback` — git 工具三件套（全员）
+
+**定位**：团队分支模型的落地工具，与需求标识机制强绑定。git 场景强制用对应 skill；本地有同类 skill（commitizen 等）时团队模式默认用本仓库的（用户显式指定别的除外）。角色中立。
+
+### 12.1 `phper666-git-commit` — 提交规范（Conventional Commits + 拆分建议）
+
+**触发短语**：`git commit` / `提交` / `写 commit message`
+
+**Phases**：
+1. **提交前检查**：`git status` + `git diff` 看清改动；**lint/test 前置**——提示跑项目 lint + 测试，不通过不提交（无 pre-commit hook 时口头提示）
+2. **拆分建议（核心能力）**：diff 含多个独立逻辑（bug 修复 + 新功能 + 重构混在一个 diff）→ **必须建议拆分**成多个 commit，按逻辑分组（修复/功能/重构/文档各一 commit）、分批 stage（`git add <file>` 或 `git add -p`）、逐个提交——每 commit 一个逻辑，可独立回滚
+3. **commit message 规范**：`<type>(<scope>): <summary>`——type 必选（feat/fix/refactor/perf/docs/test/chore/build/ci/style/revert）；scope 可选（模块/需求标识如 `m1`）；summary 祈使句 ≤50 字符；body 只写非显然的 why；footer 关联 issue/breaking change
+4. **极简风格（可选）**：用户明确要简短时用 `fix: 修登录过期`，仍保持 type 前缀
+
+**规范**：commit 在 `feature/<需求标识>` 分支上做，不直接 commit 到主分支共享文档之外的需求代码。
+
+### 12.2 `phper666-git-worktree` — 多需求并行开发
+
+**触发短语**：`worktree` / `多需求并行` / `切换需求` / `多分支同时开发`
+
+**定位**：一个需求一个 worktree = `feature/<需求标识>` 分支，多需求并行各自独立工作区，互不干扰、不切分支。
+
+**操作**：
+1. **创建**：`git worktree add <path> feature/<需求标识>`（path 建议仓库同级 `../<repo>-<需求标识>`）；创建前确认分支名 + 需求标识与共识文档一致，不凭空造
+2. **列出/删除**：`git worktree list`；`git worktree remove <path>`（删除前检查无未提交改动，有 → 先提交/暂存再删；目录删了分支/提交不丢）
+3. **迁移现有目录（可选）**：`git worktree add --track -b feature/<需求标识> <path> origin/main`（先确认目录内改动已提交或备份）
+
+**规范**：一个需求一个 worktree 不跨用；需求不做 → 分支/worktree 留着（下次继续，主分支干净）；需求完成合并后 → 清理 worktree + 分支（`git branch -d` + `git worktree prune`）；主分支（共享文档）改动 → 在主仓库 worktree 操作，不在需求 worktree 混改。
+
+### 12.3 `phper666-git-rollback` — 安全回滚
+
+**触发短语**：`回滚` / `撤销` / `撤掉这个需求` / `回退` / `误操作`
+
+**定位**：回滚是高风险破坏不可逆操作。核心原则：**先看清，再备份，后动手；合并过的改动绝不 reset，只 revert。**
+
+**操作顺序（固定三步）**：
+1. **先列历史看清再动**：`git status` / `git log --oneline -10` / `git branch -a` / `git log --graph --oneline main feature/<需求标识>`——不看清不动手
+2. **双重确认（执行前）**：复述「将执行什么、影响什么、是否可恢复」，得确认再执行
+3. **自动备份（回滚前）**：`git branch backup/<原分支>-<时间戳>`（或未提交改动 `git stash`）
+
+**安全模式（合并后撤需求，默认）**：合并到主分支的改动撤销 = 必须 `git revert <commit>`（新增反向 commit，保留完整历史、不重写、不破坏他人）；撤销后确认 `git log --oneline` 看到反向 commit。
+
+**危险模式（`git reset --hard`，仅限本地未推送）**：仅限目标分支未推送远程或纯本地实验分支；**禁用**：已推送/他人已拉取的分支（reset 重写历史破坏他人，此场景必须 revert）；双重确认前置。
+
+**规范**：回滚后确认结果不静默完成；回滚了已合并需求 → 需要时走 phper666-teamflow-change-propagation 更新变更摘要（回滚也是变更）。
+
+---
+
+## 13. UI 规范（`docs/ui/UI规范.md`）
+
+**定位**：项目级视觉规范，跨需求共享。复杂 UI 原型后提取/更新，前端实现必读做视觉基准，交付核验对照。
+
+**模板**：`templates/UI规范模板.md`（复制到项目 `docs/ui/UI规范.md` 后按项目填写）——视觉主题 / 配色 / 字体 / 组件样式 / 布局 / Do & Don'ts，含版本记录（版本/日期/变更/来源需求）。
+
+**五处联动**（贯穿全流程）：
+| 环节 | Skill | 联动 |
+|:-----|:------|:-----|
+| 提取/更新 | `phper666-teamflow-consensus-doc` | UI 类需求原型后 → 提取/更新 `docs/ui/UI规范.md`，写版本记录（绑定共识版本） |
+| 确认/更新 | `phper666-teamflow-tech-design` | UI 类需求 → 确认/更新 UI 规范（从原型提取），前端实现时读它做视觉基准 |
+| 前端实现 | `phper666-teamflow-implement-discipline` | UI 类需求前端实现前 → **必读** UI 规范，视觉实现以规范为基准；规范缺失 → 提示先建/更新，不静默自造视觉 |
+| 交付核验 | `phper666-teamflow-story-to-contract` | ④ UI 视觉核验对照 UI 规范逐项核对；规范缺失 → 跳过视觉核验 + 记录风险项（不阻断） |
+| 变更传播 | `phper666-teamflow-change-propagation` | UI 规范变更 → 沿引用定位受影响前端实现（绑定该版本的契约/子需求/UI 类需求）→ 提示同步更新视觉 |
+
+---
+
+## 14. 验证基线（`evals/`）
+
+**定位**：验证关键 skill 的**触发准确性**与**产出符合预期**。静态检查（grep/diff）只验证「文档写对」，eval 跑真实 prompt 看 AI 是否正确触发 + 产出符合预期。
+
+**什么时候跑（低频）**：大改动/发布 → 全量跑；高价值 skill 改动 → 跑对应 skill 用例；日常小改（文案/格式）→ 静态检查即可。
+
+**怎么跑**：每个用例（`evals.json`）——把 prompt 给子 agent（不带目标 skill 上下文）→ 看触发哪个 skill + 产出什么 → 对照 expected/assertions 判定（`should_trigger` / `should_not_trigger`）→ 记录结果（`evals/RESULTS.md`）。
+
+**当前覆盖**：git 三件套（commit/worktree/rollback 的 should_trigger + should_not_trigger）+ consensus-doc 需求标识（有 PRD + 无 PRD 两例，产出 `共识-{模块}-{需求标识}.md` + `CON-R-{需求标识}`）。
+
+---
+
+*规格版本：v1.4 · 日期：2026-08-22 · 新增 git 工具三件套（phper666-git-commit/worktree/rollback）、UI 规范（docs/ui/UI规范.md）、验证基线（evals/）章节 · 需求标识机制同步最新（共识-{模块}-{需求标识}.md + CON-R-{需求标识} 编号域）*
+*历史：v1.3（2026-08-16）：决策记录：4+1 边界确认 · 步骤 10 归入契约核验 · Q-items 多平台适配 · 扫描双模式（结果一致）· 新增 phper666-teamflow-tech-design/phper666-teamflow-lesson-deposit/phper666-teamflow-implement-discipline 环节 · 交付核验三层（设计/契约/PRD）· 变更摘要升级（版本分组+取代链）· 15 环节流程（需求探索前置 + 实现纪律）· 判级矩阵（复杂/常规/安全敏感）· 工程基线三问 · 术语表章节 · 多 agent 共识评审（吸收 2.5 项）· 实现前置 Gate（判级+方案冻结+工程基线三问+核验回查，缺一不进实现）· 方案状态机（draft→frozen+评审留痕，重大偏离回 draft）· 契约防漂移（单一事实源/三态锁定/CONS-02/同生同步）· docs/records/ 实现留痕*

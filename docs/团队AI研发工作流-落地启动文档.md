@@ -46,6 +46,8 @@ docs/
 │   └── 模板-契约文档.md    # 12 节骨架（与 skill 模板一致）
 ├── design/                # 技术方案（复杂/高风险必产，draft→frozen）
 │   └── <id>-<module>-design.md
+├── ui/                    # 项目级 UI 规范（复杂 UI 原型后提取/更新）
+│   └── UI规范.md
 ├── prd/                   # 需求文档
 ├── prototype/             # 原型
 ├── records/               # 实现/核验记录 <id>-record.md
@@ -78,6 +80,8 @@ docs/
 |:-----|:---------|:-----|
 | `phper666-teamflow-story-to-contract` skill | 6/7/8/9/14 的核心 | 已有，合规评估见附录 A |
 | `phper666-teamflow-tech-design` skill（判级/技术方案） | 10/11 | 已定义，随第一批复杂需求落地时启用 |
+| `phper666-git-commit` / `phper666-git-worktree` / `phper666-git-rollback` skill（git 三件套） | 提交 / 多需求并行 / 回滚 | 已定义，全员按需触发 |
+| UI 规范（`docs/ui/UI规范.md`，模板 `templates/UI规范模板.md`） | 复杂 UI 原型后提取，前端实现做视觉基准 | 已定义，随第一批 UI 类需求落地时启用 |
 | TDD 测试框架 + lint/type-check（项目既有栈） | 12 | 工程基线三问核验 |
 | `ocr`（open-code-review）代码审查 | 12 | 需配置 |
 | Semgrep 安全扫描 | 12 | 有则跑，无则核验记录记风险项 |
@@ -182,4 +186,4 @@ docs/
 
 ---
 
-*文档版本：v2.0 · 日期：2026-08-16 · 配套：ai-team-workflow.html + phper666-teamflow-story-to-contract skill*
+*文档版本：v2.1 · 日期：2026-08-22 · 工具链补 git 三件套 + UI 规范 · 配套：ai-team-workflow.html + phper666-teamflow-story-to-contract skill*
