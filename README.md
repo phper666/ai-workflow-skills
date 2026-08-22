@@ -2,6 +2,8 @@
 
 团队 AI 研发工作流（共识 → 扫描 → 待确认闭环 → 契约 → 判级/技术方案 → 实现纪律 → 交付核验 → 变更传播 → 沉淀）的 skill 源码与分发仓库。另含 3 个 git 工具 skill（commit/worktree/rollback），给 AI 固化 git 操作规范。
 
+> **流程可视化**：[点此查看工作流总览图](https://phper666.github.io/ai-workflow-skills/ai-team-workflow.html)（GitHub Pages 渲染；若链接 404，见下文「启用 GitHub Pages」）
+
 ## 包含的 Skills
 
 | Skill | 角色 | 一句话 | 触发示例 |
@@ -31,6 +33,18 @@ bash <(curl -fsSL https://raw.githubusercontent.com/phper666/ai-workflow-skills/
 ```
 
 自动完成：克隆到 `~/ai-workflow-skills` → 链接 11 个 skill → 幂等追加 AGENTS.md 导航段 → 冲突检测。重跑即更新（git pull）。
+
+### 启用 GitHub Pages（渲染流程可视化 html）
+
+流程可视化链接（见开头）依赖 GitHub Pages 渲染 `docs/ai-team-workflow.html`。启用步骤（仓库 owner 在 GitHub 网页操作，约 2 分钟）：
+
+1. 仓库 **Settings → Pages**
+2. **Build and deployment → Source** 选 `Deploy from a branch`
+3. **Branch** 选 `main` + 目录 `/docs`
+4. **Save** → 等 1-2 分钟部署
+5. 验证：`https://<owner>.github.io/ai-workflow-skills/ai-team-workflow.html`
+
+> 若链接 404，说明 Pages 未启用或未选 `/docs` 目录。
 
 **平台选择**：
 - 终端交互跑 → 弹出菜单选平台：opencode（默认）/ Claude Code / Cursor / 自定义目录
