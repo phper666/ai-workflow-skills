@@ -24,7 +24,7 @@ if [ -z "${SKILLS_DIR:-}" ] && [ -t 0 ]; then
   esac
 fi
 SKILLS_DIR="${SKILLS_DIR:-$HOME/.config/opencode/skills}"
-SKILLS=(phper666-teamflow-change-propagation phper666-teamflow-consensus-doc phper666-teamflow-consensus-scan phper666-teamflow-implement-discipline phper666-teamflow-lesson-deposit phper666-teamflow-story-to-contract phper666-teamflow-tech-design phper666-teamflow-workflow-setup)
+SKILLS=(phper666-teamflow-change-propagation phper666-teamflow-consensus-doc phper666-teamflow-consensus-scan phper666-teamflow-implement-discipline phper666-teamflow-lesson-deposit phper666-teamflow-story-to-contract phper666-teamflow-tech-design phper666-teamflow-workflow-setup phper666-git-commit phper666-git-worktree phper666-git-rollback)
 
 echo "== 1/3 克隆/更新仓库"
 if [ -f "templates/AGENTS.global.md" ] && ls phper666-teamflow-*/SKILL.md >/dev/null 2>&1; then
@@ -43,6 +43,16 @@ for s in "${SKILLS[@]}"; do
   ln -sfn "${SRC_DIR}/$s" "$SKILLS_DIR/$s"
 done
 echo "   linked ${#SKILLS[@]} 个 skill"
+
+echo "== 2.5/3 冲突检测（git skills 同类冲突）"
+if [ -f "$(dirname "$0")/scripts/detect-git-conflicts.sh" ]; then
+  # 以当前仓库 scripts 为准；AI 在仓库内安装时用相对路径，外部安装用 SRC_DIR
+  CONFLICT_SCRIPT="$(dirname "$0")/scripts/detect-git-conflicts.sh"
+  [ -f "$CONFLICT_SCRIPT" ] || CONFLICT_SCRIPT="${SRC_DIR}/scripts/detect-git-conflicts.sh"
+  SKILLS_DIR="$SKILLS_DIR" bash "$CONFLICT_SCRIPT" || true   # 提示语气，不阻断
+else
+  echo "   未找到冲突检测脚本，跳过"
+fi
 
 echo "== 3/3 AGENTS.md 导航段（幂等）"
 if [ -f "$AGENTS" ] && grep -q "team-workflow:begin" "$AGENTS"; then

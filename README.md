@@ -1,6 +1,6 @@
 # AI 研发工作流 Skills 仓库
 
-团队 AI 研发工作流（共识 → 扫描 → 待确认闭环 → 契约 → 判级/技术方案 → 实现纪律 → 交付核验 → 变更传播 → 沉淀）的 skill 源码与分发仓库。
+团队 AI 研发工作流（共识 → 扫描 → 待确认闭环 → 契约 → 判级/技术方案 → 实现纪律 → 交付核验 → 变更传播 → 沉淀）的 skill 源码与分发仓库。另含 3 个 git 工具 skill（commit/worktree/rollback），给 AI 固化 git 操作规范。
 
 ## 包含的 Skills
 
@@ -14,6 +14,9 @@
 | `phper666-teamflow-tech-design` | 实现角色 | 技术方案分级：复杂/高风险需求产出 docs/design/<id>-<module>-design.md 供评审与回验对照；常规/简单跳过；复杂任务前置需求探索（PRD+原型必产）；工程基线三问 | "出个技术方案" |
 | `phper666-teamflow-implement-discipline` | 实现角色 | 实现纪律（分级）：复杂完整流水线（TDD/lint/Review/Semgrep），常规轻量检查；工具可降级；安全敏感强制扫描 | "开始实现" |
 | `phper666-teamflow-lesson-deposit` | 实现角色 | 经验沉淀：三硬标准过滤 + 引用计数自证（90 天无引用 archived），docs/lessons/ | "这个坑记一下" |
+| `phper666-git-commit` | 全体 | git commit 提交规范：Conventional Commits + 拆分建议（一个 diff 多逻辑必须提示拆分）+ lint/test 前置 | "commit" / "提交" / "写 commit message" |
+| `phper666-git-worktree` | 全体 | 多需求并行开发：一个需求一个 worktree（绑定 feature/<需求标识>），多需求并行不切分支 | "worktree" / "多需求并行" / "切换需求" |
+| `phper666-git-rollback` | 全体 | 安全回滚：合并过的主分支改动 revert 不 reset；reset 仅限本地未推送；回滚前备份 + 双重确认 | "回滚" / "撤掉这个需求" / "误操作" |
 
 依赖：本仓库同时是**共享扫描规则库**的分发渠道——经验升级为扫描规则后提交到 `phper666-teamflow-consensus-scan/references/扫描规则库.md` 共享区，团队成员 pull 即同步生效。
 
@@ -27,7 +30,7 @@
 bash <(curl -fsSL https://raw.githubusercontent.com/phper666/ai-workflow-skills/main/install.sh)
 ```
 
-自动完成：克隆到 `~/ai-workflow-skills` → 链接 8 个 skill → 幂等追加 AGENTS.md 导航段。重跑即更新（git pull）。
+自动完成：克隆到 `~/ai-workflow-skills` → 链接 11 个 skill → 幂等追加 AGENTS.md 导航段 → 冲突检测。重跑即更新（git pull）。
 
 **平台选择**：
 - 终端交互跑 → 弹出菜单选平台：opencode（默认）/ Claude Code / Cursor / 自定义目录
@@ -53,6 +56,18 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 ### 其他平台（Claude Code / Cursor / 自建 agent 等）
 
 将 `~/ai-workflow-skills/<skill-name>` 复制或符号链接到该平台约定的 skills 目录（如 `~/.claude/skills/`、项目内 `.agents/skills/`、`.cursor/skills/` 等）。
+
+## git 工具 skills（phper666-git-*）
+
+三个 git skill 固化 AI 的 git 操作规范（AI 会 git 但没规范，skill 给规范），绑定团队分支模型（`feature/<需求标识>`）：
+
+| Skill | 规范 |
+|:------|:-----|
+| `phper666-git-commit` | Conventional Commits（`<type>(<scope>): <summary>`）+ 拆分建议（一个 diff 多逻辑必须提示拆分）+ lint/test 前置 |
+| `phper666-git-worktree` | 一个需求一个 worktree，绑定 `feature/<需求标识>`，多需求并行不切分支；创建前确认分支命名，删除前检查未提交改动 |
+| `phper666-git-rollback` | 合并过的主分支改动撤销 = 必须 revert（新增反向 commit，保留历史）；reset --hard 仅限本地未推送；回滚前备份 + 双重确认 |
+
+**冲突检测**：`install.sh` 安装时调用 `scripts/detect-git-conflicts.sh`，按通用功能类别（commit / worktree / rollback 关键词）扫描已装 skills，检测到同类 → 提示「建议卸载/停用避免触发冲突；保留则双保险兜底（默认用 phper666-git-*）」，**提示语气，不阻断安装**。双保险：skill description 强制声明（skill 层）+ AGENTS.md git 工具优先级声明（AGENTS 层）。
 
 ## 实战案例
 
@@ -89,7 +104,7 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 
 ## 维护约定
 
-- **单一源**：本仓库是 8 个 skill 的唯一源码位置，平台侧只放符号链接或副本
+- **单一源**：本仓库是 11 个 skill 的唯一源码位置，平台侧只放符号链接或副本
 - **共享规则升级**：跨项目验证有效的扫描规则 → 提交 `phper666-teamflow-consensus-scan/references/扫描规则库.md` 共享区 → 全员 pull
 - **适配器**：`phper666-teamflow-story-to-contract/adapters/` 按平台 MCP 工具名映射（Jira/TAPD/飞书），换平台只改映射，不动 skill 主体
 - **上游跟踪**：方法论吸收点见「与 Matt Pocock 流水线的关系」映射表；上游 release 时人工评估同步，无自动更新链路

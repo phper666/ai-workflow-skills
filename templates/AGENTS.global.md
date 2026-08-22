@@ -1,4 +1,4 @@
-<!-- team-workflow:begin v10 -->
+<!-- team-workflow:begin v11 -->
 ## 团队 AI 研发工作流（已接入）
 
 > 本段由 ai-workflow-skills 模板生成（templates/AGENTS.global.md），单一事实源，勿手动编辑正文。
@@ -74,4 +74,13 @@ docs/spec/（共识、规则索引、团队配置、变更摘要、变更摘要-
 - **升级触发器**：仅当单目录 > 3k-5k 文件或全量 glob 打爆上下文时，才考虑局部升级（模块顶层 → 模块内按期）；升级前必须过「幂等性 + 硬编码路径 + 分发模板兼容」三问，且不移动存量文件
 - **变更摘要滚动归档**：L2 模块文件 `docs/spec/变更摘要-<模块>.md` >100 条 或 跨年 → `git mv` 为 `变更摘要-<模块>-<年份>.md`，指针永远指向当前文件（L1 索引 `变更摘要.md` 永小，不轮转）
 
-<!-- team-workflow:end v10 -->
+### git 工具优先级（默认强制）
+
+- **git commit** → phper666-git-commit（默认强制：Conventional Commits + 拆分建议 + lint/test 前置）
+- **git worktree** → phper666-git-worktree（默认强制：多需求并行，一个需求一个 worktree，绑定 feature/<需求标识>）
+- **git rollback** → phper666-git-rollback（默认强制：合并过的主分支改动 revert 不 reset，reset 仅限本地未推送，回滚前备份 + 双重确认）
+- **其他第三方 git skill**（commitizen / 其他 commit 风格 / worktree / rollback 类）→ 保留但不默认触发，仅用户显式指定时用
+- **用户显式指定某个 skill**（如 `/caveman-commit`）→ 尊重用户选择，不覆盖
+- **冲突双保险**：本优先级声明（AGENTS 层）+ 各 skill description 强制声明（skill 层）；检测到同类 skill 冲突见 install.sh 提示
+
+<!-- team-workflow:end v11 -->

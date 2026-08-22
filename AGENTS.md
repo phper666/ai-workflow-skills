@@ -1,13 +1,13 @@
 # ai-workflow-skills — 仓库导航（给 AI 代理）
 
-本仓库是 **8 个 phper666-teamflow-\* skills 的源码与分发仓库**（团队 AI 研发工作流）：
-consensus-doc / consensus-scan / story-to-contract / tech-design / implement-discipline / change-propagation / lesson-deposit / workflow-setup
+本仓库是 **11 个 phper666-\* skills 的源码与分发仓库**（团队 AI 研发工作流 + git 工具规范）：
+consensus-doc / consensus-scan / story-to-contract / tech-design / implement-discipline / change-propagation / lesson-deposit / workflow-setup / git-commit / git-worktree / git-rollback
 
 ## 当用户要求「安装 / 接入 / 弄到我的 agent 里」时
 
 执行：`bash install.sh`
 
-脚本自动完成：克隆（若已在仓库内则跳过，直接使用当前目录）→ 链接 8 个 skill 到平台 skills 目录（默认 opencode `~/.config/opencode/skills/`，其他平台用 `SKILLS_DIR` 覆盖）→ 幂等追加 `templates/AGENTS.global.md`（team-workflow 导航段）到宿主 `~/.config/opencode/AGENTS.md`。
+脚本自动完成：克隆（若已在仓库内则跳过，直接使用当前目录）→ 链接 11 个 skill 到平台 skills 目录（默认 opencode `~/.config/opencode/skills/`，其他平台用 `SKILLS_DIR` 覆盖）→ 幂等追加 `templates/AGENTS.global.md`（team-workflow 导航段）到宿主 `~/.config/opencode/AGENTS.md` → 冲突检测（`scripts/detect-git-conflicts.sh` 扫描 git 同类 skill）。
 
 ## 其他
 
