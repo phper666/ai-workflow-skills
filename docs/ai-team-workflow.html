@@ -448,7 +448,7 @@
   <header>
     <div class="eyebrow">Team AI Workflow</div>
     <h1>团队 AI 研发工作流</h1>
-    <div class="sub"><strong>15 环节 · 8 skills</strong> · 更新于 2026-08-16（含实现前置 Gate）</div>
+    <div class="sub"><strong>15 环节 · 11 skills</strong> · 更新于 2026-08-22（含实现前置 Gate · git 三件套 · UI 规范 · 需求标识）</div>
   </header>
 
   <h2>流程总览</h2>
@@ -464,13 +464,13 @@
         <div class="step pre">
           <div class="num">前置 0</div>
           <div class="name">需求探索</div>
-          <div class="skill">consensus-doc（复杂：PRD+原型必产）</div>
+          <div class="skill">consensus-doc（复杂：PRD+原型必产；UI 类 → 提取 UI规范）</div>
         </div>
         <span class="flow-arrow">→</span>
         <div class="step">
           <div class="num">1</div>
           <div class="name">建共识</div>
-          <div class="skill">consensus-doc</div>
+          <div class="skill">consensus-doc · 共识-{模块}-{需求标识}.md</div>
         </div>
         <span class="flow-arrow">→</span>
         <div class="step">
@@ -577,7 +577,7 @@
         <div class="step disc">
           <div class="num">● 实现纪律</div>
           <div class="name">实现纪律</div>
-          <div class="skill">implement-discipline</div>
+          <div class="skill">implement-discipline（前端实现读 UI规范）</div>
         </div>
         <span class="flow-arrow">→</span>
         <div class="step gate-card">
@@ -713,8 +713,68 @@
         <tr><td><code>docs/prototype/</code></td><td>交互原型</td><td>自由命名</td></tr>
         <tr><td><code>docs/records/</code></td><td>实现/核验记录</td><td><code>&lt;id&gt;-record.md</code></td></tr>
         <tr><td><code>docs/lessons/</code></td><td>经验沉淀（三硬标准，90 天无引用归档）</td><td><code>&lt;date&gt;-&lt;slug&gt;.md</code></td></tr>
+        <tr><td><code>docs/ui/</code></td><td>项目级 UI 规范（复杂 UI 原型后提取，前端实现必读）</td><td><code>UI规范.md</code>（模板见 templates/UI规范模板.md）</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <h2>需求标识（命名唯一性 = 合并 Gate）</h2>
+  <div class="grid2">
+    <div class="panel">
+      <h3><span class="icon">◈</span>命名规则</h3>
+      <ul>
+        <li>共识文档：<code>共识-{模块}-{需求标识}.md</code>（如 <code>共识-桌面壳-m1.md</code>）</li>
+        <li>规则编号：<code>CON-R-{需求标识}-{序号}</code>（各需求独立编号域，不撞号）</li>
+        <li>分支：<code>feature/&lt;需求标识&gt;</code>（如 <code>feature/m1</code>、<code>feature/login</code>）</li>
+        <li>复杂需求用 PRD slug（<code>2026-08-14-m1-prd.md</code> → <code>m1</code>）；常规需求手给短 slug（<code>login</code>）；检测 <code>docs/</code> 已用 slug 避免重复</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="icon">✓</span>唯一性 Gate（合并时强制）</h3>
+      <ul>
+        <li><b>主分支 = 唯一事实源</b>：新增文档名与主分支已有 slug 冲突 → 检测 → 自动改名 + 同步改引用 → 再合并</li>
+        <li>需求不做 → feature 分支留着（代码+文档都不合并），主分支干净</li>
+        <li>改共享文档前 → 先 merge 主分支最新（减少冲突窗口）</li>
+        <li>契约/设计/记录在 feature 分支生成，不直接写主分支</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>git 工具规范（phper666-git-*，全员基础工具）</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>工具</th><th>场景</th><th>要点</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>git-commit</b></td>
+          <td>提交 / 写 commit message</td>
+          <td>Conventional Commits：<code>&lt;type&gt;(&lt;scope&gt;): &lt;summary&gt;</code>；type 必选（feat/fix/refactor/perf/docs/test/chore/build/ci/style/revert）；scope 可带需求标识（<code>m1</code>）；summary 祈使句 ≤50 字符；body 只写非显然 why；commit 在 <code>feature/&lt;需求标识&gt;</code> 上做</td>
+        </tr>
+        <tr>
+          <td><b>git-worktree</b></td>
+          <td>多需求并行开发</td>
+          <td>一需求一 worktree = <code>feature/&lt;需求标识&gt;</code> 分支，独立工作区互不干扰；<code>git worktree add ../&lt;repo&gt;-&lt;需求标识&gt; feature/&lt;需求标识&gt;</code>；需求不做留分支/worktree，合并后清理（<code>git branch -d</code> + <code>git worktree prune</code>）</td>
+        </tr>
+        <tr>
+          <td><b>git-rollback</b></td>
+          <td>回滚 / 撤已合并需求</td>
+          <td>固定三步：先列历史看清再动 → 双重确认 → 自动备份（<code>backup/&lt;分支&gt;-&lt;时间戳&gt;</code>）；合并过主分支 = <b>revert 不 reset</b>（保留历史）；<code>reset --hard</code> 仅限本地未推送</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>UI 规范（docs/ui/UI规范.md）</h2>
+  <div class="panel">
+    <ul class="checklist">
+      <li><div class="chk">①</div><div class="item"><b>复杂 UI 需求：</b>PRD + 原型 → 原型后<b>提取 / 更新 UI 规范</b>（consensus-doc / tech-design）。</div></li>
+      <li><div class="chk">②</div><div class="item"><b>前端实现必读：</b>做视觉基准（配色 / 字体 / 组件 / 布局 / Do &amp; Don'ts），跨需求共享（implement-discipline）。</div></li>
+      <li><div class="chk">③</div><div class="item"><b>交付核验对照：</b>实现与 UI 规范一致性纳入验收，防视觉漂移。</div></li>
+      <li><div class="chk">④</div><div class="item"><b>版本绑定：</b>模板 <code>templates/UI规范模板.md</code>，复制到项目 <code>docs/ui/UI规范.md</code> 按项目填写。</div></li>
+    </ul>
+    <p style="margin-top:12px;font-size:13px;color:var(--muted);">验证基线 <code>evals/</code>：低频跑（大改动 / 发布时全量），覆盖 git 三件套触发 + 需求标识产出断言；日常小改静态检查即可。</p>
   </div>
 
 </div>
