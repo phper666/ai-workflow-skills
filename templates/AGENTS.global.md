@@ -1,4 +1,4 @@
-<!-- team-workflow:begin v12 -->
+<!-- team-workflow:begin v13 -->
 ## 团队 AI 研发工作流（已接入）
 
 > 本段由 ai-workflow-skills 模板生成（templates/AGENTS.global.md），单一事实源，勿手动编辑正文。
@@ -23,6 +23,18 @@
 - **需求不做 → feature 分支留着**（代码+文档都不合并），下次做继续，主分支干净
 - **改共享文档前** → 先 merge 主分支最新（减少冲突窗口）
 - **固定时序**：共识定稿（主分支直推）→ **开 `feature/<需求标识>` 分支** → 契约/设计/记录在 **feature 分支上生成** → 代码实现 → 需求完成合并 / 不做留分支。**契约/设计/记录不直接写主分支**（需求专属，跟代码走分支）
+
+### PR 合并模式（feature → 主分支，走 PR）
+
+feature 分支开发完 → 提 PR 合主分支（phper666-git-pr 自动走对应流程）。三模式按 AI 自主度分档，**区别只在「merge 按钮谁按」**：
+
+- **full（全自主）**：AI 提 PR → 合并 gate → AI 自己 merge → 清理分支
+- **semi（半自主）**：AI 提 PR → 等人工 approve → merge（AI 或人工按）→ AI 检测合并
+- **manual（人工）**：AI 提 PR → 人工全权 merge → AI 检测合并（继续对话时）
+
+**检测合并是通用能力**（semi + manual 都要，merge 非 AI 自做时 AI 无法自知结果）：`gh pr view <编号> --json state,mergedAt`（state=merged = 已合并），或 `git branch --merged origin/main`。full 不需要（AI 自己合，结果自知）。
+
+**配置两级（团队配置.md 合并模式表）**：需求级覆盖（`项目 | 需求标识 | 模式`）> 项目级默认（`项目 | 默认模式`）。切换模式 = 改团队配置一行，不改 skill 代码。
 
 ### 需求标识唯一性 = 合并 Gate（强制）
 
@@ -79,8 +91,9 @@ docs/spec/（共识、规则索引、团队配置、变更摘要、变更摘要-
 - **git commit** → phper666-git-commit（默认强制：Conventional Commits + 拆分建议 + lint/test 前置）
 - **git worktree** → phper666-git-worktree（默认强制：多需求并行，一个需求一个 worktree，绑定 feature/<需求标识>）
 - **git rollback** → phper666-git-rollback（默认强制：合并过的主分支改动 revert 不 reset，reset 仅限本地未推送，回滚前备份 + 双重确认）
-- **其他第三方 git skill**（commitizen / 其他 commit 风格 / worktree / rollback 类）→ 保留但不默认触发，仅用户显式指定时用
+- **git PR 合并** → phper666-git-pr（默认强制：提 PR / 合并需求 / 合并代码到主分支，按团队配置合并模式 full/semi/manual 走流程 + 合并 gate slug 冲突检测）
+- **其他第三方 git skill**（commitizen / 其他 commit 风格 / worktree / rollback / PR 类）→ 保留但不默认触发，仅用户显式指定时用
 - **用户显式指定某个 skill**（如 `/caveman-commit`）→ 尊重用户选择，不覆盖
 - **冲突双保险**：本优先级声明（AGENTS 层）+ 各 skill description 强制声明（skill 层）；检测到同类 skill 冲突见 install.sh 提示
 
-<!-- team-workflow:end v12 -->
+<!-- team-workflow:end v13 -->

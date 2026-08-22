@@ -4,6 +4,7 @@
 #   commit 类  → 名称/描述含 commit/message/conventional-commit/commitizen 等
 #   worktree 类 → 名称/描述含 worktree
 #   rollback 类 → 名称/描述含 rollback/revert/reset
+#   pr 类      → 名称/描述含 pull-request/pr/merge
 # 用法：SKILLS_DIR=~/.claude/skills bash scripts/detect-git-conflicts.sh
 # 退出码：0 = 无冲突；1 = 检测到潜在冲突（提示语气，不强制）
 set -uo pipefail
@@ -15,6 +16,7 @@ declare -A CATEGORY_KEYWORDS=(
   [commit]='commit|message|conventional-?commit|commitizen'
   [worktree]='worktree'
   [rollback]='rollback|revert|reset'
+  [pr]='pull-?request|\bpr\b|merge'
 )
 
 # 聚合：所有已装 skill 目录中，读取 SKILL.md frontmatter 的 name/description 用于匹配

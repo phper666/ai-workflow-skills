@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ai-workflow-skills 一键安装：克隆 + 链接 8 个 skill + 全局 AGENTS.md 导航段
+# ai-workflow-skills 一键安装：克隆 + 链接 12 个 skill + 全局 AGENTS.md 导航段
 # 用法：bash <(curl -fsSL https://raw.githubusercontent.com/phper666/ai-workflow-skills/main/install.sh)
 # 可覆盖：SKILLS_DIR=~/.claude/skills 指定平台目录；REPO_URL=... 指定仓库
 set -euo pipefail
@@ -24,7 +24,7 @@ if [ -z "${SKILLS_DIR:-}" ] && [ -t 0 ]; then
   esac
 fi
 SKILLS_DIR="${SKILLS_DIR:-$HOME/.config/opencode/skills}"
-SKILLS=(phper666-teamflow-change-propagation phper666-teamflow-consensus-doc phper666-teamflow-consensus-scan phper666-teamflow-implement-discipline phper666-teamflow-lesson-deposit phper666-teamflow-story-to-contract phper666-teamflow-tech-design phper666-teamflow-workflow-setup phper666-git-commit phper666-git-worktree phper666-git-rollback)
+SKILLS=(phper666-teamflow-change-propagation phper666-teamflow-consensus-doc phper666-teamflow-consensus-scan phper666-teamflow-implement-discipline phper666-teamflow-lesson-deposit phper666-teamflow-story-to-contract phper666-teamflow-tech-design phper666-teamflow-workflow-setup phper666-git-commit phper666-git-worktree phper666-git-rollback phper666-git-pr)
 
 echo "== 1/3 克隆/更新仓库"
 if [ -f "templates/AGENTS.global.md" ] && ls phper666-teamflow-*/SKILL.md >/dev/null 2>&1; then

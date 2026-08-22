@@ -1,8 +1,8 @@
 # 团队 AI 研发工作流 — Skill 规格文档
 
 > 配套：`ai-team-workflow.html`（12 步流程可视化）· `团队AI研发工作流-落地启动文档.md`（落地手册）
-> 定位：把 12 步流程沉淀为 8 个 teamflow skill（1 接入 + 7 运行时）+ 3 个 git 工具 skill（commit/worktree/rollback）+ UI 规范 + 验证基线，分角色使用，可插拔接入任意项目。
-> 设计原则：每角色最多碰 2 个 teamflow skill，git 三件套全员按需；触发用自然语言短句；写权分区无冲突；覆盖全部 12 步。
+> 定位：把 12 步流程沉淀为 8 个 teamflow skill（1 接入 + 7 运行时）+ 4 个 git 工具 skill（commit/worktree/rollback/pr）+ UI 规范 + 验证基线，分角色使用，可插拔接入任意项目。
+> 设计原则：每角色最多碰 2 个 teamflow skill，git 四件套全员按需；触发用自然语言短句；写权分区无冲突；覆盖全部 12 步。
 
 ---
 
@@ -21,6 +21,7 @@
 | 9 | `phper666-git-commit` | 全员 | 提交时 | — | "commit" / "提交" / "写 commit message" |
 | 10 | `phper666-git-worktree` | 全员 | 多需求并行 | — | "worktree" / "多需求并行" / "切换需求" |
 | 11 | `phper666-git-rollback` | 全员 | 回滚/撤销时 | — | "回滚" / "撤销" / "撤掉这个需求" |
+| 12 | `phper666-git-pr` | 全员 | 合并需求到主分支 | — | "提 PR" / "合并需求" / "合并代码到主分支" |
 
 **配套资产**：`docs/ui/UI规范.md`（项目级视觉规范）+ `evals/`（验证基线）——见 §12、§13。
 
@@ -233,7 +234,7 @@ skill 主体只调抽象操作，平台差异锁在适配器内。
 
 ---
 
-## 12. `phper666-git-commit` / `phper666-git-worktree` / `phper666-git-rollback` — git 工具三件套（全员）
+## 12. `phper666-git-commit` / `phper666-git-worktree` / `phper666-git-rollback` / `phper666-git-pr` — git 工具四件套（全员）
 
 **定位**：团队分支模型的落地工具，与需求标识机制强绑定。git 场景强制用对应 skill；本地有同类 skill（commitizen 等）时团队模式默认用本仓库的（用户显式指定别的除外）。角色中立。
 
@@ -279,6 +280,30 @@ skill 主体只调抽象操作，平台差异锁在适配器内。
 
 **规范**：回滚后确认结果不静默完成；回滚了已合并需求 → 需要时走 phper666-teamflow-change-propagation 更新变更摘要（回滚也是变更）。
 
+### 12.4 `phper666-git-pr` — PR 合并流程（三模式）
+
+**触发短语**：`提 PR` / `合并需求` / `合并代码到主分支` / `merge`
+
+**定位**：feature 分支开发完要合主分支的落地工具，按团队配置合并模式自动走对应流程。**三模式区别只在「merge 按钮谁按」**；「检测合并」是 semi/manual 的通用能力（merge 非 AI 自做时 AI 无法自知结果），full 不需要（AI 自己合，结果自知）。
+
+**合并模式两级配置**（`docs/spec/团队配置.md`）：
+- 项目级默认：`项目 | 默认模式 | 说明`（不配默认 full）
+- 需求级覆盖（可选）：`项目 | 需求标识 | 模式 | 说明`
+- 查找顺序：**需求级覆盖 > 项目级默认 > 问用户**；切换 = 改团队配置一行，不改 skill 代码
+
+**三模式流程**：
+| 模式 | AI 自主度 | 流程 |
+|:-----|:----------|:-----|
+| full | 全自主 | AI 提 PR → 合并 gate（slug 冲突检测）→ AI 自己 merge → 清理分支 |
+| semi | 半自主 | AI 提 PR → 等人工 approve → merge（AI 或人工按）→ AI 检测合并 |
+| manual | 人工 | AI 提 PR → 人工全权 merge → AI 检测合并（继续对话时） |
+
+**检测合并**（通用）：`gh pr view <编号> --json state,mergedAt`（state=merged = 已合并，最可靠）；兜底 `git branch --merged origin/main`（feature 在列表 = 已合并）。
+
+**合并 gate**：合并前检测需求标识唯一性（新增文档名 vs 主分支已有 slug），冲突 → 自动改名（m1 → m1b）+ 同步改引用 → 再合并。
+
+**规范**：合并目标 feature/<需求标识> → 主分支；合并后标记完成 + `git branch -d` 清理已合并分支；合并是变更 → 需要时走 change-propagation 更新变更摘要。
+
 ---
 
 ## 13. UI 规范（`docs/ui/UI规范.md`）
@@ -306,9 +331,10 @@ skill 主体只调抽象操作，平台差异锁在适配器内。
 
 **怎么跑**：每个用例（`evals.json`）——把 prompt 给子 agent（不带目标 skill 上下文）→ 看触发哪个 skill + 产出什么 → 对照 expected/assertions 判定（`should_trigger` / `should_not_trigger`）→ 记录结果（`evals/RESULTS.md`）。
 
-**当前覆盖**：git 三件套（commit/worktree/rollback 的 should_trigger + should_not_trigger）+ consensus-doc 需求标识（有 PRD + 无 PRD 两例，产出 `共识-{模块}-{需求标识}.md` + `CON-R-{需求标识}`）。
+**当前覆盖**：git 四件套（commit/worktree/rollback/pr 的 should_trigger + should_not_trigger）+ consensus-doc 需求标识（有 PRD + 无 PRD 两例，产出 `共识-{模块}-{需求标识}.md` + `CON-R-{需求标识}`）。
 
 ---
 
-*规格版本：v1.4 · 日期：2026-08-22 · 新增 git 工具三件套（phper666-git-commit/worktree/rollback）、UI 规范（docs/ui/UI规范.md）、验证基线（evals/）章节 · 需求标识机制同步最新（共识-{模块}-{需求标识}.md + CON-R-{需求标识} 编号域）*
+*规格版本：v1.5 · 日期：2026-08-22 · 新增 git PR 合并模式（phper666-git-pr：full/semi/manual 三模式 + 检测合并 + 合并 gate + 团队配置合并模式两级表）· git 三件套 → 四件套*
+*历史：v1.4（2026-08-22）：新增 git 工具三件套（phper666-git-commit/worktree/rollback）、UI 规范（docs/ui/UI规范.md）、验证基线（evals/）章节 · 需求标识机制同步最新（共识-{模块}-{需求标识}.md + CON-R-{需求标识} 编号域）*
 *历史：v1.3（2026-08-16）：决策记录：4+1 边界确认 · 步骤 10 归入契约核验 · Q-items 多平台适配 · 扫描双模式（结果一致）· 新增 phper666-teamflow-tech-design/phper666-teamflow-lesson-deposit/phper666-teamflow-implement-discipline 环节 · 交付核验三层（设计/契约/PRD）· 变更摘要升级（版本分组+取代链）· 15 环节流程（需求探索前置 + 实现纪律）· 判级矩阵（复杂/常规/安全敏感）· 工程基线三问 · 术语表章节 · 多 agent 共识评审（吸收 2.5 项）· 实现前置 Gate（判级+方案冻结+工程基线三问+核验回查，缺一不进实现）· 方案状态机（draft→frozen+评审留痕，重大偏离回 draft）· 契约防漂移（单一事实源/三态锁定/CONS-02/同生同步）· docs/records/ 实现留痕*

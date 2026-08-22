@@ -45,6 +45,7 @@
 | phper666-git-commit | should_trigger + should_not_trigger | 强制声明让 AI 在 commit 场景触发它（不触发 caveman） |
 | phper666-git-worktree | should_trigger + should_not_trigger | worktree 场景触发，绑定 feature/<需求标识> |
 | phper666-git-rollback | should_trigger + should_not_trigger | 合并后撤 = revert 优先，双重确认 |
+| phper666-git-pr | should_trigger ×2 + should_not_trigger | 读合并模式走流程 + 检测合并（semi/manual 场景） |
 | consensus-doc 需求标识 | 有 PRD + 无 PRD 两例 | 产出 共识-{模块}-{需求标识}.md + CON-R-{需求标识} |
 
 ## 新增用例

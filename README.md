@@ -19,6 +19,7 @@
 | `phper666-git-commit` | 全体 | git commit 提交规范：Conventional Commits + 拆分建议（一个 diff 多逻辑必须提示拆分）+ lint/test 前置 | "commit" / "提交" / "写 commit message" |
 | `phper666-git-worktree` | 全体 | 多需求并行开发：一个需求一个 worktree（绑定 feature/<需求标识>），多需求并行不切分支 | "worktree" / "多需求并行" / "切换需求" |
 | `phper666-git-rollback` | 全体 | 安全回滚：合并过的主分支改动 revert 不 reset；reset 仅限本地未推送；回滚前备份 + 双重确认 | "回滚" / "撤掉这个需求" / "误操作" |
+| `phper666-git-pr` | 全体 | PR 合并流程：按团队配置合并模式（full/semi/manual）自动走提 PR + merge + 检测合并；合并 gate slug 冲突检测 + 清理已合并分支 | "提 PR" / "合并需求" / "合并代码到主分支" |
 
 依赖：本仓库同时是**共享扫描规则库**的分发渠道——经验升级为扫描规则后提交到 `phper666-teamflow-consensus-scan/references/扫描规则库.md` 共享区，团队成员 pull 即同步生效。
 
@@ -32,7 +33,7 @@
 bash <(curl -fsSL https://raw.githubusercontent.com/phper666/ai-workflow-skills/main/install.sh)
 ```
 
-自动完成：克隆到 `~/ai-workflow-skills` → 链接 11 个 skill → 幂等追加 AGENTS.md 导航段 → 冲突检测。重跑即更新（git pull）。
+自动完成：克隆到 `~/ai-workflow-skills` → 链接 12 个 skill → 幂等追加 AGENTS.md 导航段 → 冲突检测。重跑即更新（git pull）。
 
 ### 启用 GitHub Pages（仓库公开后，渲染流程可视化 html）
 
@@ -83,6 +84,9 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 | `phper666-git-commit` | Conventional Commits（`<type>(<scope>): <summary>`）+ 拆分建议（一个 diff 多逻辑必须提示拆分）+ lint/test 前置 |
 | `phper666-git-worktree` | 一个需求一个 worktree，绑定 `feature/<需求标识>`，多需求并行不切分支；创建前确认分支命名，删除前检查未提交改动 |
 | `phper666-git-rollback` | 合并过的主分支改动撤销 = 必须 revert（新增反向 commit，保留历史）；reset --hard 仅限本地未推送；回滚前备份 + 双重确认 |
+| `phper666-git-pr` | PR 合并流程（三模式）：full = AI 提 PR + AI 自己 merge；semi = AI 提 PR + 等人工 approve + AI 检测合并；manual = AI 提 PR + 人工全权 merge + AI 检测合并。合并前 slug 冲突检测（合并 gate），合并后清理已合并分支 |
+
+**合并模式（团队配置.md 两级表）**：`docs/spec/团队配置.md` 配「合并模式（项目级默认）+ 合并模式（需求级覆盖）」两表，AI 合并时先查需求级覆盖 > 项目级默认。三模式区别只在「merge 按钮谁按」；检测合并是 semi/manual 的通用能力（merge 非 AI 自做时检测），full 不需要。切换模式 = 改团队配置一行，不改 skill 代码。
 
 **冲突检测**：`install.sh` 安装时调用 `scripts/detect-git-conflicts.sh`，按通用功能类别（commit / worktree / rollback 关键词）扫描已装 skills，检测到同类 → 提示「建议卸载/停用避免触发冲突；保留则双保险兜底（默认用 phper666-git-*）」，**提示语气，不阻断安装**。双保险：skill description 强制声明（skill 层）+ AGENTS.md git 工具优先级声明（AGENTS 层）。
 
@@ -121,7 +125,7 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 
 ## 维护约定
 
-- **单一源**：本仓库是 11 个 skill 的唯一源码位置，平台侧只放符号链接或副本
+- **单一源**：本仓库是 12 个 skill 的唯一源码位置，平台侧只放符号链接或副本
 - **共享规则升级**：跨项目验证有效的扫描规则 → 提交 `phper666-teamflow-consensus-scan/references/扫描规则库.md` 共享区 → 全员 pull
 - **适配器**：`phper666-teamflow-story-to-contract/adapters/` 按平台 MCP 工具名映射（Jira/TAPD/飞书），换平台只改映射，不动 skill 主体
 - **上游跟踪**：方法论吸收点见「与 Matt Pocock 流水线的关系」映射表；上游 release 时人工评估同步，无自动更新链路

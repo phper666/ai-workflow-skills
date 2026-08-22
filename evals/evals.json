@@ -73,6 +73,42 @@
       ]
     },
     {
+      "id": "git-pr-001",
+      "skill": "phper666-git-pr",
+      "type": "should_trigger",
+      "prompt": "需求 m1 开发完了，提 PR 合并到主分支吧",
+      "expected": "触发 phper666-git-pr（读团队配置合并模式 → 按模式走流程提 PR）",
+      "assertions": [
+        "先读团队配置.md 合并模式（需求级覆盖 > 项目级默认）",
+        "按模式走对应流程：full=AI 自己 merge / semi=等 approve+检测合并 / manual=人工 merge+检测合并",
+        "提 PR：gh pr create --base main --head feature/m1",
+        "head 绑定 feature/<需求标识>"
+      ]
+    },
+    {
+      "id": "git-pr-002",
+      "skill": "phper666-git-pr",
+      "type": "should_trigger",
+      "prompt": "刚才那个 PR 合了吗？合了就继续",
+      "expected": "触发 phper666-git-pr 检测合并（semi/manual 场景继续对话时检测）",
+      "assertions": [
+        "用 gh pr view <编号> --json state,mergedAt 检测（state=merged = 已合并）",
+        "已合并 → 继续后续（清理分支/标记完成）",
+        "未合并 → 提示用户等待，不静默继续"
+      ]
+    },
+    {
+      "id": "git-pr-003",
+      "skill": "phper666-git-pr",
+      "type": "should_not_trigger",
+      "prompt": "帮我把这个文件提交一下",
+      "expected": "不触发 git-pr skill（commit 场景）",
+      "assertions": [
+        "不提 PR",
+        "走 commit 流程"
+      ]
+    },
+    {
       "id": "consensus-slug-001",
       "skill": "phper666-teamflow-consensus-doc",
       "type": "should_trigger",
