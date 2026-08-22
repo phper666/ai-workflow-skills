@@ -21,19 +21,28 @@ declare -A CATEGORY_KEYWORDS=(
 declare -A HITS=()
 FOUND_ANY=0
 
+# 排除目录名（误报源）：配置/管理类、review 类、查询历史类、测试类、工具名无关类
+# 按目录名前缀/关键词排除（这些不是「生成 commit / 管理 worktree / git 回滚」的同类 skill）
+EXCLUDE_BASE='arkcli-|open-code-review|release-smoke-test|commit-context|commit-history|oh-my-opencode|phper666-git-'
+# 描述/名称里含这些词 → 视为非同类（配置/审查/查询语义）
+EXCLUDE_DESC='review|config|usage|stats|history|context|test|audit|analy'
+
 scan() {
   local cat="$1" kw="$2"
   local d
   for d in "$SKILLS_DIR"/*/; do
     [ -d "$d" ] || continue
     local base; base="$(basename "$d")"
-    # 跳过自身 phper666-git-*（已装时）
+    # 跳过自身 phper666-git-* + 排除误报目录
     case "$base" in phper666-git-*) continue ;; esac
+    if echo "$base" | grep -qiE "$EXCLUDE_BASE"; then continue; fi
     local haystack=""
     if [ -f "$d/SKILL.md" ]; then
       # 只取 frontmatter（首尾 --- 之间），减少噪声
       haystack="$(awk '/^---$/{c++; next} c==1' "$d/SKILL.md" | head -c 2000)"
     fi
+    # 描述含排除语义词 → 非同类
+    if echo "$haystack" | grep -qiE "$EXCLUDE_DESC"; then continue; fi
     # 无 SKILL.md 也按目录名匹配
     haystack="$haystack $base"
     if echo "$haystack" | grep -qiE "$kw"; then
