@@ -70,4 +70,5 @@ for base in "${!HITS[@]}"; do
   echo "  - ${name}（${cat} 类）"
 done
 echo "[git-conflict] 建议：卸载或停用上述 skill，避免触发冲突；保留则双保险兜底（团队模式默认用 phper666-git-*，用户显式指定才用其他）。"
+echo "[git-conflict] 说明：部分命中 skill 可能与 phper666-git-* 定位不同（如 orchestrator 专用编排/其他框架组件），可按需共存，不强制卸载。"
 exit 1
