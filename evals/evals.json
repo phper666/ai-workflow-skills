@@ -1,0 +1,100 @@
+{
+  "description": "ai-workflow-skills 验证基线（eval）——验证关键 skill 的触发准确性与产出符合预期",
+  "version": "1.0.0",
+  "usage": "低频跑：大改动/发布时全量跑；日常小改用静态检查。跑法见 README.md。",
+  "evals": [
+    {
+      "id": "git-commit-001",
+      "skill": "phper666-git-commit",
+      "type": "should_trigger",
+      "prompt": "帮我提交一下代码，写个 commit message",
+      "expected": "触发 phper666-git-commit（生成 Conventional Commits message，含拆分建议）",
+      "assertions": [
+        "产出 Conventional Commits 格式（type(scope): summary）",
+        "若 diff 含多逻辑 → 提示拆分建议",
+        "不应触发第三方 caveman-commit"
+      ]
+    },
+    {
+      "id": "git-commit-002",
+      "skill": "phper666-git-commit",
+      "type": "should_not_trigger",
+      "prompt": "看看 git log 历史",
+      "expected": "不触发 phper666-git-commit（查询历史不是 commit 场景）",
+      "assertions": [
+        "不生成 commit message",
+        "只查历史，不触发 commit skill"
+      ]
+    },
+    {
+      "id": "git-worktree-001",
+      "skill": "phper666-git-worktree",
+      "type": "should_trigger",
+      "prompt": "我同时在做需求 m2 和 m3，想并行开发不切分支",
+      "expected": "触发 phper666-git-worktree（建 feature/m2 + feature/m3 两个 worktree）",
+      "assertions": [
+        "建议 git worktree add ../<repo>-m2 feature/m2",
+        "绑定团队分支模型 feature/<需求标识>",
+        "一个需求一个 worktree"
+      ]
+    },
+    {
+      "id": "git-worktree-002",
+      "skill": "phper666-git-worktree",
+      "type": "should_not_trigger",
+      "prompt": "帮我把这个功能 commit 一下",
+      "expected": "不触发 worktree skill（commit 场景）",
+      "assertions": [
+        "不建 worktree",
+        "走 commit 流程"
+      ]
+    },
+    {
+      "id": "git-rollback-001",
+      "skill": "phper666-git-rollback",
+      "type": "should_trigger",
+      "prompt": "需求 m2 已经合并到主分支了，但发现有问题想撤掉",
+      "expected": "触发 phper666-git-rollback（合并后撤 = revert 优先）",
+      "assertions": [
+        "建议 git revert（保留历史），不推荐 git reset",
+        "回滚前备份 + 双重确认",
+        "绑定场景：合并后撤已合并需求"
+      ]
+    },
+    {
+      "id": "git-rollback-002",
+      "skill": "phper666-git-rollback",
+      "type": "should_not_trigger",
+      "prompt": "帮我看看当前分支状态",
+      "expected": "不触发 rollback skill（查询状态不是回滚场景）",
+      "assertions": [
+        "不执行回滚",
+        "只查状态"
+      ]
+    },
+    {
+      "id": "consensus-slug-001",
+      "skill": "phper666-teamflow-consensus-doc",
+      "type": "should_trigger",
+      "prompt": "给桌面壳模块建共识文档，来源 PRD 是 2026-08-14-m1-prd.md",
+      "expected": "产出 共识-桌面壳-m1.md（带需求标识 m1）",
+      "assertions": [
+        "文档名 = 共识-桌面壳-m1.md（模块 + 需求标识）",
+        "规则编号 = CON-R-m1-001（需求标识编号域）",
+        "需求标识 = PRD slug（m1）"
+      ]
+    },
+    {
+      "id": "consensus-slug-002",
+      "skill": "phper666-teamflow-consensus-doc",
+      "type": "should_trigger",
+      "prompt": "给登录模块建共识文档（常规需求，无 PRD）",
+      "expected": "产出 共识-登录-login.md（需求标识 = 手给需求 slug）",
+      "assertions": [
+        "文档名 = 共识-登录-login.md",
+        "需求 slug 手给（login），检测 docs/ 已用避免重复",
+        "无 PRD 场景不带 prd_slug 但带需求 slug"
+      ]
+    }
+  ]
+}
