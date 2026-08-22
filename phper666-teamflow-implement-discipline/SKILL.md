@@ -8,6 +8,8 @@ description: 实现纪律（分级执行）：复杂需求完整流水线（TDD 
 
 契约/技术方案就绪后的实现环节。**核心原则：机器能强制的检查必须做，工具缺失可降级，安全敏感不降级。**
 
+- **UI 类需求前端实现前 → 必读 `docs/ui/UI规范.md`**（项目级视觉规范：配色/字体/组件/布局，模板见 `templates/UI规范模板.md`），视觉实现以规范为基准；规范缺失 → 提示先建/更新（走 phper666-teamflow-consensus-doc / phper666-teamflow-tech-design），不静默自造视觉
+
 ## 判级分流
 
 按 phper666-teamflow-tech-design 判级矩阵进入：
