@@ -152,6 +152,22 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 
 上游 release 时按此表人工评估吸收点是否过时，按需同步；**无自动更新链路**（内化复制，非依赖）。业务层（共识/契约/变更传播/防漂移）不在此表——与 Matt 流水线无关。
 
+## 沉淀来源（外部项目借鉴）
+
+本仓库部分 skill 吸收了外部开源项目/标准的思想，**内化为原生实现**（非依赖、非引用）。按用户要求记录沉淀来源，便于追溯与合规。
+
+| 外部来源 | 借鉴内容 | 落点 | 说明 |
+|:---------|:---------|:-----|:-----|
+| **ZCF**（github.com/UfoMiao/zcf） | git 三件套（commit/worktree/rollback）+ PR 合并模式（full/semi/manual）+ 冲突检测 | `phper666-git-*`（4 个） | 参考其 git 工具 skill 思路，绑定我们的分支模型（feature/<需求标识>） |
+| **anthropics/skills**（github.com/anthropics/skills） | skill 验证基线（测试用例 + should_trigger/should_not_trigger + 断言） | `evals/` | 借鉴 skill-creator 的 eval 机制，验证触发准确性与产出 |
+| **Google Stitch DESIGN.md** | 设计系统文档格式（视觉主题/配色/字体/组件/布局/Do&Don'ts） | `templates/UI规范模板.md`、docs/ui/ 约定 | 借鉴 9 节结构，作为项目级 UI 规范骨架 |
+| **Matt Pocock 流水线** | brainstorming → PRD → implement/tdd 思想 | 见上表「吸收点映射」 | 已记录，内化为原生实现 |
+
+**原则**：
+- 以上均为**内化吸收**（理解思想写成自己的规则），不是复制快照——外部升级不影响（除非原则级变化）
+- 本仓库仍**不依赖、不安装**任何外部 skills（流程自包含）
+- 新增借鉴外部项目 → 按本表追加一行（来源 + 借鉴内容 + 落点 + 时间）
+
 ## 流程对应
 
 15 环节流程 → skill 映射：
