@@ -47,6 +47,20 @@ description: 从项目管理工具的工作项（Story/Task/Bug）和仓库共�
 8. 若所有来源均未变化，再次执行不得产生语义或格式 diff。
 9. 若父工作项已存在对应 `BE` 子任务，不创建重复任务；需要同步新契约路径、阻塞项或范围时，先预览 PM 工具更新内容并独立确认。
 
+## Phase 0：项目任务盘点（无 URL/Key 时）
+
+触发场景：用户说「分析项目」「看看看板有什么任务」「列出当前任务」「识别看板任务」等，没有给具体工作项 URL/Key 时。
+
+步骤：
+
+1. 读仓库根 `AGENTS.md` → 导航段找载体位置（通常 `docs/spec/团队配置.md`）。
+2. 读团队配置.md 的「项目载体」段 → 拿 `platform` + `ticket 载体标识`（`{idType, id}`）。
+3. 按 platform 加载对应 adapter（见 [adapters/](adapters/)）：`lark-task`→feishu-task.md、`jira`→jira.md、`tapd`→tapd.md、`linear`→linear.md、`github`→github.md、`openproject`→openproject.md。
+4. 调用 `adapter.listItems(载体标识, filter)` 只列该看板任务 —— **禁止无过滤全量查用户所有任务**（如飞书的 `feishu_list_tasks` 无参调用）。
+5. 输出任务清单摘要（key/title/status/type），不修改 PM 工具。
+
+> **载体作用域必须来自团队配置.md 声明的 ticket 载体标识，禁止用「当前用户所有任务」替代**（本修复的核心）。
+
 ## Phase 1：定位工作项
 
 1. 根据 URL 格式识别 PM 平台，加载对应适配器（[adapters/](adapters/)）。

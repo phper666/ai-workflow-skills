@@ -47,6 +47,19 @@ description: 把任意项目（新项目或已有项目）接入"团队 AI 研�
 - 用户明确指定 → 指定优先于检测
 - 载体地址与角色映射写入 `docs/spec/团队配置.md`（不存在则创建）
 
+**项目载体段写入格式**（团队配置.md 必须含结构化「项目载体」段）：
+
+```markdown
+## 项目载体
+- platform: <lark-task | jira | tapd | linear | github | openproject>
+- ticket 载体: { idType: <tasklist_guid | projectKey | repo | workspaceId | teamId>, id: "<标识>" }
+- q-item 载体: { idType: <同上>, id: "<标识>" }
+```
+
+- `platform` 用统一枚举值（各 adapter 的 platform 标识，见 `phper666-teamflow-story-to-contract/adapters/`）。
+- `idType` 表示「载体标识的类型」（平台不同：飞书是 `tasklist_guid`、Jira 是 `projectKey`、GitHub 是 `repo` 等）。
+- 存量团队配置.md（旧格式：直接写「平台 + 清单 guid」）无需强制迁移，新 skill 读旧格式也能工作（platform 已有）；但新接入的项目按新格式写。
+
 ### Phase 2：目录与模板来源
 
 **不复制模板到项目**（模板单一源 = skill 仓库，与 phper666-teamflow-story-to-contract 一致）。只需建目录，生成实际文档时从对应 skill 的 references 读取模板：
@@ -84,7 +97,7 @@ mkdir -p docs/spec docs/api
   - 选项 guid 在创建时返回，保存 字段名→guid、选项名→guid 映射到团队配置
   - 若 custom_fields API 不可用（缺授权）→ 降级 extra JSON 承载（见载体适配.md）
   - 建清单/字段/任务的工具映射见 `phper666-teamflow-story-to-contract/adapters/feishu-task.md`
-- 载体地址写入 `docs/spec/团队配置.md`
+- 载体地址写入 `docs/spec/团队配置.md`，按「项目载体段写入格式」组织（见 Phase 1）：`platform` 用统一枚举值，`ticket 载体` 与 `q-item 载体` 各记 `{idType, id}`——新接入项目一律按结构化「项目载体」段写
 
 ### Phase 4.5：状态就绪检查
 
