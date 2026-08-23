@@ -169,6 +169,18 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 - 本仓库仍**不依赖、不安装**任何外部 skills（流程自包含）
 - 新增借鉴外部项目 → 按本表追加一行（来源 + 借鉴内容 + 落点 + 时间）
 
+## 待评估借鉴（候选概念）
+
+评估过但未落地（痛点不强或待定）的外部概念，记于此防丢。**落地后移到「沉淀来源」表**。
+
+| 概念 | 来源 | 评估结论 | 状态 |
+|:-----|:-----|:---------|:-----|
+| **需求漂移守卫**（长会话防 AI 做偏） | dsh-requirements-alignment | 概念通用（基线+漂移检测+上报），降级可实现（共识=基线+模型检测+问用户），但当前痛点不强（流程契约冻结已锁定方向） | 先记，痛点出现再做 |
+| 独立验收 agent（每次 turn 前 spawn verifier） | dsh-proof | 待评估 | 待定 |
+| flaky 测试管理（分类/隔离） | dsh-flakefinder | 待评估 | 待定 |
+| 任务台账事件溯源（跨会话审计） | task-board | 待评估 | 待定 |
+| find-simplifications 证据审计 | dsh-find-simplifications | 与 ponytail/simplify 重叠，增量=证据严谨性 | 低优先 |
+
 ## 流程对应
 
 15 环节流程 → skill 映射：
