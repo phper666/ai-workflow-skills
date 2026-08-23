@@ -162,6 +162,7 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 | **anthropics/skills**（github.com/anthropics/skills） | skill 验证基线（测试用例 + should_trigger/should_not_trigger + 断言） | `evals/` | 借鉴 skill-creator 的 eval 机制，验证触发准确性与产出 |
 | **Google Stitch DESIGN.md** | 设计系统文档格式（视觉主题/配色/字体/组件/布局/Do&Don'ts） | `templates/UI规范模板.md`、docs/ui/ 约定 | 借鉴 9 节结构，作为项目级 UI 规范骨架 |
 | **Matt Pocock 流水线** | brainstorming → PRD → implement/tdd 思想 | 见上表「吸收点映射」 | 已记录，内化为原生实现 |
+| **DeepSeek Harness**（github.com/deepseek-ai/deepseek-harness） | push 前检查纪律（选最小相关测试 + 修复再 push + 禁 raw force 用 force-with-lease） | `phper666-git-pr` 第零步 | 借鉴 dsh-pre-push-checks 思路，补「push 前最小检查」一环（有 CI 则 PR 后查 CI，无 CI 跳过） |
 
 **原则**：
 - 以上均为**内化吸收**（理解思想写成自己的规则），不是复制快照——外部升级不影响（除非原则级变化）
