@@ -1,7 +1,7 @@
 ---
 name: phper666-git-pr
 metadata.source: https://github.com/phper666/ai-workflow-skills
-description: git PR 合并流程：feature/<需求标识> 分支开发完要合到主分支（提 PR / 合并需求 / 合并代码到主分支 / merge / PR）场景使用。按团队配置的合并模式（full/semi/manual）自动走对应流程：full = AI 提 PR + AI 自己 merge；semi = AI 提 PR + 等人工 approve + AI 检测合并；manual = AI 提 PR + 人工全权 merge + AI 检测合并。合并前做需求标识唯一性检测（slug 冲突自动改名 m1→m1b + 同步引用），合并后清理已合并分支。git PR/合并场景强制使用本 skill；若本地有其他同类 skill，团队模式默认用本 skill（用户显式指定别的 skill 除外）。角色中立：不绑定任何具体 agent/平台角色。
+description: git PR 合并流程：feature/<需求标识> 分支开发完要合到主分支（提 PR / 合并需求 / 合并代码到主分支 / merge / PR）场景使用。按团队配置的合并模式（full/semi/manual）自动走对应流程：full = AI 提 PR + AI 自己 merge；semi = AI 提 PR + 等人工 approve + AI 检测合并；manual = AI 提 PR + 人工全权 merge + AI 检测合并。push/提 PR 前做最小检查（只跑受影响测试、修复再 push、禁 raw force，有 CI 则 PR 后查 CI）。合并前做需求标识唯一性检测（slug 冲突自动改名 m1→m1b + 同步引用），合并后清理已合并分支。git PR/合并场景强制使用本 skill；若本地有其他同类 skill，团队模式默认用本 skill（用户显式指定别的 skill 除外）。角色中立：不绑定任何具体 agent/平台角色。
 ---
 
 # git PR 合并流程
@@ -13,6 +13,17 @@ feature 分支开发完要合到主分支时，先读合并模式，再按模式
 - feature 分支开发完，要合到主分支（`feature/<需求标识>` → 主分支）
 - 用户说"提 PR"、"合并需求"、"合并代码到主分支"、"merge"
 - 合并后要继续推进（检测上一步 PR 是否已合并）
+
+## 第零步：push 前检查（提交后、push/提 PR 前，强制）
+
+push/提 PR 前先做最小检查，**不 push 后希望 CI 兜底**：
+
+1. **选最小相关测试**：只跑受影响模块的测试/检查（`pnpm exec vitest run <受影响模块>/*.spec.ts` 或等价），**不跑全量套件**（省时；改哪个模块跑哪个）
+2. **修复再 push**：本地检查失败 → 先修 → 重跑通过 → 才 push；**不 push 后等 CI 发现再修**
+3. **禁 raw force**：历史重写（rebase 后）用 `git push --force-with-lease`（确认远端没变才覆盖），**禁止 `git push --force`**（无条件覆盖会破坏他人基于旧历史的提交）
+4. **PR 后检查 CI**（**有 CI 时**）：`gh pr checks` 确认远程 CI 过；**无 CI 时跳过**（本地最小检查是唯一防线，更要跑够）
+
+> **无 CI 时不影响核心**：第 1-3 步照做（本地测试/修复再 push/force 保护），只跳过「PR 后查 CI」。没 CI 兜底 → push 前检查更重要（问题不进主分支/PR）。
 
 ## 第一步：读取合并模式（两级配置）
 
@@ -90,3 +101,4 @@ git branch --merged origin/main             # feature 分支在列表 = 已合�
 - **清理已合并分支**：`git branch -d feature/<需求标识>`（`-d` 会检查是否已合并，未合并会拒删，安全）
 - **改共享文档前** → 先 merge 主分支最新（减少冲突窗口）
 - **合并是变更** → 需要时走 phper666-teamflow-change-propagation 更新变更摘要
+- **禁 raw force**：历史重写用 `--force-with-lease`，禁 `git push --force`（与 phper666-git-rollback 的「reset 仅限本地未推送」一致——都是防破坏他人）
