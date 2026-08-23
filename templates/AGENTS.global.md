@@ -1,4 +1,4 @@
-<!-- team-workflow:begin v14 -->
+<!-- team-workflow:begin v15 -->
 ## 团队 AI 研发工作流（已接入）
 
 > 本段由 ai-workflow-skills 模板生成（templates/AGENTS.global.md），单一事实源，勿手动编辑正文。
