@@ -171,15 +171,17 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 
 ## 待评估借鉴（候选概念）
 
-评估过但未落地（痛点不强或待定）的外部概念，记于此防丢。**落地后移到「沉淀来源」表**。
+评估过但未落地（痛点不强或待定）的外部概念，记于此防丢。**落地后移到「沉淀来源」表；评估后确认不需要的从表内移除**。
 
 | 概念 | 来源 | 评估结论 | 状态 |
 |:-----|:-----|:---------|:-----|
 | **需求漂移守卫**（长会话防 AI 做偏） | dsh-requirements-alignment | 概念通用（基线+漂移检测+上报），降级可实现（共识=基线+模型检测+问用户），但当前痛点不强（流程契约冻结已锁定方向） | 先记，痛点出现再做 |
-| 独立验收 agent（每次 turn 前 spawn verifier） | dsh-proof | 待评估 | 待定 |
-| flaky 测试管理（分类/隔离） | dsh-flakefinder | 待评估 | 待定 |
-| 任务台账事件溯源（跨会话审计） | task-board | 待评估 | 待定 |
-| find-simplifications 证据审计 | dsh-find-simplifications | 与 ponytail/simplify 重叠，增量=证据严谨性 | 低优先 |
+
+**已评估 → 不落地**（2026-08-24，痛点不强，划掉防重复评估）：
+- 独立验收 agent（dsh-proof）——每次 turn 前 spawn verifier 成本高，现有交付核验已覆盖关键节点
+- flaky 测试管理（dsh-flakefinder）——当前测试量小、低频跑，未构成痛点
+- 任务台账事件溯源（task-board）——ticket 状态 + 变更摘要 + 实现/核验记录已覆盖跨会话可见性
+- find-simplifications 证据审计——与 ponytail/simplify 重叠，增量价值低
 
 ## 流程对应
 
