@@ -4,7 +4,7 @@
 
 > 本项目**仍在持续优化**——流程规则随团队实践不断迭代（版本见 `templates/AGENTS.global.md` 的 team-workflow 段），Skills 也随新教训/新需求持续演进。欢迎使用、反馈与贡献。
 
-> **流程可视化**：[点此查看工作流总览图](https://github.com/phper666/ai-workflow-skills/blob/main/docs/ai-team-workflow.html?plain=1)（`?plain=1` 浏览器直接渲染；GitHub Pages 启用后换正式地址，见下文）
+> **流程可视化**：[点此查看工作流总览图](https://phper666.github.io/ai-workflow-skills/ai-team-workflow.html)（GitHub Pages 渲染）
 
 ## 包含的 Skills
 
@@ -37,18 +37,17 @@ bash <(curl -fsSL https://raw.githubusercontent.com/phper666/ai-workflow-skills/
 
 自动完成：克隆到 `~/ai-workflow-skills` → 链接 12 个 skill → 幂等追加 AGENTS.md 导航段 → 冲突检测。重跑即更新（git pull）。
 
-### 启用 GitHub Pages（渲染流程可视化 html）
+### GitHub Pages（渲染流程可视化 html）
 
-> 仓库**已公开**。Pages 尚未启用——启用后流程可视化有正式地址，无需 `?plain=1`。
+> 仓库已公开，Pages **已启用**。流程可视化正式地址见开头链接。
 
-**启用步骤**（免费永久）：
+**若换仓库/域名需重新启用**（免费永久）：
 
 1. 仓库 **Settings → Pages**
 2. **Build and deployment → Source** 选 `Deploy from a branch`
 3. **Branch** 选 `main` + 目录 `/docs`
 4. **Save** → 等 1-2 分钟部署
 5. 验证：`https://<owner>.github.io/ai-workflow-skills/ai-team-workflow.html`
-6. 部署后，把开头链接换成 Pages 地址
 
 > 若链接 404，说明 Pages 未启用或未选 `/docs` 目录。
 
