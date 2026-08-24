@@ -1,8 +1,10 @@
 # AI 研发工作流 Skills 仓库
 
-团队 AI 研发工作流（共识 → 扫描 → 待确认闭环 → 契约 → 判级/技术方案 → 实现纪律 → 交付核验 → 变更传播 → 沉淀）的 skill 源码与分发仓库。另含 3 个 git 工具 skill（commit/worktree/rollback），给 AI 固化 git 操作规范。
+团队 AI 研发工作流（共识 → 扫描 → 待确认闭环 → 契约 → 判级/技术方案 → 实现纪律 → 交付核验 → 变更传播 → 沉淀）的 skill 源码与分发仓库。另含 4 个 git 工具 skill（commit/worktree/rollback/pr），给 AI 固化 git 操作规范。
 
-> **流程可视化**：[点此查看工作流总览图](https://github.com/phper666/ai-workflow-skills/blob/main/docs/ai-team-workflow.html?plain=1)（私有仓库：有访问权限者用 `?plain=1` 浏览器直接渲染；仓库公开后启用 GitHub Pages，链接换正式地址，见下文）
+> 本项目**仍在持续优化**——流程规则随团队实践不断迭代（版本见 `templates/AGENTS.global.md` 的 team-workflow 段），Skills 也随新教训/新需求持续演进。欢迎使用、反馈与贡献。
+
+> **流程可视化**：[点此查看工作流总览图](https://github.com/phper666/ai-workflow-skills/blob/main/docs/ai-team-workflow.html?plain=1)（`?plain=1` 浏览器直接渲染；GitHub Pages 启用后换正式地址，见下文）
 
 ## 包含的 Skills
 
@@ -35,11 +37,11 @@ bash <(curl -fsSL https://raw.githubusercontent.com/phper666/ai-workflow-skills/
 
 自动完成：克隆到 `~/ai-workflow-skills` → 链接 12 个 skill → 幂等追加 AGENTS.md 导航段 → 冲突检测。重跑即更新（git pull）。
 
-### 启用 GitHub Pages（仓库公开后，渲染流程可视化 html）
+### 启用 GitHub Pages（渲染流程可视化 html）
 
-> **当前仓库私有**：Pages 对私有仓库付费，且外部服务（htmlpreview/jsDelivr）读不到私有文件。**私有阶段**：有仓库访问权限者用 `?plain=1` 链接（见开头）浏览器直接渲染，或本地 `git clone` 后浏览器打开 `docs/ai-team-workflow.html`。
+> 仓库**已公开**。Pages 尚未启用——启用后流程可视化有正式地址，无需 `?plain=1`。
 
-**仓库公开后**启用 Pages（免费永久），正式链接：
+**启用步骤**（免费永久）：
 
 1. 仓库 **Settings → Pages**
 2. **Build and deployment → Source** 选 `Deploy from a branch`
