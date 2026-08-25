@@ -448,7 +448,7 @@
   <header>
     <div class="eyebrow">Team AI Workflow</div>
     <h1>团队 AI 研发工作流</h1>
-    <div class="sub"><strong>15 环节 · 12 skills</strong> · 更新于 2026-08-22（含实现前置 Gate · git 三件套 + PR 合并 · UI 规范 · 需求标识）</div>
+    <div class="sub"><strong>15 环节 · 12 skills</strong> · 更新于 2026-08-24（含实现前置 Gate · git 三件套 + PR 合并 · UI 规范 · 需求标识）</div>
   </header>
 
   <h2>流程总览</h2>
@@ -510,7 +510,7 @@
       <div class="gate-node">
         <div class="gate-icon">A</div>
         <b>Gate A · 评审就绪</b>
-        <span>（5 后）共识基线发布，规则编号完整，才可拆解子需求</span>
+        <span>（5 后）共识基线发布，规则编号完整，才可拆解子需求；评审走团队既有机制（有评审文化走 Gate，solo 自查 + review 兜底）</span>
       </div>
     </div>
 
@@ -699,20 +699,20 @@
     </div>
   </div>
 
-  <h2>产物目录（7 个）</h2>
+  <h2>产物目录（8 个）</h2>
   <div class="table-wrap">
     <table>
       <thead>
         <tr><th>目录</th><th>内容</th><th>命名</th></tr>
       </thead>
       <tbody>
-        <tr><td><code>docs/spec/</code></td><td>共识、规则索引、团队配置、变更摘要、影响清单</td><td><code>{模块}-共识文档.md</code>、<code>规则索引.md</code>…</td></tr>
-        <tr><td><code>docs/api/</code></td><td>契约双文件（叙事 + OpenAPI）</td><td><code>{platform}-{item}-api-contract.md</code> + <code>-openapi.yaml</code></td></tr>
-        <tr><td><code>docs/design/</code></td><td>技术方案（draft→frozen）</td><td><code>&lt;id&gt;-&lt;module&gt;-design.md</code></td></tr>
+        <tr><td><code>docs/spec/</code></td><td>共识、规则索引、团队配置、变更摘要（L1 索引 + L2 模块详情 <code>变更摘要-&lt;模块&gt;.md</code>）、影响清单</td><td><code>{模块}-共识文档.md</code>、<code>规则索引.md</code>…</td></tr>
+        <tr><td><code>docs/api/</code></td><td>契约双文件（叙事 + OpenAPI）</td><td><code>{platform}-{item_id}-{prd_slug}-api-contract.md</code> + <code>-openapi.yaml</code></td></tr>
+        <tr><td><code>docs/design/</code></td><td>技术方案（draft→frozen）</td><td><code>&lt;id&gt;-&lt;module&gt;-{prd_slug}-design.md</code></td></tr>
         <tr><td><code>docs/prd/</code></td><td>需求文档</td><td><code>&lt;date&gt;-&lt;slug&gt;-prd.md</code></td></tr>
-        <tr><td><code>docs/prototype/</code></td><td>交互原型</td><td>自由命名</td></tr>
-        <tr><td><code>docs/records/</code></td><td>实现/核验记录</td><td><code>&lt;id&gt;-record.md</code></td></tr>
-        <tr><td><code>docs/lessons/</code></td><td>经验沉淀（三硬标准，90 天无引用归档）</td><td><code>&lt;date&gt;-&lt;slug&gt;.md</code></td></tr>
+        <tr><td><code>docs/prototype/</code></td><td>交互原型</td><td><code>&lt;date&gt;-&lt;slug&gt;-prototype</code>（与 PRD 同 slug，保证回溯链）</td></tr>
+        <tr><td><code>docs/records/</code></td><td>实现/核验记录（两节）</td><td><code>&lt;id&gt;-{prd_slug}-record.md</code>（与技术方案同 id，优先后端子任务 key）</td></tr>
+        <tr><td><code>docs/lessons/</code></td><td>经验沉淀（三硬标准，90 天无引用归档）</td><td><code>&lt;date&gt;-&lt;slug&gt;-{prd_slug}-lesson.md</code></td></tr>
         <tr><td><code>docs/ui/</code></td><td>项目级 UI 规范（复杂 UI 原型后提取，前端实现必读）</td><td><code>UI规范.md</code>（模板见 templates/UI规范模板.md）</td></tr>
       </tbody>
     </table>
@@ -765,7 +765,7 @@
         <tr>
           <td><b>git-pr</b></td>
           <td>提 PR / 合并需求到主分支</td>
-          <td>按合并模式 full/semi/manual 走流程（见下节）；合并前做需求标识唯一性 gate，合并后清理 <code>feature/&lt;需求标识&gt;</code> 分支</td>
+          <td>按合并模式 full/semi/manual 走流程（见下节）；push/提 PR 前最小检查：只跑受影响测试、修复再 push、禁 raw force 用 <code>--force-with-lease</code>、有 CI 则 PR 后查 CI（无 CI 跳过）；合并前做需求标识唯一性 gate，合并后清理 <code>feature/&lt;需求标识&gt;</code> 分支</td>
         </tr>
       </tbody>
     </table>
