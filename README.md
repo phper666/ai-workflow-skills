@@ -22,6 +22,7 @@
 | `phper666-git-worktree` | 全体 | 多需求并行开发：一个需求一个 worktree（绑定 feature/<需求标识>），多需求并行不切分支 | "worktree" / "多需求并行" / "切换需求" |
 | `phper666-git-rollback` | 全体 | 安全回滚：合并过的主分支改动 revert 不 reset；reset 仅限本地未推送；回滚前备份 + 双重确认 | "回滚" / "撤掉这个需求" / "误操作" |
 | `phper666-git-pr` | 全体 | PR 合并流程：按团队配置合并模式（full/semi/manual）自动走提 PR + merge + 检测合并；合并 gate slug 冲突检测 + 清理已合并分支 | "提 PR" / "合并需求" / "合并代码到主分支" |
+| `phper666-teamflow-project-overview` | 全体 | 项目概览扫描：先概览后详情（读索引/摘要防全量扫爆上下文），新人/AI 进项目定位状态 | "分析项目" / "项目做到哪" |
 
 依赖：本仓库同时是**共享扫描规则库**的分发渠道——经验升级为扫描规则后提交到 `phper666-teamflow-consensus-scan/references/扫描规则库.md` 共享区，团队成员 pull 即同步生效。
 
