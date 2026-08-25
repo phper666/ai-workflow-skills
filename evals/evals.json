@@ -131,6 +131,40 @@
         "需求 slug 手给（login），检测 docs/ 已用避免重复",
         "无 PRD 场景不带 prd_slug 但带需求 slug"
       ]
+    },
+    {
+      "id": "project-overview-001",
+      "skill": "phper666-teamflow-project-overview",
+      "type": "should_trigger",
+      "prompt": "我刚加入项目，帮我分析一下项目做到哪里了",
+      "expected": "触发 phper666-teamflow-project-overview（先概览后详情扫描项目状态）",
+      "assertions": [
+        "先读概览/索引/摘要/配置类小文件（AGENTS.md、团队配置、索引/摘要类）",
+        "不全量扫 docs/ 所有文档",
+        "得出项目模块/版本/最近改动概览"
+      ]
+    },
+    {
+      "id": "project-overview-002",
+      "skill": "phper666-teamflow-project-overview",
+      "type": "should_trigger",
+      "prompt": "项目概览是什么情况？最近改了什么",
+      "expected": "触发 phper666-teamflow-project-overview（项目状态/进度/最近改动）",
+      "assertions": [
+        "定位项目当前状态（模块/版本/进度）",
+        "用 glob 找索引/摘要/变更类文档而非全量读"
+      ]
+    },
+    {
+      "id": "project-overview-003",
+      "skill": "phper666-teamflow-project-overview",
+      "type": "should_not_trigger",
+      "prompt": "为需求 m1 生成契约文档",
+      "expected": "不触发 project-overview（生成契约是 story-to-contract 场景，不是项目概览）",
+      "assertions": [
+        "不按项目概览扫描",
+        "走 story-to-contract 契约生成流程"
+      ]
     }
   ]
 }
