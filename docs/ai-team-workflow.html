@@ -510,7 +510,7 @@
       <div class="gate-node">
         <div class="gate-icon">A</div>
         <b>Gate A · 评审就绪</b>
-        <span>（5 后）共识基线发布，规则编号完整，才可拆解子需求；技术方案评审走「评审机制」三选一（见团队配置.md：需求级覆盖 > 项目级默认 > 默认 self-check）：gate（正式 Gate 评审留痕）/ self-check（AI 自查通过即 frozen）/ review（先给人 review 再 frozen）</span>
+        <span>（5 后）共识基线发布，规则编号完整，才可拆解子需求；技术方案评审走「评审机制」四选一（见团队配置.md：需求级覆盖 > 项目级默认 > 默认 self-check）：gate（正式 Gate 评审留痕）/ self-check（AI 自查通过即 frozen）/ review（先给人 review 再 frozen）/ review-auto（先给用户 review 给选项 A/B/C，用户跳过则 AI 自查冻结）</span>
       </div>
     </div>
 
@@ -823,6 +823,15 @@
     <p style="font-size:13px;color:var(--muted);line-height:1.65;">
       <b>三模式区别只在「merge 按钮谁按」</b>；「检测合并」是 semi/manual 通用能力（merge 非 AI 自做时 AI 无法自知结果，必须显式检测），full 不需要。检测合并也用于继续对话时判断上一步 PR 是否已合并——未合并则提示用户，不静默继续。合并是变更 → 需要时走 change-propagation 更新变更摘要。
     </p>
+  </div>
+
+  <h2>配置说明（docs/spec/团队配置.md 的可配置项 / 模式 / 修改方法）</h2>
+  <div class="panel">
+    <ul class="checklist">
+      <li><div class="chk">①</div><div class="item"><b>可配置项</b>：项目载体 / Q-items 载体 / status_map / 角色映射 / 合并模式 / 评审机制，见 <a href="团队AI研发工作流-配置说明.md">配置说明</a>（docs/团队AI研发工作流-配置说明.md）。</div></li>
+      <li><div class="chk">②</div><div class="item"><b>有模式的配置</b>：合并模式（3 模式 full/semi/manual）、评审机制（4 模式 self-check/review/review-auto/gate）。</div></li>
+      <li><div class="chk">③</div><div class="item"><b>怎么改</b>：直接编辑 <code>docs/spec/团队配置.md</code> 对应段一行，改后生效，无需重跑 workflow-setup；未配某段 → 默认值兜底（评审 self-check、合并 full）。</div></li>
+    </ul>
   </div>
 
   <h2>UI 规范（docs/ui/UI规范.md）</h2>

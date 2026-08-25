@@ -163,7 +163,23 @@ AI 合并时查找顺序：**需求级覆盖 > 项目级默认 > 问用户**。�
 
 ### Phase 5.6：评审机制配置（技术方案评审两级表）
 
-在 `docs/spec/团队配置.md` 加「评审机制」两级表，供 phper666-teamflow-tech-design 评审技术方案时读取（决定走 Gate / self-check / review 哪条）：
+在 `docs/spec/团队配置.md` 加「评审机制」两级表，供 phper666-teamflow-tech-design 评审技术方案时读取（决定走 gate / self-check / review / review-auto 哪条）。
+
+**初始化时先列模式让用户选**（决定项目级默认值）：
+
+```
+评审机制有四种模式，选一个作为项目级默认（不选则默认 self-check）：
+  [self-check]   AI 自查通过即 frozen —— 不打扰用户（solo/小团队）
+  [review]       先给用户/指定人 review 再 frozen —— 用户不表态则阻塞
+  [review-auto]  先给用户 review（给选项），用户跳过则 AI 自查冻结 —— 不阻塞也不黑盒（推荐）
+  [gate]         正式 Gate 评审，评审记录留痕 —— 多人团队
+
+review-auto 交互：方案 draft → AI 问用户 [A]通过 [B]要改 [C]跳过 → A 冻结 /
+                  B 用户列问题 → AI 修订 → 再给用户看 → 确认才冻结 / C AI 自查通过则冻结
+                  （只有用户明确选 C 才降级 AI 自查，不默认跳过）
+```
+
+用户选一个写入「评审机制（项目级默认）」；用户不选 → 默认 self-check（兜底）。
 
 **项目级默认**（必配，不配则默认 self-check）：
 
@@ -171,7 +187,7 @@ AI 合并时查找顺序：**需求级覆盖 > 项目级默认 > 问用户**。�
 评审机制（项目级默认）：
 | 项目 | 默认模式 | 说明 |
 |:-----|:---------|:-----|
-| <项目名> | gate/self-check/review | 不配则默认 self-check |
+| <项目名> | gate/self-check/review/review-auto | 不配则默认 self-check |
 ```
 
 **需求级覆盖**（可选，覆盖项目默认）：
@@ -180,13 +196,13 @@ AI 合并时查找顺序：**需求级覆盖 > 项目级默认 > 问用户**。�
 评审机制（需求级覆盖）：
 | 项目 | 需求标识 | 模式 | 说明 |
 |:-----|:---------|:-----|:-----|
-| <项目名> | <m1/login> | gate/review | 覆盖项目默认 |
+| <项目名> | <m1/login> | gate/review/review-auto | 覆盖项目默认 |
 ```
 
 AI 评审时查找顺序：**需求级覆盖 > 项目级默认 > 默认 self-check**。切换模式 = 改这里一行，不改 skill 代码。
 
-- 三模式语义：**gate**（多人团队，方案走正式 Gate 评审，评审记录留痕：评审人/机制 + 日期 + 结论）/ **self-check**（solo/小团队，AI 自查通过即 frozen，默认值）/ **review**（方案先给用户/指定人 review 再 frozen）
-- solo 项目可直接配 self-check；有评审文化/多人团队配 gate；对内部设计有把关诉求配 review
+- 四模式语义：**self-check**（solo/小团队，AI 自查通过即 frozen，默认值）/ **review**（方案先给用户/指定人 review 再 frozen）/ **review-auto**（方案先给用户 review（给选项 A/B/C），用户跳过则自动降级 AI 自查后 frozen——不阻塞也不黑盒）/ **gate**（多人团队，方案走正式 Gate 评审，评审记录留痕：评审人/机制 + 日期 + 结论）
+- solo 项目可直接配 self-check；有评审文化/多人团队配 gate；对内部设计有把关诉求配 review；希望不阻塞也不黑盒配 review-auto（推荐）
 
 ### Phase 6：导航与实现管道落地
 

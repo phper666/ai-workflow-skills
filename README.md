@@ -103,7 +103,8 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 
 1. 项目负责人跑 `phper666-teamflow-workflow-setup`：`"给这个项目接入研发工作流"`
 2. 团队按角色使用对应 skill（见上表触发示例）；AI agent 的 skills 搭配建议见 [docs/团队AI研发工作流-AI agent 配置建议.md](docs/团队AI研发工作流-AI agent 配置建议.md)（参考，非强制）
-3. 项目侧产物：`docs/spec/`（共识、规则索引、团队配置、变更摘要、变更摘要-<模块>.md、影响清单）、`docs/api/`（契约）、`docs/design/`（技术方案）、`docs/prd/`（需求）、`docs/prototype/`（原型）、`docs/records/`（实现/核验记录）、`docs/lessons/`（经验）
+3. 接入后 `docs/spec/团队配置.md` 的可配置项/模式/修改方法见 [配置说明](docs/团队AI研发工作流-配置说明.md)（评审机制 self-check/review/review-auto/gate 四模式、合并模式 full/semi/manual 等）
+4. 项目侧产物：`docs/spec/`（共识、规则索引、团队配置、变更摘要、变更摘要-<模块>.md、影响清单）、`docs/api/`（契约）、`docs/design/`（技术方案）、`docs/prd/`（需求）、`docs/prototype/`（原型）、`docs/records/`（实现/核验记录）、`docs/lessons/`（经验）
 
 ### 产物目录说明
 
