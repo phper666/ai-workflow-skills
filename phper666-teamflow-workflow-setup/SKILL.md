@@ -161,6 +161,33 @@ AI 合并时查找顺序：**需求级覆盖 > 项目级默认 > 问用户**。�
 - 三模式语义：**full**（AI 提 PR + AI 自己 merge）/ **semi**（AI 提 PR + 等人工 approve + AI 检测合并）/ **manual**（AI 提 PR + 人工全权 merge + AI 检测合并）
 - 检测合并在 semi/manual 都要（merge 非 AI 自做时 AI 无法自知结果），full 不需要
 
+### Phase 5.6：评审机制配置（技术方案评审两级表）
+
+在 `docs/spec/团队配置.md` 加「评审机制」两级表，供 phper666-teamflow-tech-design 评审技术方案时读取（决定走 Gate / self-check / review 哪条）：
+
+**项目级默认**（必配，不配则默认 self-check）：
+
+```
+评审机制（项目级默认）：
+| 项目 | 默认模式 | 说明 |
+|:-----|:---------|:-----|
+| <项目名> | gate/self-check/review | 不配则默认 self-check |
+```
+
+**需求级覆盖**（可选，覆盖项目默认）：
+
+```
+评审机制（需求级覆盖）：
+| 项目 | 需求标识 | 模式 | 说明 |
+|:-----|:---------|:-----|:-----|
+| <项目名> | <m1/login> | gate/review | 覆盖项目默认 |
+```
+
+AI 评审时查找顺序：**需求级覆盖 > 项目级默认 > 默认 self-check**。切换模式 = 改这里一行，不改 skill 代码。
+
+- 三模式语义：**gate**（多人团队，方案走正式 Gate 评审，评审记录留痕：评审人/机制 + 日期 + 结论）/ **self-check**（solo/小团队，AI 自查通过即 frozen，默认值）/ **review**（方案先给用户/指定人 review 再 frozen）
+- solo 项目可直接配 self-check；有评审文化/多人团队配 gate；对内部设计有把关诉求配 review
+
 ### Phase 6：导航与实现管道落地
 
 在项目 `AGENTS.md`（无则创建）写工作流段，**用 `<!-- team-workflow:begin/end -->` 标记包裹**。项目段只写「接入标记 + 项目专属信息」，**不复制管道全文**——管道定义单一源 = 全局模板 `ai-workflow-skills/templates/AGENTS.global.md`（安装时加载到全局 AGENTS.md），项目段引用它：
