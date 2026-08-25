@@ -68,9 +68,11 @@ description: 团队 AI 研发工作流中的扫描与待确认闭环：对共识
 
 平台相关字段（按平台承载方式核对）：
 4. **优先级/回写位置/规则编号**：平台有原生自定义字段（飞书/Jira/TAPD/Linear）→ 回读自定义字段核对；GitHub → label（优先级）+ Projects v2 字段（回写位置/规则编号）；OpenProject → description 结构化解析
-5. **问题描述**：核对 description 非空（含触发场景），空 → 补填
+5. **问题描述**：核对 description 非空（含触发场景），空 → 补填。**落点：主任务 description**（飞书任务：description 字段；Jira/TAPD/Linear：description/描述；GitHub：Issue body；OpenProject：description 结构化字段）——不是独立 custom_fields，是主描述
 
 兜底：任何必填字段缺失 → 补填（更新载体）；平台不支持某字段独立承载（如 OpenProject 字段在 description）→ 核对对应位置，缺失 → 补进 description。
+
+**回读一致性比对**：回读的字段值应与创建时写入值一致（编号/共识版本/优先级/回写位置/规则编号/assignee）。不一致 → 修正（以创建时意图为准，更新载体回读值）。
 
 ## Phase 4.5：状态流转前置检查
 
