@@ -131,6 +131,7 @@ ln -sfn ~/ai-workflow-skills/<skill-name> ~/.config/opencode/skills/<skill-name>
 - **单一源**：本仓库是 12 个 skill 的唯一源码位置，平台侧只放符号链接或副本
 - **共享规则升级**：跨项目验证有效的扫描规则 → 提交 `phper666-teamflow-consensus-scan/references/扫描规则库.md` 共享区 → 全员 pull
 - **适配器**：`phper666-teamflow-story-to-contract/adapters/` 按平台 MCP 工具名映射（Jira/TAPD/飞书），换平台只改映射，不动 skill 主体
+- **载体模板**（Q-item/Ticket/评论）：见 `templates/q-item.md`、`templates/ticket.md`、`templates/comment.md`——统一跨载体信息结构（Summary 正则 + 字段 + 评论信封【】协议），AI 可统一解析
 - **上游跟踪**：方法论吸收点见「与 Matt Pocock 流水线的关系」映射表；上游 release 时人工评估同步，无自动更新链路
 - **配套文档**（`docs/`）：
   - `docs/ai-team-workflow.html` — 12 步流程可视化（浏览器打开）

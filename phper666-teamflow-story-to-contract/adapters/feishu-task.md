@@ -100,14 +100,19 @@ lark-cli task tasks create --data '{
 
 ### 4. addComment — 添加评论
 
-**⚠️ 飞书任务 API 无评论能力**（实测 create/get/update 均无评论端点）。降级方案（按需选择）：
+**✅ 飞书任务支持原生评论**（实测 2026-08-27，POST/GET/DELETE /open-apis/task/v2/comments）：
 
 ```
-方案 A（推荐）: feishu_update_task({ task_guid, update_fields: ["description"], task: { description: 原描述 + "\n[评论] {作者} {时间}: {内容}" } })
-方案 B: extra 字段追加 JSON 评论记录
+# 写评论
+lark-cli task +comment --task-id {guid} --content "{body}" --as user
+# 读评论
+lark-cli api GET "/open-apis/task/v2/comments" --params '{"resource_id":"{guid}","resource_type":"task"}' --as user
+# 删评论
+lark-cli api DELETE "/open-apis/task/v2/comments/{comment_id}" --as user
 ```
 
-适配器行为：addComment 一律走方案 A（追加到描述），并在产物中说明"飞书任务无原生评论，评论已追加至描述"。
+- 评论带 content/creator/created_at，AI 按 content【】前缀解析（信封格式见 `templates/comment.md`）
+- 不再降级描述追加
 
 ### 5. getCurrentUser — 当前用户
 
@@ -137,7 +142,7 @@ feishu_list_tasks({ completed: false })
 |------|------|------|
 | **看板列 = section** | 状态列在 API 层是 section_guid（sections API 可增删改） | 状态流转 = 任务移动 section；状态可自定义（用户已确认 UI 可加列） |
 | 原生状态二态 | status=todo / completed（completed_at 标记） | 中间态用 section（看板列）表达 |
-| **无评论** | API 无评论端点 | addComment 降级：描述追加（方案 A） |
+| **原生评论** | API 支持写/读/删评论（POST/GET/DELETE /open-apis/task/v2/comments） | addComment 走 lark-cli 评论命令，不降级描述追加 |
 | **custom_fields 依赖清单配置** | 字段必须先在清单 UI 创建，才能写入 | 创建任务前确认清单已配字段（优先级/类型/规则编号） |
 | 双清单约定 | {项目名} + {项目名}-q-item | ticket 与 Q-items 分清单管理 |
 | guid 是唯一定位键 | task_id（t100001）是展示编号 | 一律用 guid |
@@ -150,7 +155,7 @@ feishu_list_tasks({ completed: false })
 
 与 Jira 适配器一致：
 
-1. **回写评论**：展示追加内容预览，确认后执行（注意：飞书是"描述追加"不是真评论）
+1. **回写评论**：展示评论内容预览，确认后执行（lark-cli 原生评论）
 2. **创建任务**：展示预览（标题、清单、类型字段），确认后创建
 3. **修改父任务状态**：不做（固定边界：不修改父工作项状态）
 4. **清单/看板列操作**：创建清单、加列是配置性操作，涉及用户界面结构变更，需用户确认
@@ -164,6 +169,6 @@ feishu_list_tasks({ completed: false })
 - 任务读取：`feishu_get_task` ✅（含 tasklists[].section_guid）
 - custom_fields：API 支持，但**字段必须先在清单 UI 创建**（未配置时报 field validation failed）
 - 看板列：`task sections` 子命令（create/delete/get/list/patch/tasks）✅
-- 评论：API 无评论端点（实测确认）→ 降级描述追加
+- 评论：原生评论端点实测可用（写/读/删，/open-apis/task/v2/comments）✅
 - 删除：需要确认流程（requires confirmation）
 - 双清单实测：`冒烟测试-tickets` + `冒烟测试-q-item` 创建成功
