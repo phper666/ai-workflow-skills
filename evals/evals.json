@@ -165,6 +165,66 @@
         "不按项目概览扫描",
         "走 story-to-contract 契约生成流程"
       ]
+    },
+    {
+      "id": "template-qitem-001",
+      "skill": "phper666-teamflow-consensus-scan",
+      "type": "should_trigger",
+      "prompt": "扫描共识后创建 Q-item 待确认项",
+      "expected": "触发 consensus-scan 创建 Q-item，按 templates/q-item.md 模板格式生成（Summary 前缀 + Description 分区）",
+      "assertions": [
+        "Summary 用 [Q-编号][模块][需求标识][视角] 前缀格式",
+        "Description 含问题区（触发场景/为什么模糊/已确认边界）",
+        "引用 templates/q-item.md 模板"
+      ]
+    },
+    {
+      "id": "template-comment-001",
+      "skill": "phper666-teamflow-consensus-scan",
+      "type": "should_trigger",
+      "prompt": "回答这个 Q-item 并回写",
+      "expected": "触发评论协议（templates/comment.md），回答走【回答】评论（结论/适用范围/生效时间）",
+      "assertions": [
+        "回答用【回答】信封（首行：类型+角色+日期）",
+        "【回答】含结论/适用范围/生效时间三要素",
+        "引用 templates/comment.md 评论协议"
+      ]
+    },
+    {
+      "id": "template-ticket-001",
+      "skill": "phper666-teamflow-story-to-contract",
+      "type": "should_trigger",
+      "prompt": "为需求创建后端实现子任务",
+      "expected": "触发 story-to-contract 创建 ticket，按 templates/ticket.md 模板格式（Description 六区）",
+      "assertions": [
+        "Summary 用 [T-编号][模块][需求标识] 格式",
+        "Description 六区（背景/范围/验收/依赖/产物/DoD）",
+        "引用 templates/ticket.md 模板"
+      ]
+    },
+    {
+      "id": "comment-envelope-001",
+      "skill": "phper666-teamflow-consensus-scan",
+      "type": "should_not_trigger",
+      "prompt": "把 Q-item 的结论追加到 description",
+      "expected": "不把结论追加到 description——按新协议回答走【回答】评论，description 只留问题区（结论区是 skill 派生缓存）",
+      "assertions": [
+        "不往 description 追加结论（冻结区）",
+        "回答走【回答】评论（templates/comment.md）",
+        "违反 description 冻结 = 不合规"
+      ]
+    },
+    {
+      "id": "feishu-comment-001",
+      "skill": "phper666-teamflow-story-to-contract",
+      "type": "should_trigger",
+      "prompt": "给飞书任务的 Q-item 添加评论",
+      "expected": "用 lark-cli +comment 写原生评论（非描述追加）",
+      "assertions": [
+        "用 lark-cli task +comment 写评论（POST /open-apis/task/v2/comments）",
+        "不降级描述追加（feishu adapter 已修正为原生评论）",
+        "读评论用 lark-cli api GET /open-apis/task/v2/comments"
+      ]
     }
   ]
 }
