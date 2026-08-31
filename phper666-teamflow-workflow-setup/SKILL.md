@@ -204,6 +204,42 @@ AI 评审时查找顺序：**需求级覆盖 > 项目级默认 > 默认 self-che
 - 四模式语义：**self-check**（solo/小团队，AI 自查通过即 frozen，默认值）/ **review**（方案先给用户/指定人 review 再 frozen）/ **review-auto**（方案先给用户 review（给选项 A/B/C），用户跳过则自动降级 AI 自查后 frozen——不阻塞也不黑盒）/ **gate**（多人团队，方案走正式 Gate 评审，评审记录留痕：评审人/机制 + 日期 + 结论）
 - solo 项目可直接配 self-check；有评审文化/多人团队配 gate；对内部设计有把关诉求配 review；希望不阻塞也不黑盒配 review-auto（推荐）
 
+### Phase 5.7：worktree 模式配置（分支开发工作区两级表）
+
+在 `docs/spec/团队配置.md` 加「worktree 模式」两级表，供 phper666-git-worktree 分支开发时读取（决定建 worktree 还是主目录直切）。
+
+**初始化时先列模式让用户选**（决定项目级默认值）：
+
+```
+worktree 模式有三种，选一个作为项目级默认（不选则默认 auto）：
+  [auto]    AI 判断——多需求并行/持续开发 → worktree；单 commit 小修 → 主目录直切（完事回 main）（默认）
+  [always]  所有分支开发一律 worktree，无例外
+  [manual]  不用 worktree，主目录切分支（收尾必须回 main）
+```
+
+**项目级默认**（必配，不配则默认 auto）：
+
+```
+worktree 模式（项目级默认）：
+| 项目 | 默认模式 | 说明 |
+|:-----|:---------|:-----|
+| <项目名> | auto/always/manual | 不配则默认 auto |
+```
+
+**需求级覆盖**（可选，覆盖项目默认）：
+
+```
+worktree 模式（需求级覆盖）：
+| 项目 | 需求标识 | 模式 | 说明 |
+|:-----|:---------|:-----|:-----|
+| <项目名> | <m1/login> | always/auto | 覆盖项目默认 |
+```
+
+AI 开分支前查找顺序：**需求级覆盖 > 项目级默认 > 默认 auto**。切换模式 = 改这里一行，不改 skill 代码。
+
+- 三模式语义：**auto**（AI 判断：多需求并行/持续开发的需求 → worktree；单文件单 commit 小修 → 主目录直切，完成后回 main）/ **always**（所有分支开发一律 worktree，无例外）/ **manual**（不用 worktree，主目录切分支，收尾必须回 main）
+- 配套纪律（不管什么模式都适用）：收尾回 main（防新会话加载错分支）+ ticket Done 三重门清理 worktree（防目录爆炸），见 phper666-git-worktree「收尾纪律」
+
 ### Phase 6：导航与实现管道落地
 
 在项目 `AGENTS.md`（无则创建）写工作流段，**用 `<!-- team-workflow:begin/end -->` 标记包裹**。项目段只写「接入标记 + 项目专属信息」，**不复制管道全文**——管道定义单一源 = 全局模板 `ai-workflow-skills/templates/AGENTS.global.md`（安装时加载到全局 AGENTS.md），项目段引用它：

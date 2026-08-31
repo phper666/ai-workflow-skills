@@ -99,6 +99,7 @@ git branch --merged origin/main             # feature 分支在列表 = 已合�
 - **需求不做 → 不合并**：feature 分支留着（下次继续），主分支干净
 - **合并后标记完成**：按团队约定标记需求完成（变更摘要 / 影响清单 / 载体状态）
 - **清理已合并分支**：`git branch -d feature/<需求标识>`（`-d` 会检查是否已合并，未合并会拒删，安全）
+- **清理分支同时清理对应 worktree**（如该项目用了 worktree，`git worktree list` 确认存在）：`git worktree remove <path>` + `git worktree prune`，并确认主目录已切回 main（`git branch --show-current`）——防止分支留在主目录被新会话加载
 - **改共享文档前** → 先 merge 主分支最新（减少冲突窗口）
 - **合并是变更** → 需要时走 phper666-teamflow-change-propagation 更新变更摘要
 - **禁 raw force**：历史重写用 `--force-with-lease`，禁 `git push --force`（与 phper666-git-rollback 的「reset 仅限本地未推送」一致——都是防破坏他人）
