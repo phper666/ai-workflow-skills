@@ -79,8 +79,9 @@ git worktree add --track -b feature/<需求标识> <path> origin/main
 
 ## 收尾纪律（不管什么模式都适用）
 
+- **清理主链（顺序 A）**：交付核验通过（ticket Done）→ 提 PR → 合并 → **git-pr 合并后清理**（删分支 + 删 worktree + 主目录归位 main）——正常流程走这条，无需单独清理
 - **收尾回 main**：开发完成/暂停 → 主目录切回 main（分支提交不丢，回来 checkout 接上）——防止新会话加载错分支
-- **ticket 验收清理**：ticket 移 Done（交付核验通过）→ 检测对应 worktree，满足三重门 → 清理；不满足 → 不清理 + 报告原因：
+- **三重门兜底清理**：合并绕过了流程（如手动 merge 没走 git-pr）→ ticket Done 时检测对应 worktree 兜底清理；不满足 → 不清理 + 报告原因：
 
   1. ticket 已 Done（交付核验通过）
   2. 分支已合并主分支（`git branch --merged main` 包含该分支）
