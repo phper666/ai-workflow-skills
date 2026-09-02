@@ -6,6 +6,12 @@
 
 > **流程可视化**：[点此查看工作流总览图](https://phper666.github.io/ai-workflow-skills/ai-team-workflow.html)（GitHub Pages 渲染）
 
+## 快速开始（10 分钟跑通第一个需求）
+
+1. 安装：`bash install.sh`（或见下方平台接入）
+2. 项目里对 AI 说："给这个项目接入研发工作流"
+3. 跟着 [快速上手](docs/快速上手.md) 跑通第一个需求（也可以对 AI 说"带我跑一遍快速上手"）
+
 ## 包含的 Skills
 
 | Skill | 角色 | 一句话 | 触发示例 |
