@@ -25,6 +25,23 @@ feature 分支开发完要合到主分支时，先读合并模式，再按模式
 > 为什么核验在合并前：核验在 feature worktree 里做（环境还在，不通过直接修）；
 > 合并后再核验 = 主分支进过未验证代码 + 核验不通过时工作环境已清。
 
+## 工具降级链：gh → GitHub MCP → 显式报告（禁止静默本地 merge）
+
+PR 操作按此顺序选工具，**任何一级失败都显式报告，禁止静默换路径**：
+
+1. **gh CLI**（首选）：`gh pr create / merge / view / checks`
+2. **gh 不可用（未安装 / 401 未认证）→ GitHub MCP**（远端是 GitHub 时，owner/repo 从 `git remote -v` 解析）：
+   - 提 PR：`github_create_pull_request`
+   - merge：`github_merge_pull_request`（merge_method 按仓库约定：squash/merge/rebase）
+   - 检测合并：`github_get_pull_request`（state=merged）或 `github_get_pull_request_status`
+   - 列 PR / 查 CI：`github_list_pull_requests` / `github_get_pull_request_status`
+3. **MCP 也不可用（非 GitHub 平台或无工具）→ 显式报告 + 问用户**：
+   - 报告「gh 与 GitHub MCP 均不可用，无法走 PR」
+   - 问用户：解决工具（装 gh / `gh auth login`）还是本地 merge 兜底
+   - **用户明确同意才本地 merge**——本地 merge = 绕过 PR 流程（无 PR 记录、检测合并失效、semi/manual 语义作废、协作不可见），**不是降级是绕过，禁止 AI 自行选择**
+
+> 非 GitHub 平台（GitLab 等）→ 用对应平台 CLI/MCP 等价操作，同样禁止静默本地 merge。
+
 ## 第零步：push 前检查（提交后、push/提 PR 前，强制）
 
 push/提 PR 前先做最小检查，**不 push 后希望 CI 兜底**：
@@ -88,9 +105,12 @@ gh pr view <编号> --json state,mergedAt    # 最可靠：state=merged = 已合
 - `state` 为 `MERGED` → 已合并（`mergedAt` 有值），继续后续步骤
 - `state` 为 `OPEN` / `CLOSED` → 未合并，提示用户（等 approve / 等人工合并），不静默继续
 
-兜底方法（gh 不可用时）：
+兜底方法（gh 不可用时，按降级链顺序）：
 
 ```bash
+# 1. GitHub MCP（优先）
+github_get_pull_request   # state=merged = 已合并（见「工具降级链」节）
+# 2. 最后兜底（本地启发式，非权威）
 git branch --merged origin/main             # feature 分支在列表 = 已合并
 ```
 
