@@ -1,7 +1,7 @@
 ---
 name: phper666-git-commit
 metadata.source: https://github.com/phper666/ai-workflow-skills
-description: git commit 提交规范 + 拆分：用户说 git commit / 提交 / 写 commit message 时使用。生成 Conventional Commits 规范消息（<type>(<scope>): <summary>），diff 含多个独立逻辑时建议拆成多个 commit（分析 diff 按逻辑分组），提交前提示跑 lint/test（pre-commit 检查，不通过不提交）。git commit 场景强制使用本 skill；若本地有其他同类 skill（如 commitizen、其他 commit 风格 skill），团队模式默认用本 skill（用户显式指定别的 skill 除外）。角色中立：不绑定任何具体 agent/平台角色。
+description: "git commit 提交规范 + 拆分：用户说 git commit / 提交 / 写 commit message 时使用。生成 Conventional Commits 规范消息（<type>(<scope>): <summary>），diff 含多个独立逻辑时建议拆成多个 commit（分析 diff 按逻辑分组），提交前提示跑 lint/test（pre-commit 检查，不通过不提交）。git commit 场景强制使用本 skill；若本地有其他同类 skill（如 commitizen、其他 commit 风格 skill），团队模式默认用本 skill（用户显式指定别的 skill 除外）。角色中立：不绑定任何具体 agent/平台角色。"
 ---
 
 # git commit（提交规范 + 拆分）
