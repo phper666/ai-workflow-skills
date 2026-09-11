@@ -20,6 +20,23 @@ description: 实现纪律（分级执行）：复杂需求完整流水线（TDD 
 | **常规** | 轻量：lint 单次 + 工程基线三问复核 |
 | **安全敏感**（密钥/权限/支付/资金/数据） | 在任一级之上**强制安全扫描** |
 
+## 开工现场检查（实现第一步，所有判级必过）
+
+写第一行代码前，先看 git 现场并对齐团队配置：
+
+```bash
+git branch --show-current   # 当前在哪个分支
+git worktree list           # 有哪些 worktree
+git status --short          # 工作区是否干净
+```
+
+对照 `docs/spec/团队配置.md` 的「worktree 模式」表：
+
+- 分支开发且模式要求 worktree（`always` 一律；`auto` 的多需求并行/持续开发）→ 当前却在主仓库主工作区 → **先建 worktree（`git worktree add ../<repo>-<需求标识> feature/<需求标识>`，见 phper666-git-worktree）再动手**
+- 主工作区有**不属于本需求**的未提交改动 → 先归位（stash / 提交到对应分支），不混改
+- 豁免：`manual` 模式，或 `auto` 的单文件单 commit 小修 → 主目录直切可以，收尾回 main
+- **不带病开工**：现场不对先归位——现场错了，后面 TDD/lint/review/核验全跑在错的底座上
+
 ## 完整流水线（复杂任务）
 
 ### 1. TDD（测试驱动，核心路径强制）
